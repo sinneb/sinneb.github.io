@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The heated CA3046, part 1 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>The heated CA3046, part 1</h1>
+  <time datetime=2013-08-15T10:03:47Z class="post-date">Thu, Aug 15, 2013</time>
+  <p>A reliable VCO needs a steady exponential converter. Exponential converter are, because of their transistor based design (needed for the exponential functions), very temperature sensitive. A number of solutions to this problem exist. A solution that looks very interesting from a technical point of view is the solution found in (among others) the Moog Prodigy. The exponential converter only needs two transistors (the matched pair) from the five transistor available in the CA3046 chip. The Prodigy uses one of the left over transistor to heat the entire chip. An other transistor is deployed to measure temperature (the CA3046 transistors have a -2mV per centigrade temperature sensitivity). This measurement is compared by a comparator to stop or start the heating and keep the chip at a 55 degrees temperature.</p>
+
+<p>First simulation: The temperature sensitivity of 1 of the transistors in the CA3046</p>
+
+<p><a href="/uploads/2013/08/tempchip.png"><img src="/uploads/2013/08/tempchip.png" alt="tempchip" width="364" height="263" class="alignnone size-full wp-image-604" srcset="/uploads/2013/08/tempchip.png 364w, /uploads/2013/08/tempchip-300x216.png 300w" sizes="(max-width: 364px) 100vw, 364px" /></a></p>
+
+<p>Result: The transistor shows a temperature sensitivity of around -2mV per centigrade (first 5 temp.steps shown):</p>
+
+<p><a href="/uploads/2013/08/tempresults.png"><img src="/uploads/2013/08/tempresults.png" alt="tempresults" width="515" height="360" class="alignnone size-full wp-image-605" srcset="/uploads/2013/08/tempresults.png 515w, /uploads/2013/08/tempresults-300x209.png 300w" sizes="(max-width: 515px) 100vw, 515px" /></a></p>
+
+<p>According to the simulation, the voltage at 20 degrees Celcius is 621mV and the voltage at 55 degrees Celcius is 553mV</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

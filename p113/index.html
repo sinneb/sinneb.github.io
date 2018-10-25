@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>XR2206 making noise! &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>XR2206 making noise!</h1>
+  <time datetime=2010-06-09T21:00:45Z class="post-date">Wed, Jun 9, 2010</time>
+  <p>The XR2206 sinneb 6v is making semi-controlled noise! Check these design schematics and the sounds. Very nice I think ;) The current prototype is a combination of the XR2206 prototype, microprocessor (Arduino) controlled by the MCP42100 and MCP4912. Right now I&#8217;m working on a prototype PCB to explore the musical capabilities of the 6v&#8230; Keep you posted.</p>
+
+<p>Updated: Eagle schematic &amp; PCB now available</p>
+
+<p></p>
+
+<p><a href="/uploads/2010/06/xr2206_proto1.png"><img class="alignnone size-thumbnail wp-image-115" title="xr2206_proto1" src="/uploads/2010/06/xr2206_proto1-150x150.png" alt="" width="150" height="150" srcset="/uploads/2010/06/xr2206_proto1-150x150.png 150w, /uploads/2010/06/xr2206_proto1-200x200.png 200w, /uploads/2010/06/xr2206_proto1-100x100.png 100w" sizes="(max-width: 150px) 100vw, 150px" /></a></p>
+
+<p><a href="/uploads/2010/06/xr2206_proto1_sndclip1.mp3">xr2206_proto1_sndclip1</a></p>
+
+<p>Male pin header 6 &#8220;WAVEFORM&#8221; is the XR2206 switchboard. Shorting pin 1&amp;2, 3&amp;4 or/and 5&amp;6 influences the generated waveform type. To generate the default sine wave, short pins 1&amp;2 and 3&amp;4 (according to schematic)</p>
+
+<p><a href="/uploads/2010/06/xr2206_voice_proto1.zip">xr2206_voice_proto1</a></p>
+
+<p>Code inspired by various internet resources, for now especially by <a href="http://little-scale.blogspot.com/2007/07/spi-by-hand.html" target="_blank">http://little-scale.blogspot.com/2007/07/spi-by-hand.html</a></p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">//sinneb.com
+//4921 & 42100 arduino controlled
+
+#define _42100SLAVESELECT  9  // ic pin 1
+#define _42100SPICLOCK     10  // ic pin 2
+#define _42100DATAOUT      11  // ic pin 3
+
+#define _4921SLAVESELECT   5   // ic pin 2
+#define _4921SPICLOCK      6   // ic pin 3
+#define _4921DATAOUT       7   // ic pin 4
+
+byte cmd_byte0 = B00010001; // command byte to write to pot 0, from the MCP42XXX datasheet
+byte cmd_byte1 = B00010010; // command byte to write to pot 1, from the MCP42XXX datasheet
+byte cmd_byte2 = B00010011; // command byte to write to pots 0 and 1, from the MCP42XXX datasheet
+byte work = B00000000; // setup a working byte, used to bit shift the data out
+
+int freq_dac = 2500;
+int freq_pot = 130; // center
+
+int incomingByte = 0;   // for incoming serial data
+int current_note = 69;
+
+// 128 midi notes 0 - 127
+int freq_dac_midi[] = {2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500 // 20
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2890, 2881, 2875, 2862, 2853 // 50
+                      ,2836, 2830, 2815, 2803, 2786, 2778, 2761, 2748, 2731, 2712
+                      ,2697, 2677, 2656, 2632, 2609, 2584, 2558, 2531, 2500, 2500 // 70
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500 // 100
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
+                      ,2500, 2500, 2500, 2500, 2500, 2500, 2500 };
+
+int freq_pot_midi[] = {130, 130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130 // 20
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,146, 146, 146, 146, 146, 146, 146, 146, 146, 146 // 50
+                      ,146, 146, 146, 146, 146, 146, 146, 146, 146, 146
+                      ,146, 146, 146, 146, 146, 146, 146, 146, 146, 146 // 70
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130 / 100
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130, 130, 130, 130
+                      ,130, 130, 130, 130, 130, 130, 130 };
+
+void SPIInitialize()
+{
+  byte clr;
+
+  pinMode(_42100SLAVESELECT, OUTPUT);
+  pinMode(_42100SPICLOCK,    OUTPUT);
+  pinMode(_42100DATAOUT,     OUTPUT);
+  pinMode(_4921SLAVESELECT,  OUTPUT);
+  pinMode(_4921SPICLOCK,     OUTPUT);
+  pinMode(_4921DATAOUT,      OUTPUT);
+
+  digitalWrite(_42100SLAVESELECT,HIGH); //disable 42100
+  digitalWrite(_4921SLAVESELECT,HIGH);  //disable 4921
+
+}
+
+//--- MCP42100 code
+
+void spi_transfer(byte working) {
+  for(int i = 1; i &lt;= 8; i++) { // setup a loop of 8 iterations, one for each bit
+    if (working &gt; 127) { // test the most significant bit
+      digitalWrite (_42100DATAOUT,HIGH); // if it is a 1 (ie. B1XXXXXXX), set the master out pin high
+    }
+    else {
+      digitalWrite (_42100DATAOUT, LOW); // if it is not 1 (ie. B0XXXXXXX), set the master out pin low
+    }
+
+    digitalWrite (_42100SPICLOCK,HIGH); // set clock high, the pot IC will read the bit into its register
+    working = working &lt;&lt; 1;
+    digitalWrite(_42100SPICLOCK,LOW); // set clock low, the pot IC will stop reading and prepare for the next iteration (next significant bit
+  }
+}
+
+void spi_out(int SS, byte cmd_byte, byte data_byte) { // SPI tranfer out function begins here
+  digitalWrite (SS, LOW); // set slave select low for a certain chip, defined in the argument in the main loop. selects the chip
+
+  work = cmd_byte; // let the work byte equal the cmd_byte, defined in the argument in the main loop
+  spi_transfer(work); // transfer the work byte, which is equal to the cmd_byte, out using spi
+
+  work = data_byte; // let the work byte equal the data for the pot
+  spi_transfer(work); // transfer the work byte, which is equal to the data for the pot
+
+  digitalWrite(SS, HIGH); // set slave select high for a certain chip, defined in the argument in the main loop. deselcts the chip
+}
+
+//--- MCP4921 code
+
+void sendIntValueSPI(int value) {
+  // -------------------------------------------------------------
+
+  // initiate data transfer with 4921
+  digitalWrite(_4921SLAVESELECT,LOW);
+
+  // send 4 bit header
+  sendSPIHeader();
+
+  // send data
+  for(int i=11;i&gt;=0;i--){
+    digitalWrite(_4921DATAOUT,((value&(1&lt;&lt;i)))&gt;&gt;i);
+    sendSPIClock();
+  }
+
+  // finish data transfer
+  digitalWrite(_4921SLAVESELECT,HIGH);
+}
+
+void sendSPIHeader() {
+  // -------------------------------------------------------------
+  // bit 15
+  // 0 write to DAC *
+  // 1 ignore command
+  digitalWrite(_4921DATAOUT,LOW);
+  sendSPIClock();
+  // bit 14 Vref input buffer control
+  // 0 unbuffered *
+  // 1 buffered
+  digitalWrite(_4921DATAOUT,LOW);
+  sendSPIClock();
+  // bit 13 Output Gain selection
+  // 0 2x
+  // 1 1x *
+  digitalWrite(_4921DATAOUT,HIGH);
+  sendSPIClock();
+  // bit 12 Output shutdown control bit
+  // 0 Shutdown the device
+  // 1 Active mode operation *
+  digitalWrite(_4921DATAOUT,HIGH);
+  sendSPIClock();
+}
+
+void sendSPIClock() {
+  // -------------------------------------------------------------
+  digitalWrite(_4921SPICLOCK,HIGH);
+  digitalWrite(_4921SPICLOCK,LOW);
+}
+
+//--- Application code
+
+void setup()
+{
+  SPIInitialize();          // Initialize the SPI interface
+  // start serial interface
+  Serial.begin(9600);
+  sendIntValueSPI(freq_dac_midi[current_note]);
+  spi_out(_42100SLAVESELECT,cmd_byte2,freq_pot_midi[current_note]);
+  Serial.println(freq_pot_midi[current_note]);
+}
+
+void loop()
+{
+if(Serial.available() &gt; 0)
+      {
+        incomingByte = Serial.read();
+        if (incomingByte == 49) {
+          freq_dac--;
+          sendIntValueSPI(freq_dac);
+          Serial.print("dac:");
+          Serial.println(freq_dac,DEC);
+        }
+        if (incomingByte == 50) {
+          freq_dac++;
+          sendIntValueSPI(freq_dac);
+          Serial.print("freq_dac:");
+          Serial.println(freq_dac,DEC);
+        }
+        if (incomingByte == 51) {
+          freq_pot--;
+          spi_out(_42100SLAVESELECT,cmd_byte2,freq_pot);
+          Serial.print("pot:");
+          Serial.println(freq_pot,DEC);
+        }
+        if (incomingByte == 52) {
+          freq_pot++;
+          spi_out(_42100SLAVESELECT,cmd_byte2,freq_pot);
+          Serial.print("pot:");
+          Serial.println(freq_pot,DEC);
+        }
+        if (incomingByte == 53) {
+          current_note--;
+          sendIntValueSPI(freq_dac_midi[current_note]);
+          spi_out(_42100SLAVESELECT,cmd_byte2,freq_pot_midi[current_note]);
+          Serial.println(current_note);
+        }
+        if (incomingByte == 54) {
+          current_note++;
+          sendIntValueSPI(freq_dac_midi[current_note]);
+          spi_out(_42100SLAVESELECT,cmd_byte2,freq_pot_midi[current_note]);
+          Serial.println(current_note);
+        }
+
+//        for (int dac=500; dac&lt;4500; dac+=500) {
+//          for (int i = 0; i &lt; 255; i+=10)  {
+//            Serial.print("DAC:");
+//            Serial.print(dac, DEC);
+//            Serial.print(" POT:");
+//            Serial.println(i, DEC);
+//            // set 4921
+//            sendIntValueSPI(dac);
+//            delay(5);
+//            // set 42100
+//            spi_out(_42100SLAVESELECT,cmd_byte2,i);
+//            delay(250);
+//          }
+//        }
+      }
+}
+
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

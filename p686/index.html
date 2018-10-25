@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Development with STM32F7 discovery &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Development with STM32F7 discovery</h1>
+  <time datetime=2016-10-05T07:57:15Z class="post-date">Wed, Oct 5, 2016</time>
+  <p>A few pointers regarding development with an STM32F7 discovery board. My intention with this powerful board is to be able to sync wave files to a tap-tempo BPM (kinda Ableton Live like), and take the device up on stage with my band.</p>
+
+<p>The board:</p>
+
+<p><a href="/uploads/2016/10/STM32F7_Development_Kit.jpg"><img src="/uploads/2016/10/STM32F7_Development_Kit.jpg" alt="STM32F7_Development_Kit" width="640" height="378" class="alignnone size-full wp-image-695" srcset="/uploads/2016/10/STM32F7_Development_Kit.jpg 640w, /uploads/2016/10/STM32F7_Development_Kit-300x177.jpg 300w, /uploads/2016/10/STM32F7_Development_Kit-624x369.jpg 624w" sizes="(max-width: 640px) 100vw, 640px" /></a></p>
+
+<p>The STM32F7 disco runs at ~200Mhz, has support for DSP instructions (hardware floating point unit) and a lot, lot more. My first step was to make development easy, fast and &#8220;Arduino&#8221; like &#8211; since I&#8217;m really comfortable with that. I tried available options like STM32WB, Keil, Eclipse IDE plugins, etc but those did not work for me.</p>
+
+<p>My current development setup is build around the great examples by postspectacular who offers a day-course synth building focussing on the STM32F7 disco. Check out his <a href="https://github.com/thi-ng/ws-ldn-12" target="_blank">github repo</a>! His setup offers a flexible makefile that compiles all projects without the need for an IDE. The examples are clear, step by step and easy to follow and extend upon.</p>
+
+<p>My only extra need was more debug information. The Arduino way of just outputting over Serial.print did not work. So I did some research regarding gdb, the GNU project debugger. Since the makefile also supplies an ELF file, setup was quick:</p>
+
+<p>I&#8217;m working in example 05, so to make debugging possible I edited the ex05.make file and changed the CFLAGS line to this:</p>
+
+<p>CFLAGS += -O2 -ffast-math -g</p>
+
+<p>Less optimisation (O2 instead of O3) and a -g flag to include debugging symbols.</p>
+
+<p>I compiled the st-link gdb-server for OSX (<a href="https://github.com/texane/stlink" target="_blank">texane on github</a>). From the directory: <span class="s1">/Users/Arthur/Development/embedded/tools/stlink/build/Release/src/gdbserver I&#8217;m running the st-util utility with: </span><strong><span class="s1">./st-util -m -n</span></strong></p>
+
+<p>In an other terminal I&#8217;m running the arm gdb with the compiled ELF from example 5:</p>
+
+<p class="p1">
+  <strong><span class="s1">arm-none-eabi-gdb -tui &#8211;eval-command=&#8221;target extended-remote localhost:4242&#8243; bin/ex05/app.elf</span></strong>
+</p>
+
+<p class="p1">
+  Or, if I just want to test the compiled application:
+</p>
+
+<p class="p1">
+  <strong><span class="s1">cp bin/ex05/app.bin /Volumes/DIS_F746NG/</span></strong>
+</p>
+
+<p class="p1">
+  update: guess you&#8217;ll have to upload the new compiled binary to the board using the last command, before initiating a debug session!
+</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

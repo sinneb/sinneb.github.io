@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MCP42100 Potmeter with SPI &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>MCP42100 Potmeter with SPI</h1>
+  <time datetime=2010-06-05T14:50:19Z class="post-date">Sat, Jun 5, 2010</time>
+  <p>The MCP42100 controls the resistance for the XR2206 function generator. Together with the MCP4921 the MCP42100 determines the output frequency. In such a configuration, it should be possible the generate exact musical frequencies. Testing will begin soon!</p>
+
+<p></p>
+
+<p><a href="/uploads/2010/06/mcp42100.png"><img class="alignnone size-full wp-image-97" title="mcp42100" src="/uploads/2010/06/mcp42100.png" alt="" width="500" height="193" srcset="/uploads/2010/06/mcp42100.png 500w, /uploads/2010/06/mcp42100-300x115.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p>Pin 8 and 9 are connected to enable rheostat mode, the outputs function as a resistor. The output resistance of the MCP42100 can vary between 0 and 100 Kohms.</p>
+
+<p>The MCP42100 connects to Arduino pins 10,11 and 13.</p>
+
+<p>MCP pin 1 &gt; Arduino 10</p>
+
+<p>MCP pin 2 &gt; Arduino 13</p>
+
+<p>MCP pin 3 &gt; Arduino 11</p>
+
+<p>Inspired by <a href="http://totusterra.com/index.php/2010/01/09/hacking-the-sx-150-building-an-arduino-b-2" target="_blank">Totus Terra&#8217;s work</a> on the SX-150.</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">//--- SPI code
+
+#define DATAOUT     11
+#define DATAIN      12       //not used
+#define SPICLOCK    13
+#define SLAVESELECT 10
+#define NOTEON      9
+
+void SPIInitialize()
+{
+  byte clr;
+
+  pinMode(DATAOUT, OUTPUT);
+  pinMode(DATAIN, INPUT);
+  pinMode(SPICLOCK,OUTPUT);
+  pinMode(SLAVESELECT,OUTPUT);
+
+  digitalWrite(SLAVESELECT,HIGH); //disable device
+
+  SPCR = (1&lt;&lt;SPE)|(1&lt;&lt;MSTR);
+  clr=SPSR;
+  clr=SPDR;
+  delay(10);
+}
+
+char SPITransfer(volatile char data)
+{
+  SPDR = data;                    // Start the transmission
+  while (!(SPSR & (1&lt;&lt;SPIF)))     // Wait the end of the transmission
+  {
+  };
+  return SPDR;                    // return the received byte
+}
+
+//--- MCP42100 code
+
+byte SetPot(int address, int value)
+{
+  // Slave Select set low to allow commands
+  digitalWrite(SLAVESELECT, LOW);
+
+  // 2 byte command
+  SPITransfer(0x10 + address);   // 0x10 = 'set pot' command
+  SPITransfer(value);            // Value to set pot
+
+  // Release chip, signal end transfer
+  digitalWrite(SLAVESELECT, HIGH);
+}
+
+//--- Application code
+
+void setup()
+{
+  SPIInitialize();          // Initialize the SPI interface
+  SetPot(1,10);
+}
+
+void loop()
+{
+  // nothing
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

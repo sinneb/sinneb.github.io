@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Third prototype: one voice! &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Third prototype: one voice!</h1>
+  <time datetime=2010-07-01T05:35:53Z class="post-date">Thu, Jul 1, 2010</time>
+  <p>Check this video on vimeo: <a href="http://vimeo.com/12988327" target="_blank"><a href="http://vimeo.com/12988327" target="_blank">http://vimeo.com/12988327</a></a> :)</p>
+
+<blockquote>
+<p>This is the third prototype of my DIY synthesizer. I&#8217;m using a 82c54 16-bit timer chip for the voice (one chip has three timers, so three voices should be possible). This chip divides a master clock signal (usually in the Mhz range) through a programmable 16-bit value to create a audible frequency.</p>
+
+<p>An Arduino Duemilanove interprets the midi (CNY17) and feeds a divider value via a shift register (74hc595) to the 82c54 voice. The crystal oscillator clock ticks at 8Mhz so for a 440Hz pulse waveform (central A) the division value is 18182. This prototype cannot produce notes below midinote 47 (B) because of it&#8217;s maximum divider value (16-bit = 65.536). Future prototypes will use a clock divider (arduino itself?)</p>
+
+<p>Oh, my synth-playing-skills are well below par ;)</p>
+
+<p>Very much inspired by the Roland Jupiter / Juno series.</p>
+</blockquote>
+
+<p>This is the prototype from the previous post, with the midi in hardware solution from <a href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/30#32" target="_blank">tetracon</a> (arduino forum).</p>
+
+<p>[][1]<a href="/uploads/2010/07/arduinomidiin1.gif"><img class="size-medium wp-image-196 alignnone" title="arduinomidiin" src="/uploads/2010/07/arduinomidiin1-300x200.gif" alt="" width="300" height="200" srcset="/uploads/2010/07/arduinomidiin1-300x200.gif 300w, /uploads/2010/07/arduinomidiin1.gif 660w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>Timothy Twillman has developed a great Arduino midi library. Very easy to implement, exactly what I needed. <a href="http://timothytwillman.com/itp_blog/?page_id=240" target="_blank">Check it out</a>.</p>
+
+<p>For each midi note, I pre-calculated the least and the most significant byte. The prototype code (very ugly):</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">#include "Midi.h"
+
+int midi_divides_lsb[] = {66, 182, 65, 33, 183, 116, 192, 11, 222, 186, 44, 195, 33, 222, 160, 16,
+                          221, 186, 94, 135, 240, 93, 150, 99, 144, 239, 80, 136, 111, 221, 176, 195,
+                          248, 47, 75, 49, 200, 247, 168, 196, 55, 239, 216, 226, 252, 23, 37, 25, 228,
+                          124, 212, 226, 156, 247, 236, 113, 126, 12, 19, 140, 114, 190, 106, 113, 206,
+                          124, 118, 184, 63, 6, 9, 70, 185, 95, 53, 56, 103, 190, 59, 220, 159, 131, 133,
+                          163, 221, 47, 154, 28, 179, 95, 29, 238, 208, 193, 194, 210, 238, 24, 77, 142,
+                          218, 47, 143, 247, 104, 225, 97, 233, 119, 12, 167, 71, 237, 152, 71, 252, 180, 112,
+                          49, 244, 188, 134, 83, 36, 246, 204, 164, 126};
+int midi_divides_msb[] = {3822, 3607, 3405, 3214, 3033, 2863, 2702, 2551, 2407, 2272, 2145, 2024,
+                          1911, 1803, 1702, 1607, 1516, 1431, 1351, 1275, 1203, 1136, 1072, 1012,
+                          955, 901, 851, 803, 758, 715, 675, 637, 601, 568, 536, 506, 477, 450,
+                          425, 401, 379, 357, 337, 318, 300, 284, 268, 253, 238, 225, 212, 200,
+                          189, 178, 168, 159, 150, 142, 134, 126, 119, 112, 106, 100, 94, 89, 84,
+                          79, 75, 71, 67, 63, 59, 56, 53, 50, 47, 44, 42, 39, 37, 35, 33, 31, 29,
+                          28, 26, 25, 23, 22, 21, 19, 18, 17, 16, 15, 14, 14, 13, 12, 11, 11, 10,
+                          9, 9, 8, 8, 7, 7, 7, 6, 6, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2};
+
+class MyMidi : public Midi {
+  public:
+
+  // Need this to compile; it just hands things off to the Midi class.
+  MyMidi(HardwareSerial &s) : Midi(s) {}
+
+  void handleNoteOn(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, HIGH);
+    data_transfer(midi_divides_lsb[note],midi_divides_msb[note]);
+//    Serial.println(note);
+//    Serial.print(midi_divides_lsb[note]);
+//    Serial.print(" - ");
+//    Serial.println(midi_divides_msb[note]);
+
+  }
+
+  void handleNoteOff(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, LOW);
+  }
+
+  /* You can define any of these functions and they will be called when the
+     matching message type is received.  Otherwise those types of Midi messages
+     are just ignored.
+
+    For C++ folks: these are all declared virtual in the base class
+
+    void handleNoteOff(unsigned int channel, unsigned int note, unsigned int velocity);
+    void handleNoteOn(unsigned int channel, unsigned int note, unsigned int velocity);
+    void handleVelocityChange(unsigned int channel, unsigned int note, unsigned int velocity);
+    void handleControlChange(unsigned int channel, unsigned int controller, unsigned int value);
+    void handleProgramChange(unsigned int channel, unsigned int program);
+    void handleAfterTouch(unsigned int channel, unsigned int velocity);
+    void handlePitchChange(unsigned int pitch);
+    void handleSongPosition(unsigned int position);
+    void handleSongSelect(unsigned int song);
+    void handleTuneRequest(void);
+    void handleSync(void);
+    void handleStart(void);
+    void handleContinue(void);
+    void handleStop(void);
+    void handleActiveSense(void);
+    void handleReset(void);
+*/
+};
+
+//Pin connected to ST_CP of 74HC595
+int latchPin = 8;
+//Pin connected to SH_CP of 74HC595
+int clockPin = 12;
+////Pin connected to DS of 74HC595
+int dataPin = 11;
+
+int statusled = 13;
+
+int incomingByte = 0;   // for incoming serial data
+
+MyMidi midi(Serial);
+
+void setup() {
+  //set pins to output so you can control the shift register
+  pinMode(latchPin, OUTPUT);
+  pinMode(clockPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);
+  pinMode(statusled, OUTPUT);
+  digitalWrite(statusled,HIGH);
+
+  // init 8254 control ports 2,3,4
+  pinMode(2, OUTPUT); // WR
+  digitalWrite(2, HIGH); // disabled
+  pinMode(3, OUTPUT); // A0
+  pinMode(4, OUTPUT); // A1
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+
+  midi.begin(0);
+
+  firstrun();
+  //settozero();
+}
+
+void loop() {
+
+//  if(Serial.available() &gt; 0)
+//      {
+//        incomingByte = Serial.read();
+//        if (incomingByte == 49) { // 1
+//          firstrun();
+//        }
+//      }
+
+       midi.poll();
+
+}
+
+void firstrun() {
+
+    // control word sequence
+    Serial.println("A0A1 -&gt; 1");
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, LSBFIRST, B01101100);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 loaded");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+    // end control word sequence
+
+    // start data transfer, LSB MSB
+    // 18181 for 400hz
+    data_transfer( 5, 71);
+}
+
+void data_transfer(int LSB, int MSB) {
+
+    Serial.println("A0A1 -&gt; 0");
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, LSB);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 LSB");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, MSB);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 MSB");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

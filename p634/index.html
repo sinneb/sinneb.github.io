@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A temperature controlled CA3046 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>A temperature controlled CA3046</h1>
+  <time datetime=2015-10-29T11:40:54Z class="post-date">Thu, Oct 29, 2015</time>
+  <p>So, finally started work again on the heated CA3046. First, the results of the previous post regarding the CA3046 were reexaminated. Indeed, when building the schematic from that post: <a href="/uploads/2013/08/tempchip.png"><img class="alignnone size-full wp-image-604" src="/uploads/2013/08/tempchip.png" alt="tempchip" width="364" height="263" srcset="/uploads/2013/08/tempchip.png 364w, /uploads/2013/08/tempchip-300x216.png 300w" sizes="(max-width: 364px) 100vw, 364px" /></a></p>
+
+<p>and heating that circuit with a hair dryer:</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/ZCtDe4t4CXw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>the base voltage of the NPN transistor changes along with the temperature.</p>
+
+<p>The next step I took was connecting that output to an opamp comparator to be able to switch a heating circuit on and off. Passing a certain voltage level, should turn off the heater. Tested with LED&#8217;s and, once again, the hair dryer:</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/z1M8dJZOH-g" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>Ah, nice! The heater section is inspired by one of the (great!) electronotes from the past (<a href="http://electronotes.netfirms.com/s019.pdf" target="_blank">S-019</a>). The LED section of the circuit was given an own comparator because the heater and the temp sensor are in so close balance, that the opamp doesn&#8217;t switch to negative.</p>
+
+<p>And the result, the schematic:</p>
+
+<p><a href="/uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47.png"><img class="alignnone size-full wp-image-636" src="/uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47.png" alt="Screen Shot 2015-10-29 at 12.29.47" width="624" height="453" srcset="/uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47.png 1760w, /uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47-300x218.png 300w, /uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47-1024x744.png 1024w, /uploads/2015/10/Screen-Shot-2015-10-29-at-12.29.47-624x453.png 624w" sizes="(max-width: 1760px) 100vw, 1760px" /></a></p>
+
+<p>Nice touch (I think) is that the circuit contains 2 LED&#8217;s: one is lit when the CA3046 is not at temperature and the other lights up when the CA3046 is at temperature (because of the comparator U1).</p>
+
+<p>Next step: combine this heater with the actual exponential converter circuit.</p>
+
+<p>Oh don&#8217;t forget to GND the substrate of the CA3046 (pin 13). Update: or should this be the most negative potential (-15V?). Better be sure before connecting that CA3046&#8230;</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sine on sinneb</title>
+    <link>https://sinneb.github.io/categories/sine/</link>
+    <description>Recent content in sine on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 21 Jun 2010 18:11:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/sine/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First DCO prototype</title>
+      <link>https://sinneb.github.io/p161/</link>
+      <pubDate>Mon, 21 Jun 2010 18:11:16 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p161/</guid>
+      <description>&lt;p&gt;This first DCO prototype uses the Arduino 16 bit timer (timer1) and the &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/&#34; target=&#34;_blank&#34;&gt;midi-in solution&lt;/a&gt; from Kuk on the Arduino forum&lt;/p&gt;
+
+&lt;p&gt;The Arduino has a hardware 16 bit timer (timer1). This timer offers 15 different counting modes. One of these modes is the so called &amp;#8220;Clear Timer on Compare Match (CTC) Mode&amp;#8221; (Mode 4):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-167&#34; title=&#34;ctcmodo&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34; alt=&#34;&#34; width=&#34;500&#34; height=&#34;207&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png 500w, https://sinneb.github.io/uploads/2010/06/ctcmodo-300x124.png 300w&#34; sizes=&#34;(max-width: 500px) 100vw, 500px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

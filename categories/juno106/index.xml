@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>juno106 on sinneb</title>
+    <link>https://sinneb.github.io/categories/juno106/</link>
+    <description>Recent content in juno106 on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 09 May 2011 21:20:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/juno106/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>beta juno106 filter replacement!</title>
+      <link>https://sinneb.github.io/p374/</link>
+      <pubDate>Mon, 09 May 2011 21:20:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p374/</guid>
+      <description>Juno-106 filter replacement (beta, sounds very ok!) by sinneb
+
+
+The filterpart, 4 pole low pass with resonance. Download LTSpice schematic file:
+juno106BetaFilterReplacement_FilterPart (pdf version)
+&amp;nbsp;
+&amp;nbsp;
+
+The exponential current source. Leave 10 ohm resistor out when connecting to filterpart. Download LTSpice schematic file:
+juno106BetaFilterReplacement_ExpoPart (pdf version)
+The VCA of this beta filter was built like the schematic supplied by Mooger5 (check older posts). The redesigned VCA based on a LM13700 should work also (check older posts).</description>
+    </item>
+    
+    <item>
+      <title>“tuned” the LPF</title>
+      <link>https://sinneb.github.io/p366/</link>
+      <pubDate>Mon, 25 Apr 2011 14:10:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p366/</guid>
+      <description>Yesterday I tuned the LPF using my trusty old board o&amp;#8217; potentiometers&amp;#8230;
+
+Best sounding values came out like this:
+
+which I, after some thinking, recognized as the original values like in the JUNO6! Very nice! Just had to replace the 100pF capacitor with a 240pF capacitor like in the original. Only thing missing is the &amp;#8220;mystery resistor&amp;#8221; on the + input of the OTA to ground. For now I just left this res out.</description>
+    </item>
+    
+    <item>
+      <title>working combination!</title>
+      <link>https://sinneb.github.io/p360/</link>
+      <pubDate>Sat, 23 Apr 2011 20:14:24 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p360/</guid>
+      <description>Got a working combination of the expo converter and the 1 pole low pass filter. Sounds nice, although the expo needs some tuning.
+
+
+listen:
+Juno106 1pole replacement filter, for now only cutoff by sinneb</description>
+    </item>
+    
+    <item>
+      <title>redesigned the expo converter, again</title>
+      <link>https://sinneb.github.io/p354/</link>
+      <pubDate>Mon, 18 Apr 2011 22:36:10 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p354/</guid>
+      <description>The output current of the expo converter is now (100nA &amp;lt; Iabc &amp;lt; 2mA) which means a more logarithmic response of the VCF, more like the IR3109.
+btw this is a one pole LP filter, not a two pole
+VCF sound like this now:
+Juno2poleFilter-v2 by sinneb
+and here&amp;#8217;s the real 2 pole LP filter:
+Juno2poleFilter-v3-real2pole by sinneb</description>
+    </item>
+    
+    <item>
+      <title>2-pole LM13700 lowpass filter working?</title>
+      <link>https://sinneb.github.io/p346/</link>
+      <pubDate>Mon, 18 Apr 2011 12:34:52 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p346/</guid>
+      <description>I&amp;#8217;m not sure. Did a lot of prototyping and these are the results.
+Since I couldn&amp;#8217;t figure out a proper way to calculate the cutoff frequency when using different current and resistor combination, I decided to use the default lowpass filter circuit from the LM13700 datasheet.
+
+Hooked my expo converter up to pin 1 (100nA &amp;lt; Iabc &amp;lt; 1.1mA) and started testing. The Vout of this pole is the Vin of the second pole.</description>
+    </item>
+    
+    <item>
+      <title>expo converter working!</title>
+      <link>https://sinneb.github.io/p343/</link>
+      <pubDate>Sat, 16 Apr 2011 11:26:12 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p343/</guid>
+      <description>Yesterday I breadboarded the expo converter from the previous post and it&amp;#8217;s working! Current values were a little off; probably because I used 5% resistors. Will rebuild using metalfilm resistors.</description>
+    </item>
+    
+    <item>
+      <title>re-redesigned the expo converter</title>
+      <link>https://sinneb.github.io/p340/</link>
+      <pubDate>Tue, 12 Apr 2011 20:07:43 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p340/</guid>
+      <description>Previous design had resistor values of 4700k, impossible! So I redesigned the expoconv with a couple of voltage dividers.</description>
+    </item>
+    
+    <item>
+      <title>Redesigned the expo converter</title>
+      <link>https://sinneb.github.io/p331/</link>
+      <pubDate>Mon, 11 Apr 2011 19:16:37 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p331/</guid>
+      <description>As seen in the previous post, the following formula determines the cutoff frequency of the typical LM13700 lowpass filter design:
+
+The only variable part in this formula is the Iabc part, the incoming current from the expo converter. The cutoff frequency of the JUNO106 filter varies between 5Hz and 50000Hz (from the manual). To achieve this, Iabc low and Iabc high must differ a factor of 10000. I redesigned the expo converter as following:</description>
+    </item>
+    
+    <item>
+      <title>designing the filter</title>
+      <link>https://sinneb.github.io/p320/</link>
+      <pubDate>Mon, 11 Apr 2011 08:26:50 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p320/</guid>
+      <description>Current project status:
+
+Using the FREQ slider on the JUNO106 results in a exponential filter control current from 32nA to 705µA. So, when feeding 32nA into the filter, its cutoff frequency should be 5Hz. Feeding the filter 705µA results in a 50kHz cutoff frequency. My LM13700 lowpass filterdesign is based on the lectures by Aaron Lanterman. This is a typical design:
+
+resulting in the following plot (Iabc = 1mA)</description>
+    </item>
+    
+    <item>
+      <title>exponential converter current source</title>
+      <link>https://sinneb.github.io/p315/</link>
+      <pubDate>Sat, 09 Apr 2011 21:52:57 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p315/</guid>
+      <description>I reversed the current direction by using PNP transistors instead of NPN transistors (plus some other minor alterations). I also realized that the output current of the expo conv in the previous post (7mA) was way too high for the LM13700 (max current 1mA) so I adjusted the resistor in the iref connection to 10 megaohms! Max output to the LM13700 is now 705µA.
+The schematic:
+
+plot (current source leads to negative figures in LTspice)</description>
+    </item>
+    
+    <item>
+      <title>expo converter prototype… working!</title>
+      <link>https://sinneb.github.io/p311/</link>
+      <pubDate>Wed, 30 Mar 2011 18:01:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p311/</guid>
+      <description>Working! When moving the VCF FREQ slider from 0 to 10, the current varies from 0.3 UA (300 nA) to something above 7 mA. Looks pretty correct. Only thing I&amp;#8217;m worrying about is the current direction. This expo is a current sink but I think I need a current source&amp;#8230;</description>
+    </item>
+    
+    <item>
+      <title>80017a / ir3109 exponential converter</title>
+      <link>https://sinneb.github.io/p306/</link>
+      <pubDate>Mon, 28 Mar 2011 20:34:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p306/</guid>
+      <description>Completed the exponential converter for my open source Juno 106 filter clone.
+
+Mostly based on the great lectures by Aaron Lanterman (ECE4893A: Electronics for Music Synthesis, session 9, Exponential Current Sources). Also based on the SMR-4 filter as designed by mutable instruments. You should really check out Olivier&amp;#8217;s work for Mutable instruments, great stuff there and the Shruthi-1 synth is just a fantastic piece of engineering. Very inspiring.
+On the the expo converter.</description>
+    </item>
+    
+    <item>
+      <title>80017a measurements</title>
+      <link>https://sinneb.github.io/p299/</link>
+      <pubDate>Thu, 24 Mar 2011 20:14:56 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p299/</guid>
+      <description>Found a working multimeter:
+
+As you can see, my assumption in the previous post regarding the current on VCA CONT was wrong. Max current is not 0.5mA but 0.3mA which will lead to a different value for r3 (the current to voltage resistor).</description>
+    </item>
+    
+    <item>
+      <title>VCA part done (well almost)</title>
+      <link>https://sinneb.github.io/p286/</link>
+      <pubDate>Wed, 23 Mar 2011 22:49:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p286/</guid>
+      <description>80017a VCA open source hardware replacement is done for about 95%.
+Original Roland:
+
+See previous post for Mooger5&amp;#8217;s working BA6110 IC solution. Since I&amp;#8217;m going to use the LM13700 OTA for the filter part, I figured the VCA would be a nice exercise in OTA building. To fully understand the inner workings of an OTA, I followed great lectures by Aaron Lanterman on Electronics for Musical Synthesis!
+My VCA version:</description>
+    </item>
+    
+  </channel>
+</rss>

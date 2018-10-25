@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Schematics, eagle files and build notes for the umodular &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Schematics, eagle files and build notes for the umodular</h1>
+  <time datetime=2016-02-24T19:40:07Z class="post-date">Wed, Feb 24, 2016</time>
+  <p>As promised, attached to this post you&#8217;ll find the schematics in PDF and the eagle files for the umodular. Released as open source hardware, so hack away and please provide feedback! The eagle designs are not editable using the free version because of the size of the PCB, sorry. Check the list below; one of the outstanding wishes is to divide the large board into smaller, attachable boards &#8211; all below the 100mm x 80mm constraint.</p>
+
+<p><a href="/uploads/2016/02/umodular_rev1_eaglefiles.zip">umodular_rev1_eaglefiles</a></p>
+
+<p><a href="/uploads/2016/02/umodular_rev1_schematics.pdf">umodular_rev1_schematics</a></p>
+
+<p>Following is a list of todo&#8217;s, build notes and other observations I did while building the prototype. Future versions will include features and fixes from this list.</p>
+
+<p><span style="text-decoration: underline;"><strong>TODO&#8217;s and WISHES</strong></span></p>
+
+<p>vco: own design, open source and open source hardware</p>
+
+<p>vco: replace CA3046 with modern matched transistors BCM847DS</p>
+
+<p>vco: pulse should also work, even without controlling it through PWM width with a voltage</p>
+
+<p>vco: triangle out</p>
+
+<p>vco: sine out</p>
+
+<p>vco: trimpot for base frequency</p>
+
+<p>vco: option to follow osc 1 pitch</p>
+
+<p>vcf: for now working with MFOS &#8220;Simple State-Variable VCF&#8221; design, open for non-commercial use but &copy; Ray Wilson</p>
+
+<p>vcf: replace ray&#8217;s filter with own variant</p>
+
+<p>vcf: voltage controlled resonance in LP filter</p>
+
+<p>vcf: more filter options (BP, HP, LP)</p>
+
+<p>vcf: dual filter?</p>
+
+<p>adsr: Working with a design by Rene Schmitz, permission for use granted.</p>
+
+<p>adsr: vc for d and s?</p>
+
+<p>vca: cost effective to develop version without THAT 2180?</p>
+
+<p>mix: Update mixer volume control. Sounds like highpass filter now</p>
+
+<p>pcb: all TL274 -&gt; TL074</p>
+
+<p>pcb: fix potentiometer orientation. All pots are inverted! full left is now +5 should be -5</p>
+
+<p>pcb: check log pot instead of lin pots</p>
+
+<p>pcb: footprint 78xx != footprint 79xx! Replace footprint of 7909 with actual footprint!</p>
+
+<p>pcb: a nice manual routing, reducing the amount of via&#8217;s. Busses for power.</p>
+
+<p>pcb: general layout</p>
+
+<p>pcb: add small capacitors for decoupling</p>
+
+<p>pcb: integrate Arduino more</p>
+
+<p>pcb: split pcb in two for better shipping etc? multiple parts, max 100*80 to also enable eagle free software</p>
+
+<p>pcb: add designators for capacitors! value, type and placement. For all components!</p>
+
+<p>power: work on a DC adapter solution</p>
+
+<p>power: replace the 6 3300&#8217;s with 6&#215;1000&#8217;s because 2&#215;3300 seems to be enough power</p>
+
+<p>functional: Have &#8220;standard&#8221; switchable (flip switch) connections between vCO&#8217;s VCF VCA and mix out</p>
+
+<p>functional: Dual/triple VCO mixer</p>
+
+<p>functional: all individual modules with dedicated cv and audio paths? Save in shipping, saves in prototyping costs.</p>
+
+<p>functional: have a module connector with +9v, GND, -9v and 4 audio and 4 cv paths. Modules can grab audio or cv from one of the paths and return audio or cv on the paths.</p>
+
+<p>functional: 4 oscillators with LFO switch</p>
+
+<p>func: digital LFO using Arduino</p>
+
+<p><span style="text-decoration: underline;"><strong>BUILD FIXES</strong></span></p>
+
+<p>vcf: 560nF -&gt; 560pF</p>
+
+<p>adsr: replace 10uf with 10nf or 1nf</p>
+
+<p>adsr: R72 -&gt; 1k</p>
+
+<p>adsr: R86 -&gt; 1k</p>
+
+<p>vca: 1n34a -&gt; 1n60 (1n4454)</p>
+
+<p>vca: QUAD_OPADMPP TL274-6A should be non-inverting</p>
+
+<p>vca: add 100ohm to GND and 1000uF to GND inbetween TL274-6C out and THAT2180A pin 2.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

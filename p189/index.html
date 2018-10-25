@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Second prototype using the 82C54 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Second prototype using the 82C54</h1>
+  <time datetime=2010-06-29T11:25:30Z class="post-date">Tue, Jun 29, 2010</time>
+  <p>The second prototype uses a 74HC595 shift register to adress the datalines of the 82C54. It is now possible to send different divider values to the 82C54 and thus creating different pulse waveform frequencies.</p>
+
+<p><a href="/uploads/2010/06/82c54_proto2.png"><img class="alignnone size-medium wp-image-190" title="82c54_proto2" src="/uploads/2010/06/82c54_proto2-300x119.png" alt="" width="300" height="119" srcset="/uploads/2010/06/82c54_proto2-300x119.png 300w, /uploads/2010/06/82c54_proto2.png 1007w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p></p>
+
+<p>The code:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">//Pin connected to ST_CP of 74HC595
+int latchPin = 8;
+//Pin connected to SH_CP of 74HC595
+int clockPin = 12;
+////Pin connected to DS of 74HC595
+int dataPin = 11;
+
+int statusled = 13;
+
+int incomingByte = 0;   // for incoming serial data
+
+void setup() {
+  //set pins to output so you can control the shift register
+  pinMode(latchPin, OUTPUT);
+  pinMode(clockPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);
+  pinMode(statusled, OUTPUT);
+  digitalWrite(statusled,HIGH);
+
+  // init 8254 control ports 2,3,4
+  pinMode(2, OUTPUT); // WR
+  digitalWrite(2, HIGH); // disabled
+  pinMode(3, OUTPUT); // A0
+  pinMode(4, OUTPUT); // A1
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+
+  Serial.begin(9600);
+  //settozero();
+}
+
+void loop() {
+
+  if(Serial.available() &gt; 0)
+      {
+        incomingByte = Serial.read();
+        if (incomingByte == 49) { // 1
+          firstrun();
+        }
+      }
+
+}
+
+void firstrun() {
+
+    // control word sequence
+    Serial.println("A0A1 -&gt; 1");
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, LSBFIRST, B01101100);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 loaded");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+    // end control word sequence
+
+    // start data transfer, LSB MSB
+    // 18181 for 400hz
+    data_transfer( 5, 71);
+}
+
+void data_transfer(int LSB, int MSB) {
+
+    Serial.println("A0A1 -&gt; 0");
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, LSB);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 LSB");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, MSB);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 MSB");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

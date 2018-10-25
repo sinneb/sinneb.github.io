@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Control CD4021 and 74HC595 over the same SPI bus &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Control CD4021 and 74HC595 over the same SPI bus</h1>
+  <time datetime=2011-10-30T12:47:50Z class="post-date">Sun, Oct 30, 2011</time>
+  <p>Working on a project I needed extra digital in&#8217;s and extra digital out&#8217;s for my Arduino Uno (lots of LEDs, lots of buttons). I&#8217;ll use a CD4021 to extend the digital in&#8217;s and a 74HC595 to gain extra digital out&#8217;s. I decided it would be best to both access the data of the CD4021 and send data to the 74HC595 over the hardware SPI bus on the Arduino (see previous post). Turns out te be not that hard (fortunately ;) ). Here&#8217;s the eagle schematic for 1 4021 and 1 595. Of course you can cascade more IC&#8217;s if you need more in&#8217;s or out&#8217;s. Only difference is that you&#8217;ll have to interpret and send more bytes (1 byte per IC).</p>
+
+<p><a href="/uploads/2011/10/ArduinoSPI4021_595.png"><img class="alignnone size-medium wp-image-422" title="ArduinoSPI4021_595" src="/uploads/2011/10/ArduinoSPI4021_595-300x192.png" alt="" width="300" height="192" srcset="/uploads/2011/10/ArduinoSPI4021_595-300x192.png 300w, /uploads/2011/10/ArduinoSPI4021_595.png 865w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>Here&#8217;s my Arduino code so far:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">#include &lt;SPI.h&gt;
+
+#define PIN_SCK          13             // SPI clock
+#define PIN_MISO         12             // SPI data input
+#define PIN_MOSI         11             // SPI data output
+#define PIN_SS1          10             // SPI hardware default SS pin, 4021
+#define PIN_595_1        9              // SPI 74HC595
+
+// result byte for 4021
+byte buttons8;
+
+// global vars for button timeout and debounce
+long button1timeout = 0;
+long button2timeout = 0;
+long debounce = 200;
+
+void setup() {
+  Serial.begin(9600);
+  SPI.begin();
+  
+  // set all IC select pins HIGH
+  digitalWrite(PIN_SS1,HIGH);
+  pinMode(PIN_595_1, OUTPUT);
+  digitalWrite(PIN_595_1,HIGH);
+}
+
+void loop() {
+   
+  // SS1 = HIGH -&gt; 4021 is gathering data from parallel inputs
+  
+  // select 595
+  digitalWrite(PIN_595_1,LOW);
+  
+  // send BIN number to 595 to light 1 LED (not necessarily the 1 example LED on the schematic)
+  SPI.transfer(B00000100);
+  
+  // deselect 595
+  digitalWrite(PIN_595_1,HIGH);
+  
+  // select 4021
+  digitalWrite(PIN_SS1,LOW);
+  // read CD4021 IC
+  buttons8 = SPI.transfer(0x00);
+  
+  // button functions and debounces
+  // needs refactoring for smaller footprint
+  if((B10000000 & buttons8) && (millis() - button1timeout &gt; debounce)) {
+    Serial.println("but1");
+    button1timeout = millis();
+  }
+  if((B01000000 & buttons8) && (millis() - button2timeout &gt; debounce)) {
+    Serial.println("but2");
+    button2timeout = millis();
+  }
+  
+  // deselect 4021
+  digitalWrite(PIN_SS1,HIGH);
+}
+</pre>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

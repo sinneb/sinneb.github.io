@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>80017a / ir3109 exponential converter &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>80017a / ir3109 exponential converter</h1>
+  <time datetime=2011-03-28T20:34:55Z class="post-date">Mon, Mar 28, 2011</time>
+  <p>Completed the exponential converter for my open source Juno 106 filter clone.</p>
+
+<p><a href="/uploads/2011/03/expoand80017.png"><img class="alignnone size-full wp-image-307" title="expoand80017" src="/uploads/2011/03/expoand80017.png" alt="" width="500" height="320" srcset="/uploads/2011/03/expoand80017.png 500w, /uploads/2011/03/expoand80017-300x192.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p>Mostly based on the great lectures by Aaron Lanterman (<a href="http://users.ece.gatech.edu/lanterma/ems11/" target="_blank">ECE4893A: Electronics for Music Synthesis</a>, session 9, Exponential Current Sources). Also based on the SMR-4 filter as designed by <a href="http://mutable-instruments.net/shruthi1/build/smr4" target="_blank">mutable instruments</a>. You should really check out Olivier&#8217;s work for Mutable instruments, great stuff there and the Shruthi-1 synth is just a fantastic piece of engineering. Very inspiring.</p>
+
+<p>On the the expo converter. Following Aaron&#8217;s lecture, the following is the circuit required (in LTSpice):</p>
+
+<p><a href="/uploads/2011/03/expo_circuit.png"><img class="alignnone size-full wp-image-308" title="expo_circuit" src="/uploads/2011/03/expo_circuit.png" alt="" width="584" height="662" srcset="/uploads/2011/03/expo_circuit.png 584w, /uploads/2011/03/expo_circuit-300x340.png 300w, /uploads/2011/03/expo_circuit-264x300.png 264w" sizes="(max-width: 584px) 100vw, 584px" /></a></p>
+
+<p>The Vin is pin 6 on the 80017a chip, the VCF CONT. This input varies between 100mV (FREQ slider @ 0) and -160mV (FREQ slider @ 10). Iout for these values is:</p>
+
+<p>iout = iref * exp((-Vb / Vt)) where Vt = 26mV</p>
+
+<p>Vb = 100mV -&gt; iout = (Vref / Rref) * exp ((- 100mV / 26 mV))</p>
+
+<p>iout = (somewhere around) 0.000015 * exp (-3.8462) = 320.426 nA</p>
+
+<p>Vb = -160mV -&gt; iout = 0.000015 * exp(&#8211;<sup>160</sup>&frasl;<sub>26</sub>) = 7.058 mA</p>
+
+<p>which are probably (I did a quick check) fine values to drive the VCF!</p>
+
+<p>Verified the calculations using LTSpice:</p>
+
+<p><a href="/uploads/2011/03/expo_circuit_plot.png"><img class="alignnone size-full wp-image-309" title="expo_circuit_plot" src="/uploads/2011/03/expo_circuit_plot.png" alt="" width="500" height="349" srcset="/uploads/2011/03/expo_circuit_plot.png 500w, /uploads/2011/03/expo_circuit_plot-300x209.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p>only differs a little. I&#8217;m not sure why but I guess its our calculation. For the sake of usability we assumed both transistors are ideal and thus have Ic = Ie and Ib = 0.The LTSpice model is probably more sophisticated ;)</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

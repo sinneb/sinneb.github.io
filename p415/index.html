@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arduino, CD4021 and SPI &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Arduino, CD4021 and SPI</h1>
+  <time datetime=2011-10-29T20:27:02Z class="post-date">Sat, Oct 29, 2011</time>
+  <p>The &#8220;ShiftIn&#8221; tutorial on the Arduino site (Parallel to Serial Shifting-In with a CD4021BE) is very clear on why and how to setup and test your Arduino in combination with a CD4021 IC. I needed extra digital inputs and decided to communicate via SPI with the CD4021 chip. Figured it out, it was actually pretty simple thanks to the easy SPI implementation in the Arduino software since version 0020 or so (?)</p>
+
+<p>Setup as described in the Arduino tutorial. Reconnect the clock, the MOSI and the slaveselect as the #defines in the following code. And you&#8217;re all set.</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">#include
+
+#define PIN_SCK          13             // SPI clock
+#define PIN_MISO         12             // SPI data input
+#define PIN_MOSI         11             // SPI data output
+#define PIN_SS1          10             // SPI hardware default SS pin
+
+void setup() {
+  Serial.begin(9600);
+  SPI.begin();
+}
+
+void loop() {
+  digitalWrite(PIN_SS1,HIGH);
+
+  // while gathering info from parallel inputs
+  // do some other processing
+  // for now I'll use
+  delayMicroseconds(200);
+
+  // select PIN_SS1 CD4021 IC
+  digitalWrite(PIN_SS1,LOW);
+  // read byte from CD4021 IC
+  Serial.println(SPI.transfer(0x00),BIN);
+}
+</pre>
+
+<p>tip: buy some <a href="http://www.dickbest.nl/index.php?_a=viewProd&productId=3368" target="_blank">resistor arrays</a> instead of all individual resistors</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

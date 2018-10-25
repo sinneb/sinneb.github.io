@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>sinneb36 prototype 8: 3 voices polyphony controlled by Arduino! &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>sinneb36 prototype 8: 3 voices polyphony controlled by Arduino!</h1>
+  <time datetime=2010-07-12T14:11:42Z class="post-date">Mon, Jul 12, 2010</time>
+  <p>Yes, it&#8217;s working!</p>
+
+<p><a href="/uploads/2010/07/proto8.jpg"><img class="aligncenter size-medium wp-image-222" title="proto8" src="/uploads/2010/07/proto8-300x199.jpg" alt="" width="300" height="199" srcset="/uploads/2010/07/proto8-300x199.jpg 300w, /uploads/2010/07/proto8-1024x680.jpg 1024w, /uploads/2010/07/proto8.jpg 1200w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>Check out this demo, midi file loaded in Logic &gt; midi out &gt; breadboard &gt; Arduino</p>
+
+<p>Schematics:</p>
+
+<p><a href="/uploads/2010/07/proto8_schematic.png"><img class="aligncenter size-medium wp-image-229" title="proto8_schematic" src="/uploads/2010/07/proto8_schematic-300x149.png" alt="" width="300" height="149" srcset="/uploads/2010/07/proto8_schematic-300x149.png 300w, /uploads/2010/07/proto8_schematic-1024x511.png 1024w, /uploads/2010/07/proto8_schematic.png 1329w" sizes="(max-width: 300px) 100vw, 300px" /></a>Only thing missing in the schematics is the resistor based audio mixer. Connect all out pins from the 42100&#8217;s to 1k resistors and join the resulting output.</p>
+
+<p>Code:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">// -- sinneb36 --
+// proto 8
+// common data & clocklines for all ic's
+// dev start 5 july 2010
+// 3 voices poly - voice 0, 1 and 2
+// inc midi control
+// july 2010
+
+#include "Midi.h"
+
+// Midi note 0 - 127 LSB & MSB values
+// http://www.decisioncards.com/io/tutorials/8254_tut2.html
+// Divide value by 256. i.e. 10000 / 256 gives 39.0625
+// Use the whole value to load your MSB i.e. MSB=39
+// Subtract the whole number i.e. 39.0625 - 39=0.0625
+// Multiply by 256 to obtain remainder i.e. 0.0625 x 256=16
+// Use the value diplayed as your LSB i.e. LSB=16
+
+int midi_divides_lsb[] = {66, 182, 65, 33, 183, 116, 192, 11, 222, 186, 44, 195, 33, 222, 160, 16, 
+                          221, 186, 94, 135, 240, 93, 150, 99, 144, 239, 80, 136, 111, 221, 176, 195, 
+                          248, 47, 75, 49, 200, 247, 168, 196, 55, 239, 216, 226, 252, 23, 37, 25, 228, 
+                          124, 212, 226, 156, 247, 236, 113, 126, 12, 19, 140, 114, 190, 106, 113, 206, 
+                          124, 118, 184, 63, 6, 9, 70, 185, 95, 53, 56, 103, 190, 59, 220, 159, 131, 133, 
+                          163, 221, 47, 154, 28, 179, 95, 29, 238, 208, 193, 194, 210, 238, 24, 77, 142, 
+                          218, 47, 143, 247, 104, 225, 97, 233, 119, 12, 167, 71, 237, 152, 71, 252, 180, 112, 
+                          49, 244, 188, 134, 83, 36, 246, 204, 164, 126};
+int midi_divides_msb[] = {3822, 3607, 3405, 3214, 3033, 2863, 2702, 2551, 2407, 2272, 2145, 2024, 
+                          1911, 1803, 1702, 1607, 1516, 1431, 1351, 1275, 1203, 1136, 1072, 1012, 
+                          955, 901, 851, 803, 758, 715, 675, 637, 601, 568, 536, 506, 477, 450, 
+                          425, 401, 379, 357, 337, 318, 300, 284, 268, 253, 238, 225, 212, 200, 
+                          189, 178, 168, 159, 150, 142, 134, 126, 119, 112, 106, 100, 94, 89, 84, 
+                          79, 75, 71, 67, 63, 59, 56, 53, 50, 47, 44, 42, 39, 37, 35, 33, 31, 29, 
+                          28, 26, 25, 23, 22, 21, 19, 18, 17, 16, 15, 14, 14, 13, 12, 11, 11, 10, 
+                          9, 9, 8, 8, 7, 7, 7, 6, 6, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2};
+
+
+// contains note value for the 3 voices
+int voices_note[3];
+// contains key down (1) of inactive (0) value for each voice
+int voices_active[3];
+// velocity per note
+int voices_velocity[3] = {0,0,0};
+
+boolean done = false;
+boolean placed = false;
+
+// common pins for all ic's
+int dataPin = 2;
+int clockPin = 3;
+int ic595Pin = 4;
+int ic42100Pin = 5; 
+
+int ledPin =  13;
+
+class MyMidi : public Midi {
+  public:
+  MyMidi(HardwareSerial &s) : Midi(s) {}
+
+  void handleNoteOn(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, HIGH);
+    
+    done = false;
+    for(int i = 0; i &lt; 3; i++) {
+      // if voice inactive, replace with this played note
+      // if no voice available, skip this note
+      if(voices_active[i] == 0 && !done) {
+        voices_note[i] = note;
+        voices_active[i] = 1;
+        // play note
+        data_transfer_82c54(midi_divides_lsb[note],midi_divides_msb[note], i);
+        // set velocity and update 42100
+        voices_velocity[i] = 250;
+        update_42100();
+        // exit loop
+        done = true;
+      } 
+    }
+  }
+
+  void handleNoteOff(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, LOW);
+    
+    for(int i = 0; i &lt; 3; i++) {
+      // find note and set inactive
+      if(voices_note[i] == note) {
+        voices_active[i] = 0;
+        // set velocity and update 42100
+        voices_velocity[i] = 0;
+        update_42100();
+      }
+    } 
+  }
+};
+
+MyMidi midi(Serial);
+
+void setup()   {                
+  pinMode(dataPin, OUTPUT);   
+  pinMode(clockPin, OUTPUT); 
+  pinMode(ic595Pin, OUTPUT);  
+  pinMode(ic42100Pin, OUTPUT);
+  pinMode(ledPin, OUTPUT);     
+  
+  // set ic write off
+  digitalWrite(ic595Pin, HIGH);
+  digitalWrite(ic42100Pin, HIGH);
+  
+  // midi + serial
+  midi.begin(0);
+  
+  initAllCounters();
+  
+  // just once, set freqs for test
+  data_transfer_82c54( 124, 425, 0);
+  data_transfer_82c54( 163, 79, 1);
+  data_transfer_82c54( 218, 28, 2);
+  
+  // set velocity to 0 for each voice
+  voices_velocity[0] = 0;
+  voices_velocity[1] = 0;
+  voices_velocity[2] = 0;
+  update_42100();
+  
+  // init done
+  digitalWrite(ledPin, HIGH);
+}
+
+void loop()                     
+{ 
+   midi.poll();
+}
+
+void set82c54(byte controlbyte, byte valuebyte, boolean lsbdefault = true)
+{
+    digitalWrite(ic595Pin, LOW);
+    // send controlbyte to 82c54 with A0,A1,WR
+    shiftOut(dataPin, clockPin, LSBFIRST, controlbyte);
+    // send valuebyte to 82c54, lsbfirst is default
+    if(lsbdefault) {
+      shiftOut(dataPin, clockPin, LSBFIRST, valuebyte);
+    } else {
+      shiftOut(dataPin, clockPin, MSBFIRST, valuebyte);
+    }
+    digitalWrite(ic595Pin, HIGH);
+}
+
+void initAllCounters() {
+
+    //Serial.println("A0A1 -&gt; 1, WR HIGH");
+    set82c54(B11100000,B00000000);
+    //Serial.println("WR low");
+    set82c54(B01100000, B00000000);
+    //Serial.println("control word counter 0");
+    set82c54(B01100000, B01101100);
+    //Serial.println("WR high");
+    set82c54(B11100000, B01101100);
+    //Serial.println("WR low");
+    set82c54(B01100000, B00000000);
+    //Serial.println("control word counter 1");
+    set82c54(B01100000, B01101110);
+    //Serial.println("WR high");
+    set82c54(B11100000, B01101100);
+    //Serial.println("WR low");
+    set82c54(B01100000, B00000000);
+    //Serial.println("control word counter 2");
+    set82c54(B01100000, B01101101);
+    //Serial.println("WR high");
+    set82c54(B11100000, B01101100);
+}
+
+void data_transfer_82c54(int LSB, int MSB, int voice) {
+  
+    // counter 0 = B00000000 = 0
+    // counter 1 = B01000000 = 64
+    // counter 2 = B00100000 = 32
+    
+    int voice2bin[3] = {0,64,32};
+    
+    //Serial.println("A0A1 -&gt; 0, WR high");
+    set82c54(B10000000 + voice2bin[voice], B00000000);
+    //Serial.println("WR low");
+    set82c54(B00000000 + voice2bin[voice], B00000000);
+    //Serial.println("82c54 waarde");
+    set82c54(B00000000 + voice2bin[voice], LSB, false);
+    //Serial.println("WR high");
+    set82c54(B10000000 + voice2bin[voice], B00000000);
+    //Serial.println("WR low");
+    set82c54(B00000000 + voice2bin[voice], B00000000);
+     //Serial.println("82c54 waarde 2");
+    set82c54(B00000000 + voice2bin[voice], MSB, false);
+    //Serial.println("WR high");
+    set82c54(B10000000 + voice2bin[voice], B00000000);
+}
+
+
+void update_42100() { 
+  byte ic42100pot0 = B00010001; // write to pot 0
+  byte ic42100pot1 = B00010010; // write to pot 1
+  
+  digitalWrite (ic42100Pin, LOW);
+  // update chip 2, voice 2
+  shiftOut(dataPin, clockPin, MSBFIRST, ic42100pot0);
+  shiftOut(dataPin, clockPin, MSBFIRST, voices_velocity[2]);
+  // update chip 1, voice 0
+  shiftOut(dataPin, clockPin, MSBFIRST, ic42100pot0);
+  shiftOut(dataPin, clockPin, MSBFIRST, voices_velocity[0]);
+  digitalWrite(ic42100Pin, HIGH); 
+
+  digitalWrite (ic42100Pin, LOW);
+  // update chip 2, voice 3
+  //shiftOut(dataPin, clockPin, MSBFIRST, ic42100pot1);
+  //shiftOut(dataPin, clockPin, MSBFIRST, voices_velocity[3]);
+  // update chip 1, voice 1
+  shiftOut(dataPin, clockPin, MSBFIRST, ic42100pot1);
+  shiftOut(dataPin, clockPin, MSBFIRST, voices_velocity[1]);
+  digitalWrite(ic42100Pin, HIGH);   
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

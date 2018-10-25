@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>research on sinneb</title>
+    <link>https://sinneb.github.io/categories/research/</link>
+    <description>Recent content in research on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 19 Mar 2013 14:20:44 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Calculating Landolt C ring size based on the visual acuity</title>
+      <link>https://sinneb.github.io/p556/</link>
+      <pubDate>Tue, 19 Mar 2013 14:20:44 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p556/</guid>
+      <description>Landolt Ring  Tiny Python script to calculate the size (5d) in meters of a Landolt C ring based on the visual acuity belonging to that ring.
+# determine Landolt C ring size based on decimal visual acuity scales # argument: visual acuity [0.1 ... 3] # result: size of Landolt C ring (5d in the image) (in meters) # http://upload.wikimedia.org/wikipedia/de/2/27/Landoltring.jpg import math, sys # distance from ring in meters distance = 5 print 2*distance*math.</description>
+    </item>
+    
+  </channel>
+</rss>

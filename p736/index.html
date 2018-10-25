@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Serial midi on the Raspberry Pi Zero W &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Serial midi on the Raspberry Pi Zero W</h1>
+  <time datetime=2017-04-26T20:04:02Z class="post-date">Wed, Apr 26, 2017</time>
+  <p>The Raspberry Pi Zero W (rpi0w) has a lot of properties to make it a great musical instrument (CPU power, affordability, portability, power demands). First thing on my list is serial MIDI in, to hook up my octatrack. I compiled the following guide to equip the rpi0w with MIDI in.</p>
+
+<p><strong>Software</strong></p>
+
+<ol>
+<li>Install Rasbian (my version is 2017-04-10)</li>
+<li>Midi requires the serial device &#8220;/dev/ttyAMA0&#8221; to be exposed through the rpi0w&#8217;s header pins. Unfortunately, the bluetooth service is internally connected to this serial device and only the &#8220;/dev/ttyS0&#8221; soft serial device is available through the GPIO. Lets change this:
+
+<ol>
+<li>Disable bluetooth: &#8220;sudo systemctl disable bluetooth.service&#8221;</li>
+<li>Add &#8220;enable_uart=1&#8221; and &#8220;dtoverlay=pi3-disable-bt&#8221; to /boot/config.txt</li>
+<li>Remove &#8220;console=serial0,115200&#8221; from /boot/cmdline.txt</li>
+</ol></li>
+<li>Midi has a typical baudrate of 31250, a non supported one by the rpi0w. Let&#8217;s reprogram the 38400 rate to behave like a 31250 one.
+
+<ol>
+<li>Add &#8220;init_uart_clock=2441000&#8221;, &#8220;init_uart_baud=38400, and &#8220;dtparam=uart0_clkrate=3000000&#8221; to /boot/config.txt (each on its own line, do not add the double quotes). The 38400 baud rate will now operate at 31250 baud.</li>
+</ol></li>
+</ol>
+
+<p>The last lines of your config.txt will look something like this:</p>
+
+<p><a href="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.10.59.png"><img class="alignnone size-medium wp-image-737" src="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.10.59-300x166.png" alt="Screen Shot 2017-04-26 at 20.10.59" width="300" height="166" srcset="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.10.59-300x166.png 300w, /uploads/2017/04/Screen-Shot-2017-04-26-at-20.10.59-624x345.png 624w, /uploads/2017/04/Screen-Shot-2017-04-26-at-20.10.59.png 832w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>Reboot your rpi0w to make the changes effective.</p>
+
+<p>Upon login, install &#8220;<a href="http://wiringpi.com/download-and-install/" target="_blank">wiringpi</a>&#8221; to check the configuration of the GPIO. Issue a &#8220;gpio readall&#8221;. Physical GPIO pins 8 and 10 should display an ALT0 mode:</p>
+
+<p><a href="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.13.21.png"><img class="alignnone size-medium wp-image-738" src="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.13.21-300x212.png" alt="Screen-Shot-2017-04-26-at-20.13.21" width="300" height="212" srcset="/uploads/2017/04/Screen-Shot-2017-04-26-at-20.13.21-300x212.png 300w, /uploads/2017/04/Screen-Shot-2017-04-26-at-20.13.21.png 567w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>The configuration of your rpi0w is good to go!</p>
+
+<p><strong>Hardware</strong></p>
+
+<p>On the hardware side, I followed <a href="http://www.samplerbox.org/article/midiinwithrpi" target="_blank">Joseph&#8217;s instructions on SamplerBox</a>, using this schematic:</p>
+
+<p><a href="/uploads/2017/04/gpio_midiin_circuit.jpg"><img class="alignnone size-medium wp-image-740" src="/uploads/2017/04/gpio_midiin_circuit-300x108.jpg" alt="gpio_midiin_circuit" width="300" height="108" srcset="/uploads/2017/04/gpio_midiin_circuit-300x108.jpg 300w, /uploads/2017/04/gpio_midiin_circuit.jpg 454w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>Run the python program supplied on the SamplerBox page to test the Midi in. The python program should output &#8220;note on, note off&#8221; messages upon incoming midi notes.</p>
+
+<p><strong>Midi &amp; Alsa</strong></p>
+
+<p>To hook up the midi input to the Alsa audio system, I&#8217;m using ttymidi. To install ttymidi, you have to make a small change in the Makefile.</p>
+
+<ol>
+<li>Download ttymidi with &#8220;<span class="s1">wget <a href="http://www.varal.org/ttymidi/ttymidi.tar.gz&amp;#8221" target="_blank">http://www.varal.org/ttymidi/ttymidi.tar.gz&amp;#8221</a>;</span></li>
+<li>Untar and edit the toplevel Makefile, add &#8220;-lpthread&#8221; to the all: statement.</li>
+<li>Make and sudo make install</li>
+<li>Run with: &#8220;ttymidi -s /dev/ttyAMA0 -b 38400 -v&#8221;</li>
+</ol>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

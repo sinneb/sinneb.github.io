@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MCP4921 12bit DAC voltage controller &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>MCP4921 12bit DAC voltage controller</h1>
+  <time datetime=2010-06-05T14:17:22Z class="post-date">Sat, Jun 5, 2010</time>
+  <p>The MCP4921 controls the sweep voltage for the XR2206. The sweep voltage and the variable resistor together are controlling the output frequency. Precise musical output frequency should be feasible this way. I will be using <a href="http://www.electricdruid.net/JunoDCOFreqError.php" target="_blank">this table</a> to check if the frequencies are correct.</p>
+
+<p></p>
+
+<p><img class="alignnone size-full wp-image-89" title="mcp4921" src="/uploads/2010/06/mcp4921.png" alt="" width="500" height="168" srcset="/uploads/2010/06/mcp4921.png 500w, /uploads/2010/06/mcp4921-300x100.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+
+<p>The MCP4921 connects to Arduino pins 10,11 and 13.</p>
+
+<p>MCP pin 2 &gt; Arduino 10</p>
+
+<p>MCP pin 3 &gt; Arduino 13</p>
+
+<p>MCP pin 4 &gt; Arduino 11</p>
+
+<p>Derived from <a href="http://mrbook.org/blog/2008/11/22/controlling-a-gakken-sx-150-synth-with-arduino/" target="_blank">mrBooks instructions</a>!</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">#define DATAOUT     11  //MOSI
+#define SPICLOCK    13  //sck
+#define SLAVESELECT 10  //ss
+#define ledPin       2
+
+int interval;
+int incomingByte = 0;
+
+void setup() {
+// -------------------------------------------------------------
+pinMode(DATAOUT,     OUTPUT);
+pinMode(SPICLOCK,    OUTPUT);
+pinMode(SLAVESELECT, OUTPUT);
+pinMode(ledPin,      OUTPUT);
+
+sendIntValueSPI(1000);
+
+// led on
+digitalWrite(ledPin,HIGH);
+
+// start serial interface
+Serial.begin(9600);
+}
+
+void sendIntValueSPI(int value) {
+// -------------------------------------------------------------
+
+// initiate data transfer with 4921
+digitalWrite(SLAVESELECT,LOW);
+
+// send 4 bit header
+sendSPIHeader();
+
+// send data
+for(int i=11;i&gt;=0;i--){
+digitalWrite(DATAOUT,((value&(1&lt;&lt;i)))&gt;&gt;i);
+sendSPIClock();
+}
+
+// finish data transfer
+digitalWrite(SLAVESELECT,HIGH);
+}
+
+void sendSPIHeader() {
+// -------------------------------------------------------------
+// bit 15
+// 0 write to DAC *
+// 1 ignore command
+digitalWrite(DATAOUT,LOW);
+sendSPIClock();
+// bit 14 Vref input buffer control
+// 0 unbuffered *
+// 1 buffered
+digitalWrite(DATAOUT,LOW);
+sendSPIClock();
+// bit 13 Output Gain selection
+// 0 2x
+// 1 1x *
+digitalWrite(DATAOUT,HIGH);
+sendSPIClock();
+// bit 12 Output shutdown control bit
+// 0 Shutdown the device
+// 1 Active mode operation *
+digitalWrite(DATAOUT,HIGH);
+sendSPIClock();
+}
+
+void sendSPIClock() {
+// -------------------------------------------------------------
+digitalWrite(SPICLOCK,HIGH);
+digitalWrite(SPICLOCK,LOW);
+}
+
+void loop() {
+// -------------------------------------------------------------
+if(Serial.available() &gt; 0)
+{
+interval = GetStringNumber();
+Serial.print("New voltage: ");
+Serial.println(interval,DEC);
+sendIntValueSPI(interval);
+}
+
+}
+
+int GetStringNumber()
+{
+int value = 0;
+
+while(1)
+{
+/*Read a byte as it comes into the serial buffer*/
+char byteBuffer = Serial.read();
+
+if(byteBuffer &gt; -1) //Is the data a valid character?
+{
+if(byteBuffer &gt;= '0' && byteBuffer &lt;= '9') //Is the character a digit?
+/*Yes, shift left 1 place (in decimal), and add integer value of character (ASCII value - 48)*/
+value = (value * 10) + (byteBuffer - '0');
+else
+/*No, stop*/
+break;
+}
+}
+return value;
+}</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

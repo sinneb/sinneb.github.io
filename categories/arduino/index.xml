@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>arduino on sinneb</title>
+    <link>https://sinneb.github.io/categories/arduino/</link>
+    <description>Recent content in arduino on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 15 Apr 2013 12:48:20 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/arduino/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SPI control of AD9833</title>
+      <link>https://sinneb.github.io/p562/</link>
+      <pubDate>Mon, 15 Apr 2013 12:48:20 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p562/</guid>
+      <description>A few months ago I ordered a MSOP to DIP conversion board including an AD9833 from proto advantage. The AD9833 (LOW POWER, 12.65 MW, 2.3 V TO +5.5 V, PROGRAMMABLE WAVEFORM GENERATOR) looks like an interesting IC, doesn&amp;#8217;t cost too much and is perhaps suited for a musical purpose.
+Wiring up and controlling the AD9833 took some time and some research but I finally combined the right pieces of the puzzle.</description>
+    </item>
+    
+    <item>
+      <title>Control CD4021 and 74HC595 over the same SPI bus</title>
+      <link>https://sinneb.github.io/p421/</link>
+      <pubDate>Sun, 30 Oct 2011 12:47:50 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p421/</guid>
+      <description>Working on a project I needed extra digital in&amp;#8217;s and extra digital out&amp;#8217;s for my Arduino Uno (lots of LEDs, lots of buttons). I&amp;#8217;ll use a CD4021 to extend the digital in&amp;#8217;s and a 74HC595 to gain extra digital out&amp;#8217;s. I decided it would be best to both access the data of the CD4021 and send data to the 74HC595 over the hardware SPI bus on the Arduino (see previous post).</description>
+    </item>
+    
+    <item>
+      <title>Arduino, CD4021 and SPI</title>
+      <link>https://sinneb.github.io/p415/</link>
+      <pubDate>Sat, 29 Oct 2011 20:27:02 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p415/</guid>
+      <description>The &amp;#8220;ShiftIn&amp;#8221; tutorial on the Arduino site (Parallel to Serial Shifting-In with a CD4021BE) is very clear on why and how to setup and test your Arduino in combination with a CD4021 IC. I needed extra digital inputs and decided to communicate via SPI with the CD4021 chip. Figured it out, it was actually pretty simple thanks to the easy SPI implementation in the Arduino software since version 0020 or so (?</description>
+    </item>
+    
+    <item>
+      <title>LCD optimizations and additions</title>
+      <link>https://sinneb.github.io/p405/</link>
+      <pubDate>Tue, 25 Oct 2011 20:14:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p405/</guid>
+      <description>One of my first posts contains a LCD prototype. Today I needed LCD functionality and made some optimizations and additions to the LCD prototype.
+Speed up
+In the LCD3Wire library, I removed two delays:
+131c131 &amp;lt; //delay(1); --- &amp;gt; delay(1); 155c155 &amp;lt; //delayMicroseconds(1); --- &amp;gt; delayMicroseconds(10);  This gives a good speed increase when using the LCD3Wire library. Furthermore, reading this post (http://solar-blogg.blogspot.com/2009/02/displaying-custom-5&amp;#215;8-characters-on.html) I copied the code to the Arduino and displayed my own custom character (using the LCD3Wire library)</description>
+    </item>
+    
+    <item>
+      <title>Progress…</title>
+      <link>https://sinneb.github.io/p282/</link>
+      <pubDate>Tue, 15 Mar 2011 10:25:04 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p282/</guid>
+      <description>Long time no post. Sorry, real-life is sometimes getting in the way ;)
+Recently I bought a Leaflabs Maple R5 to replace my Arduino&amp;#8217;s. I really like it. Eventually I ported ChibiOS (realtime OS) to it and tried some software filter algorithms from musicdsp.org. Didn&amp;#8217;t make me happy; 72Mhz isn&amp;#8217;t enough to do serious audio filtering (at least not using my prototype coding).
+New plan: use the Maple for the VCO&amp;#8217;s (kind of DCO).</description>
+    </item>
+    
+    <item>
+      <title>dual arduino :: voice generator &amp; manager</title>
+      <link>https://sinneb.github.io/p265/</link>
+      <pubDate>Mon, 20 Dec 2010 12:19:28 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p265/</guid>
+      <description>&lt;p&gt;Looking for an original solution for a voice generator (instead of the Juno 82c54 solution), I decided to dedicate an entire Arduino to voice generation.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-271&#34; title=&#34;dual_arduino&#34; src=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg&#34; alt=&#34;&#34; width=&#34;400&#34; height=&#34;217&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg 400w, https://sinneb.github.io/uploads/2010/12/dual_arduino-300x162.jpg 300w&#34; sizes=&#34;(max-width: 400px) 100vw, 400px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>waveshaping 101</title>
+      <link>https://sinneb.github.io/p255/</link>
+      <pubDate>Mon, 25 Oct 2010 11:22:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p255/</guid>
+      <description>Time to start work on waveshaping. My synth is now able to generate 6 voices of musically tuned square waves. Nice, but pretty boring ;). First step is to shape the square wave to a sawtooth wave. This is the square wave from 1 voice:
+
+Inspired by the following waveshaping schematic from the Roland Juno 6,
+
+I came up with the following solution:
+
+The OpAmp is a LM324N, suitable for single +5V power (remember my USB requirement).</description>
+    </item>
+    
+    <item>
+      <title>the 5v idea</title>
+      <link>https://sinneb.github.io/p253/</link>
+      <pubDate>Thu, 07 Oct 2010 12:14:15 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p253/</guid>
+      <description>mmmm what if the entire synth could run on 5v? Just power it over USB. It would make a perfect companion for your laptop but also very easy to install with your desktop PC. The development is also a lot more &amp;#8220;portable&amp;#8221;. Now I have to work with my own bulky +/-15V power supply. It would be fantastic to just work with an USB cable connection. My MacBook can charge my iPad (1A) so the USB power connection should be powerful enough to drive a (tiny) synthesizer.</description>
+    </item>
+    
+    <item>
+      <title>sinneb36 prototype 8: 3 voices polyphony controlled by Arduino!</title>
+      <link>https://sinneb.github.io/p221/</link>
+      <pubDate>Mon, 12 Jul 2010 14:11:42 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p221/</guid>
+      <description>&lt;p&gt;Yes, it&amp;#8217;s working!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/proto8.jpg&#34;&gt;&lt;img class=&#34;aligncenter size-medium wp-image-222&#34; title=&#34;proto8&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/proto8-300x199.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;199&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/proto8-300x199.jpg 300w, https://sinneb.github.io/uploads/2010/07/proto8-1024x680.jpg 1024w, https://sinneb.github.io/uploads/2010/07/proto8.jpg 1200w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out this demo, midi file loaded in Logic &amp;gt; midi out &amp;gt; breadboard &amp;gt; Arduino&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>proto 6 and new ideas</title>
+      <link>https://sinneb.github.io/p215/</link>
+      <pubDate>Mon, 05 Jul 2010 18:52:34 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p215/</guid>
+      <description>&lt;p&gt;At the bottom of this post you&amp;#8217;ll find the newest code for the prototype. This code has some nice enhancements over the previous:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A first begin with ADSR code&lt;/li&gt;
+&lt;li&gt;A better midi implementation. The Arduino keeps track of the order of notes played so note-off commands are treated right. A note-off &amp;#8220;resounds&amp;#8221; the previously played note. If there is no previous note (all notes-off), the output is silent; no note is played. This new implementation also leads to a better legato management.&lt;/li&gt;
+&lt;li&gt;A 128 values linear to logarithmic lookup table to give the ADSR (MCP42100) a musical course.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sketch for proto 7:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch.jpg&#34;&gt;&lt;img class=&#34;aligncenter size-medium wp-image-218&#34; title=&#34;proto7_sketch&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch-300x150.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;150&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch-300x150.jpg 300w, https://sinneb.github.io/uploads/2010/07/proto7_sketch-1024x512.jpg 1024w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;Here I&amp;#8217;m going to use 1 dataline and 1 clockline for all components. This saves on the digital out pins from the Arduino. There&amp;#8217;s going to be a lot of data shifting through the 4 74hc595&amp;#8217;s and the 3 mcp42100&amp;#8217;s&amp;#8230; A challenge ;)&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sinneb Aurora :: proto 5, one voice with ASR</title>
+      <link>https://sinneb.github.io/p203/</link>
+      <pubDate>Thu, 01 Jul 2010 20:15:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p203/</guid>
+      <description>&lt;p style=&#34;text-align: left;&#34;&gt;
+  &lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-213&#34; title=&#34;aurora_logo&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png&#34; alt=&#34;&#34; width=&#34;327&#34; height=&#34;130&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png 327w, https://sinneb.github.io/uploads/2010/07/aurora_logo-300x119.png 300w&#34; sizes=&#34;(max-width: 327px) 100vw, 327px&#34; /&gt;&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Where&amp;#8217;s the quantize when you need it the most? ;)&lt;/p&gt;
+
+&lt;p&gt;Proto 5 has a first ASR (attack sustain release). The MCP42100 (the programmable potentiometer from a previous prototype) generates the enveloppe. Sounds pretty ok, though the attack is a little off which made the playing difficult ;). I will start working on a logarithmic scale instead of a linear scale.&lt;/p&gt;
+
+&lt;p&gt;Checkin&amp;#8217; &amp;#8220;&lt;a href=&#34;http://www.youtube.com/watch?v=mycMgZE7PdI&amp;feature=related&#34; target=&#34;_blank&#34;&gt;legato&lt;/a&gt;&amp;#8221; also.&lt;/p&gt;
+
+&lt;p&gt;The schematic:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Third prototype: one voice!</title>
+      <link>https://sinneb.github.io/p194/</link>
+      <pubDate>Thu, 01 Jul 2010 05:35:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p194/</guid>
+      <description>&lt;p&gt;Check this video on vimeo: &lt;a href=&#34;http://vimeo.com/12988327&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://vimeo.com/12988327&#34; target=&#34;_blank&#34;&gt;http://vimeo.com/12988327&lt;/a&gt;&lt;/a&gt; :)&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This is the third prototype of my DIY synthesizer. I&amp;#8217;m using a 82c54 16-bit timer chip for the voice (one chip has three timers, so three voices should be possible). This chip divides a master clock signal (usually in the Mhz range) through a programmable 16-bit value to create a audible frequency.&lt;/p&gt;
+
+&lt;p&gt;An Arduino Duemilanove interprets the midi (CNY17) and feeds a divider value via a shift register (74hc595) to the 82c54 voice. The crystal oscillator clock ticks at 8Mhz so for a 440Hz pulse waveform (central A) the division value is 18182. This prototype cannot produce notes below midinote 47 (B) because of it&amp;#8217;s maximum divider value (16-bit = 65.536). Future prototypes will use a clock divider (arduino itself?)&lt;/p&gt;
+
+&lt;p&gt;Oh, my synth-playing-skills are well below par ;)&lt;/p&gt;
+
+&lt;p&gt;Very much inspired by the Roland Jupiter / Juno series.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is the prototype from the previous post, with the midi in hardware solution from &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/30#32&#34; target=&#34;_blank&#34;&gt;tetracon&lt;/a&gt; (arduino forum).&lt;/p&gt;
+
+&lt;p&gt;[][1]&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1.gif&#34;&gt;&lt;img class=&#34;size-medium wp-image-196 alignnone&#34; title=&#34;arduinomidiin&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1-300x200.gif&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;200&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1-300x200.gif 300w, https://sinneb.github.io/uploads/2010/07/arduinomidiin1.gif 660w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Timothy Twillman has developed a great Arduino midi library. Very easy to implement, exactly what I needed. &lt;a href=&#34;http://timothytwillman.com/itp_blog/?page_id=240&#34; target=&#34;_blank&#34;&gt;Check it out&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Second prototype using the 82C54</title>
+      <link>https://sinneb.github.io/p189/</link>
+      <pubDate>Tue, 29 Jun 2010 11:25:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p189/</guid>
+      <description>&lt;p&gt;The second prototype uses a 74HC595 shift register to adress the datalines of the 82C54. It is now possible to send different divider values to the 82C54 and thus creating different pulse waveform frequencies.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2.png&#34;&gt;&lt;img class=&#34;alignnone size-medium wp-image-190&#34; title=&#34;82c54_proto2&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2-300x119.png&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;119&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2-300x119.png 300w, https://sinneb.github.io/uploads/2010/06/82c54_proto2.png 1007w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>First proto using the 82C54 CMOS Programmable Interval Timer</title>
+      <link>https://sinneb.github.io/p178/</link>
+      <pubDate>Mon, 28 Jun 2010 20:43:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p178/</guid>
+      <description>&lt;p&gt;Just now I finished the first prototype using one counter on the 82C54 programmable 16-bit interval timer. This timer divides the masterclock by a programmable 16-bit integer (0-65535). When dividing a crystal masterclock, a very stable and precise pulse waveform can be achieved.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-179&#34; title=&#34;PW-82c54proto1&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg&#34; alt=&#34;&#34; width=&#34;500&#34; height=&#34;333&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg 500w, https://sinneb.github.io/uploads/2010/06/PW-82c54proto1-300x199.jpg 300w&#34; sizes=&#34;(max-width: 500px) 100vw, 500px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>First DCO prototype</title>
+      <link>https://sinneb.github.io/p161/</link>
+      <pubDate>Mon, 21 Jun 2010 18:11:16 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p161/</guid>
+      <description>&lt;p&gt;This first DCO prototype uses the Arduino 16 bit timer (timer1) and the &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/&#34; target=&#34;_blank&#34;&gt;midi-in solution&lt;/a&gt; from Kuk on the Arduino forum&lt;/p&gt;
+
+&lt;p&gt;The Arduino has a hardware 16 bit timer (timer1). This timer offers 15 different counting modes. One of these modes is the so called &amp;#8220;Clear Timer on Compare Match (CTC) Mode&amp;#8221; (Mode 4):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-167&#34; title=&#34;ctcmodo&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34; alt=&#34;&#34; width=&#34;500&#34; height=&#34;207&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png 500w, https://sinneb.github.io/uploads/2010/06/ctcmodo-300x124.png 300w&#34; sizes=&#34;(max-width: 500px) 100vw, 500px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>will have to go DCO</title>
+      <link>https://sinneb.github.io/p153/</link>
+      <pubDate>Fri, 11 Jun 2010 20:51:49 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p153/</guid>
+      <description>It is going to be very difficult to get a decent and stable frequency out of the prototype. I even tried removing the MCP42100 (which is obviously not created for this purpose, will use it later again in the filter), which only resulted in a little more stability. Still drifting around 3 hz when tuning at 440hz. Not acceptable for me, so I&amp;#8217;ll go the DCO road. Inspired by the Roland Juno 106:</description>
+    </item>
+    
+    <item>
+      <title>drifting…</title>
+      <link>https://sinneb.github.io/p146/</link>
+      <pubDate>Fri, 11 Jun 2010 10:11:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p146/</guid>
+      <description>The prototype is making noise and I&amp;#8217;m tuning it to musical notes. Unfortunately the drift of various components is to high to maintain a stable tuning :( For example my 440hz A tuning:
+
+The ppm (temperature stability) of the XR2206 is 20ppm/C, fine. The ppm of the DAC is 0.16ppm/C, even better. The ppm of the digital potentiometer (mcp42100) is 800ppm/C! That number explanes the variation in tuning. Off to find a solution!</description>
+    </item>
+    
+    <item>
+      <title>Arduino midi monitor</title>
+      <link>https://sinneb.github.io/p136/</link>
+      <pubDate>Thu, 10 Jun 2010 11:56:09 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p136/</guid>
+      <description>&lt;p&gt;When using the Arduino board with midi in, it&amp;#8217;s necessary to set the baudrate to the midi standard of 31250. Unfortunately, this is a non-default baudrate so the Arduino Serial Monitor cannot display this serial data. Other solution are also dependent on standard baudrates (&lt;a href=&#34;http://www.musicalgeometry.com/archives/55&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;) so these won&amp;#8217;t work either. One way of working with this limitation is to switch baudrates during development, not very friendly.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XR2206 making noise!</title>
+      <link>https://sinneb.github.io/p113/</link>
+      <pubDate>Wed, 09 Jun 2010 21:00:45 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p113/</guid>
+      <description>&lt;p&gt;The XR2206 sinneb 6v is making semi-controlled noise! Check these design schematics and the sounds. Very nice I think ;) The current prototype is a combination of the XR2206 prototype, microprocessor (Arduino) controlled by the MCP42100 and MCP4912. Right now I&amp;#8217;m working on a prototype PCB to explore the musical capabilities of the 6v&amp;#8230; Keep you posted.&lt;/p&gt;
+
+&lt;p&gt;Updated: Eagle schematic &amp;amp; PCB now available&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XR2206 function generator</title>
+      <link>https://sinneb.github.io/p105/</link>
+      <pubDate>Mon, 07 Jun 2010 09:41:27 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p105/</guid>
+      <description>&lt;p&gt;The heart of the sinneb 6v (really, really have to come up with another prototype name). For now one xr2206 function generator produces the base waveshapes for the 6v. The xr2206 is, according to the datasheet, capable of producing high quality sine, square, triangle, ramp, and pulse waveforms of high-stability and accuracy. For now I&amp;#8217;m only using the sine out, but switching waveforms is definitely something I&amp;#8217;m gonna include!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MCP42100 Potmeter with SPI</title>
+      <link>https://sinneb.github.io/p96/</link>
+      <pubDate>Sat, 05 Jun 2010 14:50:19 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p96/</guid>
+      <description>&lt;p&gt;The MCP42100 controls the resistance for the XR2206 function generator. Together with the MCP4921 the MCP42100 determines the output frequency. In such a configuration, it should be possible the generate exact musical frequencies. Testing will begin soon!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MCP4921 12bit DAC voltage controller</title>
+      <link>https://sinneb.github.io/p85/</link>
+      <pubDate>Sat, 05 Jun 2010 14:17:22 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p85/</guid>
+      <description>&lt;p&gt;The MCP4921 controls the sweep voltage for the XR2206. The sweep voltage and the variable resistor together are controlling the output frequency. Precise musical output frequency should be feasible this way. I will be using &lt;a href=&#34;http://www.electricdruid.net/JunoDCOFreqError.php&#34; target=&#34;_blank&#34;&gt;this table&lt;/a&gt; to check if the frequencies are correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>LCD prototype</title>
+      <link>https://sinneb.github.io/p61/</link>
+      <pubDate>Thu, 03 Jun 2010 20:54:38 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p61/</guid>
+      <description>&lt;p&gt;For the LCD I build a prototype following &lt;a href=&#34;http://www.arduino.cc/playground/Code/LCD3wires&#34; target=&#34;_blank&#34;&gt;this article&lt;/a&gt; on the arduino playground.&lt;/p&gt;
+
+&lt;p&gt;Parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;MC16021E LCD module (&lt;a href=&#34;http://nl.farnell.com/everbouquet/mc16021e-syr/lcd-module-alphanumeric-2x16-stn/dp/1220425?Ntt=1220425&#34; target=&#34;_blank&#34;&gt;farnell 1220425&lt;/a&gt;) (different pinout than the LCD on the arduino playground)&lt;/li&gt;
+&lt;li&gt;HEF/CD4094&lt;/li&gt;
+&lt;li&gt;2k2 trimpot&lt;/li&gt;
+&lt;li&gt;male header pins&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My schematic &amp;amp; PCB layout (eagle):&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

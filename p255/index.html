@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>waveshaping 101 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>waveshaping 101</h1>
+  <time datetime=2010-10-25T11:22:55Z class="post-date">Mon, Oct 25, 2010</time>
+  <p>Time to start work on waveshaping. My synth is now able to generate 6 voices of musically tuned square waves. Nice, but pretty boring ;). First step is to shape the square wave to a sawtooth wave. This is the square wave from 1 voice:</p>
+
+<p><a href="/uploads/2010/10/square_voice1.png"><img class="size-full wp-image-256 alignnone" title="square_voice1" src="/uploads/2010/10/square_voice1.png" alt="" width="400" height="228" srcset="/uploads/2010/10/square_voice1.png 400w, /uploads/2010/10/square_voice1-300x171.png 300w" sizes="(max-width: 400px) 100vw, 400px" /></a></p>
+
+<p>Inspired by the following waveshaping schematic from the Roland Juno 6,</p>
+
+<p><a href="/uploads/2010/10/juno6ws.jpg"><img class="alignnone size-full wp-image-257" title="juno6ws" src="/uploads/2010/10/juno6ws.jpg" alt="" width="396" height="311" srcset="/uploads/2010/10/juno6ws.jpg 396w, /uploads/2010/10/juno6ws-300x235.jpg 300w" sizes="(max-width: 396px) 100vw, 396px" /></a></p>
+
+<p>I came up with the following solution:</p>
+
+<p><a href="/uploads/2010/10/square2saw.jpg"><img class="alignnone size-full wp-image-259" title="square2saw" src="/uploads/2010/10/square2saw.jpg" alt="" width="400" height="347" srcset="/uploads/2010/10/square2saw.jpg 400w, /uploads/2010/10/square2saw-300x260.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" /></a></p>
+
+<p>The OpAmp is a LM324N, suitable for single +5V power (remember my USB requirement). The transistor is a 2N3904 NPN instead of the PNP used in the Roland schematics. All resistor and capacitor values are determined by the parts I have in my stock. The minus voltage on the capacitor integrator loop is generated via an ICL7660 IC (transforms + voltages into &#8211; voltages). Result:</p>
+
+<p><a href="/uploads/2010/10/saw_voice1.jpg"><img class="alignnone size-full wp-image-260" title="saw_voice1" src="/uploads/2010/10/saw_voice1.jpg" alt="" width="400" height="217" srcset="/uploads/2010/10/saw_voice1.jpg 400w, /uploads/2010/10/saw_voice1-300x162.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" /></a></p>
+
+<p>Tada: a sawtooth wave. The peak of the wave is not at 5v because of the maximum output swing of the LM324N OpAmp (+V &#8211; 1.5V).</p>
+
+<p>Now I have to find the best values for all the components to generate a normalised saw wave (peak at 3.6v) for all frequencies. My synth should be able to handle all frequencies between 8Hz (midinote 0) and 4000Hz (around midinote 107).</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

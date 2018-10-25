@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>First proto using the 82C54 CMOS Programmable Interval Timer &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>First proto using the 82C54 CMOS Programmable Interval Timer</h1>
+  <time datetime=2010-06-28T20:43:55Z class="post-date">Mon, Jun 28, 2010</time>
+  <p>Just now I finished the first prototype using one counter on the 82C54 programmable 16-bit interval timer. This timer divides the masterclock by a programmable 16-bit integer (0-65535). When dividing a crystal masterclock, a very stable and precise pulse waveform can be achieved.</p>
+
+<p><a href="/uploads/2010/06/PW-82c54proto1.jpg"><img class="alignnone size-full wp-image-179" title="PW-82c54proto1" src="/uploads/2010/06/PW-82c54proto1.jpg" alt="" width="500" height="333" srcset="/uploads/2010/06/PW-82c54proto1.jpg 500w, /uploads/2010/06/PW-82c54proto1-300x199.jpg 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p></p>
+
+<p>For possible future reference:</p>
+
+<p><a href="/uploads/2010/06/82c54.png"><img class="alignnone size-medium wp-image-182" title="82c54" src="/uploads/2010/06/82c54-300x117.png" alt="" width="300" height="117" srcset="/uploads/2010/06/82c54-300x117.png 300w, /uploads/2010/06/82c54.png 761w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>The Arduino programming sequence:</p>
+
+<pre>All following pins low
+
+A0A1 -&gt; 11 (select control word register)
+WR -&gt; 0  (enable CPU write operation)
+D0 - D7 control word (send control word (page 8 datasheet)
+WR -&gt; 1 (disable CPU write)
+
+A0A1 -&gt; 00 (select counter 0)
+WR -&gt; 0 
+D0 - D7 LSB (send LSB)
+WR -&gt; 1 
+WR -&gt; 0 
+D0 - D7 MSB (send MSB)
+WR -&gt; 1
+</pre>
+
+<p>and the test code:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">int incomingByte = 0;    // for incoming serial data
+int statusled = 13;
+
+// key sequence 32415241241
+
+void setup() {
+    Serial.begin(9600);
+
+    setup4Mhz();
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  digitalWrite(2, LOW);
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(8, LOW);
+
+  // init done, statusled high
+  digitalWrite(statusled,HIGH);
+
+}
+
+void loop() {
+if(Serial.available() &gt; 0)
+      {
+        incomingByte = Serial.read();
+        if (incomingByte == 49) {  // 1
+          Serial.println("2 high");
+          digitalWrite(2, HIGH);
+        }
+        if (incomingByte == 50) {  // 2
+          Serial.println("2 low");
+          digitalWrite(2, LOW);
+        }
+        if (incomingByte == 51) {  // 3
+          Serial.println("A0A1 -&gt; 1");
+          digitalWrite(3, HIGH);
+          digitalWrite(4, HIGH);
+        }
+        if (incomingByte == 52) {  // 4
+          Serial.println("D5 D4 D2 D1 -&gt; 1");
+          digitalWrite(5, HIGH);
+          digitalWrite(6, HIGH);
+          digitalWrite(7, HIGH);
+          digitalWrite(8, HIGH);
+        }
+        if (incomingByte == 53) {  // 5
+          Serial.println("A0A1 -&gt; 0");
+          digitalWrite(3, LOW);
+          digitalWrite(4, LOW);
+        }
+        if (incomingByte == 54) {  // 6
+          Serial.println("D5 D4 D2 D1 -&gt; 0");
+          digitalWrite(5, LOW);
+          digitalWrite(6, LOW);
+          digitalWrite(7, LOW);
+          digitalWrite(8, LOW);
+        }
+      }
+}
+
+// not required because we're using a separate crystal oscillator
+void setup4Mhz() {
+    pinMode(9, OUTPUT);
+
+  // Timer/Counter 1 :: registers TCCR1A and TCCR1B
+
+  // Clear Timer on Compare Match (CTC) Mode
+  bitWrite(TCCR1A, WGM10, 0);
+  bitWrite(TCCR1A, WGM11, 0);
+  bitWrite(TCCR1B, WGM12, 1);
+  bitWrite(TCCR1B, WGM13, 0);
+
+  // Toggle OC1A on Compare Match. p.134
+  // arduino hw pin 9
+  bitWrite(TCCR1A, COM1A0, 1);
+  bitWrite(TCCR1A, COM1A1, 0);
+
+  // prescaling *1
+  bitWrite(TCCR1B, CS10, 1);
+  bitWrite(TCCR1B, CS11, 0);
+  bitWrite(TCCR1B, CS12, 0);
+
+  OCR1A = 1;
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

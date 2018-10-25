@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Uncategorized on sinneb</title>
+    <link>https://sinneb.github.io/categories/uncategorized/</link>
+    <description>Recent content in Uncategorized on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 17 Feb 2018 13:38:54 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/uncategorized/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>a modern take on the exponential converter</title>
+      <link>https://sinneb.github.io/p807/</link>
+      <pubDate>Sat, 17 Feb 2018 13:38:54 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p807/</guid>
+      <description>In the previous post, I investigated the possibility to replace the CA3046 and expo pair with modern components in a synthesizers&amp;#8217; exponential converter, while retaining the temperature compensation. Continuing on the findings from the previous post, I worked out a schematic:
+CV inputs are summed in opamp U7, then scaled with regard to temperature over R1 through R4 for the expo converter build up out of a BCM847DS matched transistor pair.</description>
+    </item>
+    
+    <item>
+      <title>Replacing the CA3046 &amp; understanding and replacing the tempco</title>
+      <link>https://sinneb.github.io/p780/</link>
+      <pubDate>Tue, 09 Jan 2018 20:48:41 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p780/</guid>
+      <description>Let&amp;#8217;s get rid of the CA3046, because it&amp;#8217;s large and almost obsolete, even the one in a SOIC package (LM3046). The temperature dependant resistor (tempco, 1k, 3300ppm) is also obsolute and very hard to source &amp;#8211; so let&amp;#8217;s also get rid of that. On this blog, the CA3046 part has been examined in depth, but the tempco part can use some investigation.
+First the CA3046, a General Purpose NPN Transistor Array.</description>
+    </item>
+    
+    <item>
+      <title>bennis|budge VCO v2.0 smd finished!</title>
+      <link>https://sinneb.github.io/p766/</link>
+      <pubDate>Sun, 17 Dec 2017 07:17:51 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p766/</guid>
+      <description>After a number of important revisions, the very first reliable, stable and interesting VCO is finished! Some features:
+&amp;#8211; Instead of a classic configuration where the sawtooth core is reset by a voltage comparator and a small capacitor, this sawtooth core is reset by a Schmitt trigger configuration, allowing LFO functionality by switching on an extra capacitor in the sawtooth core. This because the reset pulse does not rely on the size of the reset-capacitor but is determined by the Schmitt trigger.</description>
+    </item>
+    
+    <item>
+      <title>New VCO prototype: bennis|budge VCO v1</title>
+      <link>https://sinneb.github.io/p759/</link>
+      <pubDate>Mon, 02 Oct 2017 07:46:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p759/</guid>
+      <description>So, finally I combined all experiences and experiments of the last couple of years into a new VCO prototype. And, IMHO it rocks!
+  In this post you&amp;#8217;ll find some development notes, the LTSpice simulation files and the Eagle schematics and board design. The Eagle files correspond to the actual prototype version, the LTSpice simulation is already an iteration further. See following notes for the differences.
+VCO prototype schematics png (viewable in browser)</description>
+    </item>
+    
+    <item>
+      <title>Serial midi on the Raspberry Pi Zero W</title>
+      <link>https://sinneb.github.io/p736/</link>
+      <pubDate>Wed, 26 Apr 2017 20:04:02 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p736/</guid>
+      <description>The Raspberry Pi Zero W (rpi0w) has a lot of properties to make it a great musical instrument (CPU power, affordability, portability, power demands). First thing on my list is serial MIDI in, to hook up my octatrack. I compiled the following guide to equip the rpi0w with MIDI in.
+Software
+ Install Rasbian (my version is 2017-04-10) Midi requires the serial device &amp;#8220;/dev/ttyAMA0&amp;#8221; to be exposed through the rpi0w&amp;#8217;s header pins.</description>
+    </item>
+    
+    <item>
+      <title>Development with STM32F7 discovery</title>
+      <link>https://sinneb.github.io/p686/</link>
+      <pubDate>Wed, 05 Oct 2016 07:57:15 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p686/</guid>
+      <description>A few pointers regarding development with an STM32F7 discovery board. My intention with this powerful board is to be able to sync wave files to a tap-tempo BPM (kinda Ableton Live like), and take the device up on stage with my band.
+The board:
+
+The STM32F7 disco runs at ~200Mhz, has support for DSP instructions (hardware floating point unit) and a lot, lot more. My first step was to make development easy, fast and &amp;#8220;Arduino&amp;#8221; like &amp;#8211; since I&amp;#8217;m really comfortable with that.</description>
+    </item>
+    
+    <item>
+      <title>Matrix mixing craziness</title>
+      <link>https://sinneb.github.io/p679/</link>
+      <pubDate>Fri, 01 Apr 2016 19:13:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p679/</guid>
+      <description>A few weeks ago I did a small experiment with summed matrix mixing:
+  sounds great, crazy, untamed etc. I decided to explore summed matrix mixing a little bit further and today I started building a new prototype, that got out of hand quickly!
+A single attenuverting channel (a 1 to 1 matrix) looks like this:
+
+Although interesting, a more advanced matrix would offer a lot more possibilities. I decided to go for a 4 x 3 matrix, since I had those parts available.</description>
+    </item>
+    
+    <item>
+      <title>Schematics, eagle files and build notes for the umodular</title>
+      <link>https://sinneb.github.io/p674/</link>
+      <pubDate>Wed, 24 Feb 2016 19:40:07 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p674/</guid>
+      <description>As promised, attached to this post you&amp;#8217;ll find the schematics in PDF and the eagle files for the umodular. Released as open source hardware, so hack away and please provide feedback! The eagle designs are not editable using the free version because of the size of the PCB, sorry. Check the list below; one of the outstanding wishes is to divide the large board into smaller, attachable boards &amp;#8211; all below the 100mm x 80mm constraint.</description>
+    </item>
+    
+    <item>
+      <title>µ-modular demo on YouTube</title>
+      <link>https://sinneb.github.io/p672/</link>
+      <pubDate>Mon, 22 Feb 2016 21:04:52 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p672/</guid>
+      <description>There you go! Sources, designs etc coming soon!
+  </description>
+    </item>
+    
+    <item>
+      <title>edusynth, the boards!</title>
+      <link>https://sinneb.github.io/p661/</link>
+      <pubDate>Wed, 03 Feb 2016 09:55:48 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p661/</guid>
+      <description>Boards have arrived from China, PCBWAY.com. Fast service! Ordered 10 board 24 hour rush on friday night because of Chinese new year and tuesday (today) the boards have arrived already. Boards look great, unfortunately green because of the 24h rush service but good quality.  Unfortunately I made some errors, which I&amp;#8217;ll document here for future reference.
+The picture above shows the board missing Eagle layer 25 (tNames) which I used to designate the input and outputs pins&amp;#8230; Illustrated below:</description>
+    </item>
+    
+    <item>
+      <title>edusynth, getting there!</title>
+      <link>https://sinneb.github.io/p658/</link>
+      <pubDate>Fri, 29 Jan 2016 11:54:14 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p658/</guid>
+      <description>Making progress! Because of the start of a new semester at my university, I tried to finish a first version of the edusynth. And, also to my own amazement, I did! Here&amp;#8217;s a first 3d brd view of the eagle file:
+
+Dual VCO, VCF and VCA. Dual ADSR and a number of OPS (CV, mix and split). Board are ready according to pcbway &amp;#8211; I&amp;#8217;m waiting for delivery&amp;#8230; First try outs to follow.</description>
+    </item>
+    
+    <item>
+      <title>Senk, a 5v µModular</title>
+      <link>https://sinneb.github.io/p642/</link>
+      <pubDate>Tue, 08 Dec 2015 21:24:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p642/</guid>
+      <description>Been busy building a 5v µModular system for students to learn about and experiment with sound. Design should follow the classic synth setup like for example a Minimoog, with added patchpoints. Part of the design is finished, as follows:
+
+Input of 1 is an Arduino PWM wave. This wave is passively filtered to a DC voltage (ranging from 0v to 5v). This resulting voltage will be one way to drive the voltage controlled oscillator.</description>
+    </item>
+    
+    <item>
+      <title>A temperature controlled CA3046</title>
+      <link>https://sinneb.github.io/p634/</link>
+      <pubDate>Thu, 29 Oct 2015 11:40:54 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p634/</guid>
+      <description>So, finally started work again on the heated CA3046. First, the results of the previous post regarding the CA3046 were reexaminated. Indeed, when building the schematic from that post: 
+and heating that circuit with a hair dryer:
+  the base voltage of the NPN transistor changes along with the temperature.
+The next step I took was connecting that output to an opamp comparator to be able to switch a heating circuit on and off.</description>
+    </item>
+    
+    <item>
+      <title>SSHing to a Raspberry Pi behind a firewall (Eduroam)</title>
+      <link>https://sinneb.github.io/p629/</link>
+      <pubDate>Wed, 23 Sep 2015 10:46:37 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p629/</guid>
+      <description>The firewall at my university (Eduroam) prevents direct connections between two computer on the network on all ports. SSH-ing to an other computer is therefor not possible. However, when a connection is ESTABLISHED, this connection can be reused &amp;#8211; for example the other way around! Let&amp;#8217;s work on this.
+Requirements: rpi, external server
+Automate your ssh login from your rpi to your external server using (this link). Execute these commands using &amp;#8220;sudo&amp;#8221; because the startup script we&amp;#8217;re going to edit is run as root.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry pi as high quality LFO generator</title>
+      <link>https://sinneb.github.io/p623/</link>
+      <pubDate>Tue, 24 Mar 2015 20:40:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p623/</guid>
+      <description>I&amp;#8217;ve been experimenting with external LFO generators to modulate my MS20 mini. Working towards a small and portable solution, I first built a larger format prototype using my laptop, a Presonus Firestudio and a fresh copy of pyo (a Python module written in C to help digital signal processing script creation).
+  Nice results! But I want a smaller, dedicated device to generate a variety of LFO waveforms, with enough range in the frequency (say from 0.</description>
+    </item>
+    
+    <item>
+      <title>LittleBits synced to Volca Beats’ pulse clock</title>
+      <link>https://sinneb.github.io/p613/</link>
+      <pubDate>Thu, 19 Feb 2015 14:33:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p613/</guid>
+      <description>Recently I was fiddling with a set of LittleBits and I was trying to sync these (the LitteBits micro sequencer that is), to my Volca Beats. With the current lineup of LittleBits, this was impossible. Since the Volca Beats has a sync out (0V, 5V pulses with 15ms duration), the solution was not all too difficult. I just took a LittleBits wire, cut it in two, reconnected the VCC and the GND but connected the SIG to the signal connector of an 3.</description>
+    </item>
+    
+    <item>
+      <title>The heated CA3046, part 1</title>
+      <link>https://sinneb.github.io/p603/</link>
+      <pubDate>Thu, 15 Aug 2013 10:03:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p603/</guid>
+      <description>A reliable VCO needs a steady exponential converter. Exponential converter are, because of their transistor based design (needed for the exponential functions), very temperature sensitive. A number of solutions to this problem exist. A solution that looks very interesting from a technical point of view is the solution found in (among others) the Moog Prodigy. The exponential converter only needs two transistors (the matched pair) from the five transistor available in the CA3046 chip.</description>
+    </item>
+    
+    <item>
+      <title>LM13700 Triangle VCO</title>
+      <link>https://sinneb.github.io/p597/</link>
+      <pubDate>Thu, 15 Aug 2013 09:47:07 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p597/</guid>
+      <description>The LM13700 OTA chip has an interesting schematic for a triangle VCO in its datasheet. The discreet sawtooth VCO I&amp;#8217;m building is too complex for breadboarding and does not deliver a decent sawtooth (probably due to distortion picked up somewhere in the breadboard). Therefor I decided to give the LM13700 triangle VCO a go. The schematic in the datasheet is very clear. All I did was exchange some resistor and capacitor values to ones that I have laying around.</description>
+    </item>
+    
+  </channel>
+</rss>

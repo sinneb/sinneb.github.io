@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LCD prototype &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>LCD prototype</h1>
+  <time datetime=2010-06-03T20:54:38Z class="post-date">Thu, Jun 3, 2010</time>
+  <p>For the LCD I build a prototype following <a href="http://www.arduino.cc/playground/Code/LCD3wires" target="_blank">this article</a> on the arduino playground.</p>
+
+<p>Parts:</p>
+
+<ul>
+<li>MC16021E LCD module (<a href="http://nl.farnell.com/everbouquet/mc16021e-syr/lcd-module-alphanumeric-2x16-stn/dp/1220425?Ntt=1220425" target="_blank">farnell 1220425</a>) (different pinout than the LCD on the arduino playground)</li>
+<li>HEF/CD4094</li>
+<li>2k2 trimpot</li>
+<li>male header pins</li>
+</ul>
+
+<p>My schematic &amp; PCB layout (eagle):</p>
+
+<p></p>
+
+<p><a href="/uploads/2010/06/MC16021E-LCD-prototype.zip">MC16021E LCD prototype</a></p>
+
+<p>Information regarding the LCD pinout and my eagle layout:</p>
+
+<p><a href="/uploads/2010/06/MC16021_pinout_eagle_datasheet.png"><img class="alignnone size-full wp-image-81" title="MC16021_pinout_eagle_datasheet" src="/uploads/2010/06/MC16021_pinout_eagle_datasheet.png" alt="" width="497" height="287" srcset="/uploads/2010/06/MC16021_pinout_eagle_datasheet.png 497w, /uploads/2010/06/MC16021_pinout_eagle_datasheet-300x173.png 300w" sizes="(max-width: 497px) 100vw, 497px" /></a></p>
+
+<p>So, LCD pin nr 15 is eagle schematic pin 2, LCD pin nr 1 is eagle schematic pin 3 etc.</p>
+
+<p>The completed module looks like this:</p>
+
+<p><a href="/uploads/2010/06/mc16021protoV6.png"><img class="alignnone size-full wp-image-65" title="mc16021protoV6" src="/uploads/2010/06/mc16021protoV6.png" alt="" width="500" height="286" srcset="/uploads/2010/06/mc16021protoV6.png 500w, /uploads/2010/06/mc16021protoV6-300x171.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p>ok, I should have sanded the PCB a little more, but I was lazy ;) Oh, the trimpot dimensions are off on the PCB so I had to bend the legs (too) much. After a lot of fiddeling I finally managed to fit the trimpot on the PCB.</p>
+
+<p>Arduino code:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">// Example use of LCD3Wire library
+// Almost a carbon-copy of LCD4BitExample.pde
+#include &lt;LCD3Wire.h&gt;
+// Arduino pins
+#define LCD_LINES 2  // number of lines in your display
+#define DOUT_PIN  11  // Dout pin
+#define STR_PIN   12  // Strobe pin
+#define CLK_PIN   10  // Clock pin
+
+//create object to control an LCD.
+LCD3Wire lcd = LCD3Wire(LCD_LINES, DOUT_PIN, STR_PIN, CLK_PIN);
+
+void setup() {
+  lcd.init();
+  //optionally, now set up our application-specific display settings, overriding whatever the lcd did in lcd.init()
+  //lcd.commandWrite(0x0F);//cursor on, display on, blink on.  (nasty!)
+  // 0x0C: cursor off, no blink
+  lcd.commandWrite(0x0C);
+  lcd.clear();
+  lcd.cursorTo(1, 0);
+  lcd.printIn("freq res lfo var");
+  lcd.cursorTo(2, 0);
+  lcd.printIn("127  084 127 032");
+}
+
+void loop() {
+  // empty
+}
+</pre>
+
+<p>and the <a href="/uploads/2010/06/LCD3WireLibrary.zip">LCD3WireLibrary</a></p>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

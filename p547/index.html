@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>USB/IP under Ubuntu &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>USB/IP under Ubuntu</h1>
+  <time datetime=2012-12-27T22:16:33Z class="post-date">Thu, Dec 27, 2012</time>
+  <p>USB/IP is a general USB device sharing system over IP network. Unfortunately, on newer  Ubuntu&#8217;s the usb/ip device driver isn&#8217;t compatible with the userspace tools. Here&#8217;s how to fix this on Ubuntu 12.10 (and probably some older versions).</p>
+
+<p><a href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/900384/comments/10" target="_blank">Grab Linard Verstraete&#8217;s script from launchpad</a>. Change the last line from</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0.0.1
+</pre>
+
+<p>to</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0
+</pre>
+
+<p>and run the script. You now have a compatible device driver and userspace tool. Install on both client and server and <a href="http://git.kernel.org/?p=linux/kernel/git/next/linux-next.git;a=blob;f=drivers/staging/usbip/userspace/README;h=63cd107190591d0ce2c7513335378df4a0a27d94;hb=HEAD" target="_blank">check the run instructions from the kernel source</a>. Good luck &#8211; I couldn&#8217;t get it to work correctly but I did want to share these tips! Drop a note in the comments if you&#8217;re more successful.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

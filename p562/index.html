@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPI control of AD9833 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>SPI control of AD9833</h1>
+  <time datetime=2013-04-15T12:48:20Z class="post-date">Mon, Apr 15, 2013</time>
+  <p>A few months ago I ordered a MSOP to DIP conversion board including an AD9833 from <a href="http://proto-advantage.com" target="_blank">proto advantage</a>.  The <a href="http://www.analog.com/en/rfif-components/direct-digital-synthesis-dds/ad9833/products/product.html" target="_blank">AD9833</a> (LOW POWER, 12.65 MW, 2.3 V TO +5.5 V, PROGRAMMABLE WAVEFORM GENERATOR) looks like an interesting IC, doesn&#8217;t cost too much and is perhaps suited for a musical purpose.</p>
+
+<p>Wiring up and controlling the AD9833 took some time and some research but I finally combined the right pieces of the puzzle.</p>
+
+<p><a href="/uploads/2013/04/124.jpg"><img class="alignnone size-full wp-image-564" alt="124" src="/uploads/2013/04/124-e1366025581588.jpg" width="520" height="347" srcset="/uploads/2013/04/124-e1366025581588.jpg 520w, /uploads/2013/04/124-e1366025581588-300x200.jpg 300w" sizes="(max-width: 520px) 100vw, 520px" /></a></p>
+
+<p>At first I wired up the power section as proposed in the datasheet:</p>
+
+<p><a href="/uploads/2013/04/Screen-Shot-2013-04-15-at-12.35.32-PM.png"><img class="alignnone size-full wp-image-565" alt="Screen Shot 2013-04-15 at 12.35.32 PM" src="/uploads/2013/04/Screen-Shot-2013-04-15-at-12.35.32-PM.png" width="359" height="351" srcset="/uploads/2013/04/Screen-Shot-2013-04-15-at-12.35.32-PM.png 359w, /uploads/2013/04/Screen-Shot-2013-04-15-at-12.35.32-PM-300x293.png 300w" sizes="(max-width: 359px) 100vw, 359px" /></a></p>
+
+<p>Lots of attention to decoupling and separation of DGND and AGND, which both are a good thing &#8482; but also clutter my experimental setting on the breadboard. So, time to reduce the number of components with the setup from <a href="http://hades.mech.northwestern.edu/index.php/Waveform_Generation_with_AD9833" target="_blank">NXR</a>:</p>
+
+<p><a href="/uploads/2013/04/AD9833Connsmall.jpg"><img class="alignnone size-medium wp-image-567" alt="AD9833Connsmall" src="/uploads/2013/04/AD9833Connsmall-298x300.jpg" width="298" height="300" srcset="/uploads/2013/04/AD9833Connsmall-298x300.jpg 298w, /uploads/2013/04/AD9833Connsmall-200x200.jpg 200w, /uploads/2013/04/AD9833Connsmall-100x100.jpg 100w, /uploads/2013/04/AD9833Connsmall-300x302.jpg 300w, /uploads/2013/04/AD9833Connsmall-150x150.jpg 150w, /uploads/2013/04/AD9833Connsmall.jpg 343w" sizes="(max-width: 298px) 100vw, 298px" /></a></p>
+
+<p>Much better.</p>
+
+<p><a href="https://github.com/annem/AD9837" target="_blank">Annem</a> did a great job interfacing the AD9837 with the Arduino. Fortunately, the AD9833 has the same interface. I did however make some adjustments. I removed the delay in re-activating the AD9833. I added the Timer1 library to generate the masterclock for the AD9833. This clock runs in the background at ~1Mhz and is made available through pin 9.</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">/*
+AD9837 Pro Generator sample code
+This was written in Arduino 1.0.1,
+for an Arduino Pro Mini, 5V, 16MHz
+Pete Dokter, 9/2/12
+Remixed by Anne Mahaffey, 10/8/12
+ReRemixed by sinneb, 15th of april 2013
+
+The connections to the AD9837 board are:
+
+FSYNC -&gt; 2
+SCLK -&gt; 13 (SCK)
+SDATA -&gt; 11 (MOSI)
+MCLK -&gt; 9 (Timer1)
++Vin = VCC on Pro Micro
+GND -&gt; GND
+
+This code bears the license of the beer. If you make money off of this,
+you gotta beer me.
+*/
+
+long freq; //32-bit global frequency variable
+
+#include &lt;SPI.h&gt;
+#include "TimerOne.h"
+
+// Define the FSYNC (used for SD funtion)
+#define FSYNC 2
+
+&nbsp;
+
+void setup()
+{
+ Timer1.initialize(1);
+ Timer1.pwm(9, 512);
+
+ pinMode(FSYNC, OUTPUT); //FSYNC
+
+ Serial.begin(9600); // start serial communication at 9600bps
+
+ digitalWrite(FSYNC, HIGH);
+
+ SPI.setDataMode(SPI_MODE2); // requires SPI Mode for AD9837
+ SPI.begin();
+
+ delay(100); //A little set up time, just to make sure everything's stable
+
+ //Initial frequency
+ freq = 4000;
+ WriteFrequencyAD9837(freq);
+
+ Serial.print("Frequency is ");
+ Serial.print(freq);
+ Serial.println("");
+
+}
+
+void loop()
+{
+
+}
+void WriteFrequencyAD9837(long frequency)
+{
+ //
+ int MSB;
+ int LSB;
+ int phase = 0;
+
+ //We can't just send the actual frequency, we have to calculate the "frequency word".
+ //This amounts to ((desired frequency)/(reference frequency)) x 0x10000000.
+ //calculated_freq_word will hold the calculated result.
+ long calculated_freq_word;
+ float AD9837Val = 0.00000000;
+
+ AD9837Val = (((float)(frequency))/16000000);
+ calculated_freq_word = AD9837Val*0x10000000;
+
+ /*
+ Serial.println("");
+ Serial.print("Frequency word is ");
+ Serial.print(calculated_freq_word);
+ Serial.println("");
+ */
+
+ //Once we've got that, we split it up into separate bytes.
+ MSB = (int)((calculated_freq_word & 0xFFFC000)&gt;&gt;14); //14 bits
+ LSB = (int)(calculated_freq_word & 0x3FFF);
+
+ //Set control bits DB15 ande DB14 to 0 and one, respectively, for frequency register 0
+ LSB |= 0x4000;
+ MSB |= 0x4000;
+
+ phase &= 0xC000;
+
+ WriteRegisterAD9837(0x2100);
+
+ //delay(500);
+
+ //Set the frequency==========================
+ WriteRegisterAD9837(LSB); //lower 14 bits
+
+WriteRegisterAD9837(MSB); //upper 14 bits
+
+WriteRegisterAD9837(phase); //mid-low
+
+ //Power it back up
+ //AD9837Write(0x2020); //square
+ WriteRegisterAD9837(0x2000); //sin
+ //AD9837Write(0x2002); //triangle
+
+}
+
+//This is the guy that does the actual talking to the AD9837
+void WriteRegisterAD9837(int dat)
+{
+ digitalWrite(FSYNC, LOW); //Set FSYNC low
+ delay(10);
+
+ SPI.transfer(highByte(dat)); Serial.println(highByte(dat));
+ SPI.transfer(lowByte(dat)); Serial.println(lowByte(dat));
+
+delay(10);
+ digitalWrite(FSYNC, HIGH); //Set FSYNC high
+}
+
+</pre>
+
+<p>I added a buffering opamp to listen to the generated sinewave. Sounds pretty OK to me. Now off to further investigate the audio possibilities of this IC.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

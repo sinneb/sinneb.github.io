@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ubuntu on sinneb</title>
+    <link>https://sinneb.github.io/categories/ubuntu/</link>
+    <description>Recent content in ubuntu on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 10 Jan 2013 11:50:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/categories/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kivy and vite-vite</title>
+      <link>https://sinneb.github.io/p552/</link>
+      <pubDate>Thu, 10 Jan 2013 11:50:03 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p552/</guid>
+      <description>Note to self: Use Kivy (Open source Python library for rapid development of applications for multiple platforms) and vite-vite (Toolkit for building business and productivity apps on Android using the Kivy framework) for next prototype.</description>
+    </item>
+    
+    <item>
+      <title>Livestream webcam via webm to browsers</title>
+      <link>https://sinneb.github.io/p550/</link>
+      <pubDate>Mon, 07 Jan 2013 22:32:35 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p550/</guid>
+      <description>Here&amp;#8217;s a work in progress: livestream webcam video to browsers using Node.js. From here. Ubuntu requires the &amp;#8216;nodejs&amp;#8217; executable instead of just &amp;#8216;node&amp;#8217;
+var express = require(&#39;express&#39;) var net = require(&#39;net&#39;); var child = require(&#39;child_process&#39;); var cmd = &#39;gst-launch-0.10&#39;; var args = &#39;&#39;; var options = null; var app = express(); app.get(&#39;/&#39;, function(req, res) { var date = new Date(); res.writeHead(200, { &#39;Date&#39;:date.toUTCString(), &#39;Connection&#39;:&#39;close&#39;, &#39;Cache-Control&#39;:&#39;private&#39;, &#39;Content-Type&#39;:&#39;video/webm&#39;, &#39;Server&#39;:&#39;CustomStreamer/0.0.1&#39;, }); var server = net.</description>
+    </item>
+    
+    <item>
+      <title>USB/IP under Ubuntu</title>
+      <link>https://sinneb.github.io/p547/</link>
+      <pubDate>Thu, 27 Dec 2012 22:16:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p547/</guid>
+      <description>USB/IP is a general USB device sharing system over IP network. Unfortunately, on newer Ubuntu&amp;#8217;s the usb/ip device driver isn&amp;#8217;t compatible with the userspace tools. Here&amp;#8217;s how to fix this on Ubuntu 12.10 (and probably some older versions).
+Grab Linard Verstraete&amp;#8217;s script from launchpad. Change the last line from
+sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0.0.1  to
+sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0  and run the script. You now have a compatible device driver and userspace tool.</description>
+    </item>
+    
+    <item>
+      <title>reminder: fixing locale warning on ubuntu</title>
+      <link>https://sinneb.github.io/p542/</link>
+      <pubDate>Wed, 26 Dec 2012 14:15:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p542/</guid>
+      <description>Just a quick reminder how to fix the locale warnings on fresh ubuntu installs. Warnings look, among others, like this:
+locale: Cannot set LC_CTYPE to default locale: No such file or directory  Fix: add this
+LANG=&#34;en_US.UTF-8&#34; LC_MESSAGES=&#34;C&#34; LC_ALL=&#34;en_US.UTF-8&#34;  to /etc/environment
+Thank you MCKelvin @ askubuntu</description>
+    </item>
+    
+  </channel>
+</rss>

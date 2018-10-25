@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>a modern take on the exponential converter &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>a modern take on the exponential converter</h1>
+  <time datetime=2018-02-17T13:38:54Z class="post-date">Sat, Feb 17, 2018</time>
+  <p>In the previous post, I investigated the possibility to replace the CA3046 and expo pair with modern components in a synthesizers&#8217; exponential converter, while retaining the temperature compensation. Continuing on the findings from the previous post, I worked out a schematic:</p>
+
+<p><img class="alignnone size-large wp-image-808" src="/uploads/2018/02/Screen-Shot-2018-02-17-at-14.27.49-1024x458.png" alt="Screen Shot 2018-02-17 at 14.27.49" width="625" height="280" srcset="/uploads/2018/02/Screen-Shot-2018-02-17-at-14.27.49-1024x458.png 1024w, /uploads/2018/02/Screen-Shot-2018-02-17-at-14.27.49-300x134.png 300w, /uploads/2018/02/Screen-Shot-2018-02-17-at-14.27.49-624x279.png 624w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>CV inputs are summed in opamp U7, then scaled with regard to temperature over R1 through R4 for the expo converter build up out of a BCM847DS matched transistor pair. R1 is a specific SMD NTC thermistor. The value of R2 is calculated via a linearization formula I found on the internet. The actual value for linearization was something of 7.5k, but an Excel sheet approximation showed that 9k would work better in normal room temperatures (15 &#8211; 25 degrees). R4 determines the to-ground part of the voltage divider (with R1-R2-R3) and thus sets the 1V per octave setting and should be variable for a small part.</p>
+
+<p>Simulation of 3 temperatures shows the following:</p>
+
+<p><img class="alignnone size-large wp-image-809" src="/uploads/2018/02/Screen-Shot-2018-02-17-at-14.35.09-1024x908.png" alt="Screen Shot 2018-02-17 at 14.35.09" width="625" height="554" srcset="/uploads/2018/02/Screen-Shot-2018-02-17-at-14.35.09-1024x908.png 1024w, /uploads/2018/02/Screen-Shot-2018-02-17-at-14.35.09-300x266.png 300w, /uploads/2018/02/Screen-Shot-2018-02-17-at-14.35.09-624x553.png 624w, /uploads/2018/02/Screen-Shot-2018-02-17-at-14.35.09.png 1478w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>The top plot shows the difference in ua output over R7 for the three temperatures (20, 25 and 30 degrees Celcius). The bottom plots shows the outputs for the temperatures over R7, but this time compensated by the thermistor circuit. Yes, no difference!</p>
+
+<p>Now on to building my first commercial Eurorack component. A triple VCO under the bennis|budge brand. Keep watching this space ;)</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SSHing to a Raspberry Pi behind a firewall (Eduroam) &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>SSHing to a Raspberry Pi behind a firewall (Eduroam)</h1>
+  <time datetime=2015-09-23T10:46:37Z class="post-date">Wed, Sep 23, 2015</time>
+  <p>The firewall at my university (Eduroam) prevents direct connections between two computer on the network on all ports. SSH-ing to an other computer is therefor not possible. However, when a connection is ESTABLISHED, this connection can be reused &#8211; for example the other way around! Let&#8217;s work on this.</p>
+
+<p>Requirements: rpi, external server</p>
+
+<p>Automate your ssh login from your rpi to your external server using (<a href="http://serverfault.com/questions/241588/how-to-automate-ssh-login-with-password" target="_blank">this link</a>). Execute these commands using &#8220;sudo&#8221; because the startup script we&#8217;re going to edit is run as root.</p>
+
+<p>edit /etc/rc.local and add:</p>
+
+<p><code>ssh -fN -l [username] -R 2210:localhost:2222 [external server ip]</code></p>
+
+<p>The 2222 is the ssh port on my rpi. Your rpi could use 22 (default) or any other port. The 2210 is the loopback port (per <a href="http://toic.org/blog/2009/reverse-ssh-port-forwarding/" target="_blank">this link</a>). Upon reset, this line should be processed without errors. Then, on the external server, connect back to the rpi using:</p>
+
+<p><code>ssh -l pi -p 2210 localhost</code></p>
+
+<p class="p1">
+  and your ssh session is available!
+</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

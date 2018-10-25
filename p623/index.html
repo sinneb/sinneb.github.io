@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Raspberry pi as high quality LFO generator &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Raspberry pi as high quality LFO generator</h1>
+  <time datetime=2015-03-24T20:40:59Z class="post-date">Tue, Mar 24, 2015</time>
+  <p>I&#8217;ve been experimenting with external LFO generators to modulate my MS20 mini. Working towards a small and portable solution, I first built a larger format prototype using my laptop, a Presonus Firestudio and a fresh copy of pyo (a Python module written in C to help digital signal processing script creation).</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/Lk5Qjz27rTA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>Nice results! But I want a smaller, dedicated device to generate a variety of LFO waveforms, with enough range in the frequency (say from 0.001Hz to 5k Hz) to make the LFO interesting.</p>
+
+<p>Enter Raspberry Pi.</p>
+
+<p>I already did some experiments with the Pi and pyo, a great combination even on the &#8220;classic Pi&#8221;. With the generation of simple waveforms, the load from the pyo process never exceeds the 10%. No problems there. Problems did arise in the audio out selection. Like the audio out on my MacBook Pro, the audio out of the HDMI chip on the Pi is obviously lowfiltered, thus not outputting waveforms with a frequency lower than ~1Hz. Too bad I can&#8217;t use my HDMI to VGA and audio cable for this LFO then.</p>
+
+<p><a href="/uploads/2015/03/S-PC-0203_7.jpg"><img class="alignnone size-full wp-image-625" src="/uploads/2015/03/S-PC-0203_7.jpg" alt="S-PC-0203_7" width="600" height="400" srcset="/uploads/2015/03/S-PC-0203_7.jpg 600w, /uploads/2015/03/S-PC-0203_7-300x200.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /></a></p>
+
+<p>Next option is a cheapo USB audio adapter, called &#8220;3d sound&#8221; and based on the C-Media CM108 audio chip.<a href="/uploads/2015/03/ux_a06091200ux0003_ux_c.jpg"><img class="alignnone size-full wp-image-626" src="/uploads/2015/03/ux_a06091200ux0003_ux_c.jpg" alt="ux_a06091200ux0003_ux_c" width="600" height="289" srcset="/uploads/2015/03/ux_a06091200ux0003_ux_c.jpg 600w, /uploads/2015/03/ux_a06091200ux0003_ux_c-300x145.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /></a> Some first experiments conform this adapter to be adequate for the LFO job! Nice looking waveforms, going down to at least 0.01Hz (100 seconds). Too bad it has a DC offset of +2V. On decent audio hardware this is 0V. I tried a solution by Mick @ <a href="http://leeds49.co.uk/2013/12/13/usb-3d-sound-card-fix/" target="_blank">Leeds49</a> to no avail, the DC offset did not change. A small opamp circuit is needed anyway to generate a bipolar voltage &#8211; that circuit will thus also remove the DC offset. A differential amplifier circuit should do the trick.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

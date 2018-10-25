@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VCA part done (well almost) &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>VCA part done (well almost)</h1>
+  <time datetime=2011-03-23T22:49:47Z class="post-date">Wed, Mar 23, 2011</time>
+  <p>80017a VCA open source hardware replacement is done for about 95%.</p>
+
+<p>Original Roland:</p>
+
+<p><a href="/uploads/2011/03/juno106_vca_original1.jpg"><img class="alignnone size-full wp-image-295" title="juno106_vca_original" src="/uploads/2011/03/juno106_vca_original1.jpg" alt="" width="800" height="509" srcset="/uploads/2011/03/juno106_vca_original1.jpg 800w, /uploads/2011/03/juno106_vca_original1-300x190.jpg 300w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+
+<p>See previous post for Mooger5&#8217;s working BA6110 IC solution. Since I&#8217;m going to use the LM13700 OTA for the filter part, I figured the VCA would be a nice exercise in OTA building. To fully understand the inner workings of an OTA, I followed <a href="http://users.ece.gatech.edu/lanterma/ems11/" target="_blank">great lectures</a> by Aaron Lanterman on Electronics for Musical Synthesis!</p>
+
+<p>My VCA version:</p>
+
+<p>First some osc measurements.</p>
+
+<p>Pin 3 VCF OUT has a voltage level between 2.4V and -2.4V (as stated in the tuning instruction, TP19 for voice 1, 4.8Vpp)</p>
+
+<p>Pin 9 VCA IN has a voltage level between 0V and -1.4V</p>
+
+<p>Pin 11 VCA CONT has an unknown current because my multimeter is &#8220;current broken&#8221;. Various datasheet and internet resources mention a current &lt; 5mA. OK for the moment.</p>
+
+<p>Pin 10 VCA OUT</p>
+
+<p>The schematic (power and unused IC parts not shown!)</p>
+
+<p><a href="/uploads/2011/03/VCA_v0.1.png"><img class="alignnone size-full wp-image-289" title="VCA_v0.1" src="/uploads/2011/03/VCA_v0.1.png" alt="" width="650" height="420" srcset="/uploads/2011/03/VCA_v0.1.png 650w, /uploads/2011/03/VCA_v0.1-300x193.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></a></p>
+
+<p>Pin numbers are different because in this header configuration, pin2 is not connected (like on the Juno board)</p>
+
+<p>VCA IN delivers a voltage between 0V and -1.4V. The OTA requires an input V p.p. of around 10mV. The VCA IN voltage has to be divided by 100, to |0.014V|, |14mV|. R1 and R2 make this division.</p>
+
+<p>Maximum Amp Bias Input (OTA pin 1, Juno VCA CONT) is 0.5mA (assumption, not measured). This makes the maximum gain of the OTA 19.2 (gm) * 0.5mA ≈ 20 * 0.5mA = 10 m℧ (10 millimho&#8217;s). The OTA&#8217;s max Iout is Vdiff * 10m℧ = 14mV * 10m℧ = 140*10^-6 = 0.14mA.</p>
+
+<p>The current after OTA pin 5 at max gain is, as calculated, 0.14mA. To convert this current back to a voltage we&#8217;ll use a resistor to ground. The value of this resistor is: V=I*R, the wanted V at maximum gain equals the V at the OTA input. R3 = target_voltage / I = 1.4V/0.14mA = 100kΩ.</p>
+
+<p>The TL072 serves as output buffer. The 1k resistor protects the preceding circuit. Result goes to pin 11, VCA OUT</p>
+
+<p>So, why almost done? This VCA has just a little less gain than the original VCA&#8217;s. The max amp bias input is probably not exacly 0.5mA at max. When I have a new multimeter (or borrowed one), I&#8217;ll measure the current and redo my calculations.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

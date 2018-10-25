@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on sinneb</title>
+    <link>https://sinneb.github.io/categories/</link>
+    <description>Recent content in Categories on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="https://sinneb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Uncategorized</title>
+      <link>https://sinneb.github.io/categories/uncategorized/</link>
+      <pubDate>Sat, 17 Feb 2018 13:38:54 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/uncategorized/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>arduino</title>
+      <link>https://sinneb.github.io/categories/arduino/</link>
+      <pubDate>Mon, 15 Apr 2013 12:48:20 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/arduino/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>edusynth</title>
+      <link>https://sinneb.github.io/categories/edusynth/</link>
+      <pubDate>Sun, 10 Jan 2016 21:30:18 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/edusynth/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>juno106</title>
+      <link>https://sinneb.github.io/categories/juno106/</link>
+      <pubDate>Mon, 09 May 2011 21:20:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/juno106/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>newsynth</title>
+      <link>https://sinneb.github.io/categories/newsynth/</link>
+      <pubDate>Mon, 12 Aug 2013 21:02:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/newsynth/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://sinneb.github.io/categories/research/</link>
+      <pubDate>Tue, 19 Mar 2013 14:20:44 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sine</title>
+      <link>https://sinneb.github.io/categories/sine/</link>
+      <pubDate>Mon, 21 Jun 2010 18:11:16 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/sine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu</title>
+      <link>https://sinneb.github.io/categories/ubuntu/</link>
+      <pubDate>Thu, 10 Jan 2013 11:50:03 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/categories/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Matrix mixing craziness &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Matrix mixing craziness</h1>
+  <time datetime=2016-04-01T19:13:47Z class="post-date">Fri, Apr 1, 2016</time>
+  <p>A few weeks ago I did a small experiment with summed matrix mixing:</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/5E2w_mk9zJs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>sounds great, crazy, untamed etc. I decided to explore summed matrix mixing a little bit further and today I started building a new prototype, that got out of hand quickly!</p>
+
+<p>A single attenuverting channel (a 1 to 1 matrix) looks like this:</p>
+
+<p><a href="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44.png"><img class="alignnone size-full wp-image-680" src="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44.png" alt="Screen Shot 2016-04-01 at 20.52.44" width="624" height="138" srcset="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44.png 2328w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44-300x66.png 300w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44-1024x227.png 1024w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.52.44-624x138.png 624w" sizes="(max-width: 2328px) 100vw, 2328px" /></a></p>
+
+<p>Although interesting, a more advanced matrix would offer a lot more possibilities. I decided to go for a 4 x 3 matrix, since I had those parts available. A 4 x 3 matrix offers 4 input channels that can be annenuverted and routed to 3 output channels, in any configuration. The test configuration will be configured like this:</p>
+
+<p><img class="alignnone wp-image-681 size-medium" src="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.56.58-300x91.png" alt="Screen Shot 2016-04-01 at 20.56.58" width="300" height="91" srcset="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.56.58-300x91.png 300w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.56.58-624x188.png 624w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.56.58.png 656w" sizes="(max-width: 300px) 100vw, 300px" /></p>
+
+<p>And, it got out of hand. 4 channels &#8220;in&#8221; means:<a href="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42.png"><img class="alignnone size-full wp-image-682" src="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42.png" alt="Screen Shot 2016-04-01 at 20.58.42" width="624" height="578" srcset="/uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42.png 1508w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42-300x278.png 300w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42-1024x949.png 1024w, /uploads/2016/04/Screen-Shot-2016-04-01-at-20.58.42-624x578.png 624w" sizes="(max-width: 1508px) 100vw, 1508px" /></a></p>
+
+<p>this, and to have 3 channels &#8220;out&#8221; &#8212; multiple this by three! Which leads to a breadboard like:</p>
+
+<p><a href="/uploads/2016/04/bb.jpg"><img class="alignnone size-full wp-image-683" src="/uploads/2016/04/bb.jpg" alt="bb" width="624" height="624" srcset="/uploads/2016/04/bb.jpg 2988w, /uploads/2016/04/bb-200x200.jpg 200w, /uploads/2016/04/bb-100x100.jpg 100w, /uploads/2016/04/bb-300x300.jpg 300w, /uploads/2016/04/bb-150x150.jpg 150w, /uploads/2016/04/bb-1024x1024.jpg 1024w, /uploads/2016/04/bb-624x624.jpg 624w" sizes="(max-width: 2988px) 100vw, 2988px" /></a></p>
+
+<p>;) Time for extensive testing!</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

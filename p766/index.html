@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>bennis|budge VCO v2.0 smd finished! &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>bennis|budge VCO v2.0 smd finished!</h1>
+  <time datetime=2017-12-17T07:17:51Z class="post-date">Sun, Dec 17, 2017</time>
+  <p>After a number of important revisions, the very first reliable, stable and interesting VCO is finished! Some features:</p>
+
+<p>&#8211; Instead of a classic configuration where the sawtooth core is reset by a voltage comparator and a small capacitor, this sawtooth core is reset by a Schmitt trigger configuration, allowing LFO functionality by switching on an extra capacitor in the sawtooth core. This because the reset pulse does not rely on the size of the reset-capacitor but is determined by the Schmitt trigger.</p>
+
+<p>&#8211; Double reset transistors over the same capacitor(s), one for the Schmitt trigger saw and one for the hard-sync in.</p>
+
+<p>&#8211; Cheap, almost all components are easily available. The total cost of the base-board (without jacks, pots and PCB) is €6,-.</p>
+
+<p>&#8211; Outputs: Saw, Ramp, Triangle and PWM. Multiple voltage inputs, of which a number are attenuated. PWM settable via input or direct via potentiometer.</p>
+
+<p>&#8211; Base-board can be used without top-board in e.g. polyphonic configuration.</p>
+
+<p>&#8211; Most resistors and capcitors are smd, saving PCB space but not having influence on the raw, gritty sound.</p>
+
+<p>&#8211; Routed by hand ;)</p>
+
+<p>Following is a link to a demo on YouTube where I&#8217;m learning to use 3 of these VCO&#8217;s together, the schematics in PDF and the schematics and board design in Eagle format.</p>
+
+<iframe width="625" height="352" src="https://www.youtube.com/embed/qFWRfKrddME?feature=oembed" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+<p><a href="/uploads/2017/12/bennis_budge_VCOv2_bottomboard.pdf">bennis|budge VCO v2 schematics PDF</a></p>
+
+<p><a href="/uploads/2017/12/bennis_budge_VCOv2_bottomboard.zip">bennis|budge VCO v2 schematics and board Eagle</a></p>
+
+<p><img class="alignnone size-large wp-image-772" src="/uploads/2017/12/20171217_090219-e1513497931850-1024x576.jpg" alt="topview" width="625" height="352" srcset="/uploads/2017/12/20171217_090219-e1513497931850-1024x576.jpg 1024w, /uploads/2017/12/20171217_090219-e1513497931850-300x169.jpg 300w, /uploads/2017/12/20171217_090219-e1513497931850-624x351.jpg 624w, /uploads/2017/12/20171217_090219-e1513497931850.jpg 1600w" sizes="(max-width: 625px) 100vw, 625px" />VCO topview which shows the correction on the hard-sync input. Further SINE and LINFM were discarted. So, the topboard will need a revision ;)</p>
+
+<p><img class="alignnone size-large wp-image-774" src="/uploads/2017/12/20171217_090320-1024x576.jpg" alt="20171217_090320" width="625" height="352" srcset="/uploads/2017/12/20171217_090320-1024x576.jpg 1024w, /uploads/2017/12/20171217_090320-300x169.jpg 300w, /uploads/2017/12/20171217_090320-624x351.jpg 624w, /uploads/2017/12/20171217_090320.jpg 1600w" sizes="(max-width: 625px) 100vw, 625px" />All 3 VCO in perspective view. Switches are added to switch between VCO and LFO functionality.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

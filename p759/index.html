@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>New VCO prototype: bennis|budge VCO v1 &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>New VCO prototype: bennis|budge VCO v1</h1>
+  <time datetime=2017-10-02T07:46:31Z class="post-date">Mon, Oct 2, 2017</time>
+  <p>So, finally I combined all experiences and experiments of the last couple of years into a new VCO prototype. And, IMHO it rocks!</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/58C5wnAVLuI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>In this post you&#8217;ll find some development notes, the LTSpice simulation files and the Eagle schematics and board design. The Eagle files correspond to the actual prototype version, the LTSpice simulation is already an iteration further. See following notes for the differences.</p>
+
+<p><a href="/uploads/2017/10/schematic_bennisbudge_vcov1.png" target="_blank">VCO prototype schematics png (viewable in browser)</a></p>
+
+<p><a href="/uploads/2017/10/ltspice_bennisbudge_vcov1.zip" target="_blank">VCO LTSpice simulation files (v1, released october 2nd 2017)</a></p>
+
+<p>Notes:</p>
+
+<p>&#8211; The idea was to have both a heater and a tempco for the exponential converter. I found out that this combination was just impossible to tune and get stable. I did some experimenting with the tempco only and found that tracking and tuning were quite stable. Ditched the heater circuit.</p>
+
+<p>&#8211; I designed a triangle converter which consisted of 3 opamps and a lot of additional components. Upon receiving the PCB&#8217;s I immediately decided not to solder that huge amount of components, but instead look for a smarter design. Right now I working with a Moog-like design (opamp and two resistors) which will need a little trimming but seems to be small and ok.</p>
+
+<p>&#8211; I added a buffered rate indicator. Looks cool and the VCO can also function as an LFO.</p>
+
+<p>&#8211; The simulation uses 2.2nF as the sawtooth core capacitor. The actual design uses 22nF which allows for ~6 tracked octaves in the 40-1200Hz range. Still working on optimalizations regarding the tracking and available ranges.</p>
+
+<p>&#8211; Hard sync just sounds fantastic.</p>
+
+<p>Todo:</p>
+
+<p>&#8211; Add potentiometers to the board for freq / tune and PWM</p>
+
+<p>&#8211; Figure out a good way to combine onboard PWM with external input</p>
+
+<p>&#8211; Redesign the header (get rid of the expo in / out, more GND outs?). Dedicated power header, 12V? Right now the prototype runs on bipolar 15V.</p>
+
+<p>&#8211; Add thonkiconn&#8217;s for patching (ordered, are on their way from the UK).</p>
+
+<p>&#8211; Design a nice casing / front in the fablab of Arnhem.</p>
+
+<p>&#8211; Set up a group buy for the SSI2144 VCF &#8211; the new stage of development.</p>
+
+<p>The company name on the VCO will be bennis|budge which is a combination of my last name, with the word &#8220;budge&#8221; which means to disturb or set into motion. Further does budge have a &#8220;budget&#8221; like sound to it &#8211; I like to keep the modules very affordable. And, bennis|budge does have certain burr-brown sound to it, the analog IC technology company from Arizona.</p>
+
+<p>This all from the top of my head. Please use the comments for additions, corrections or encouragements ;)</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

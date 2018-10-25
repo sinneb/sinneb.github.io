@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Replacing the CA3046 &amp; understanding and replacing the tempco &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Replacing the CA3046 &amp; understanding and replacing the tempco</h1>
+  <time datetime=2018-01-09T20:48:41Z class="post-date">Tue, Jan 9, 2018</time>
+  <p>Let&#8217;s get rid of the CA3046, because it&#8217;s large and almost obsolete, even the one in a SOIC package (LM3046). The temperature dependant resistor (tempco, 1k, 3300ppm) is also obsolute and very hard to source &#8211; so let&#8217;s also get rid of that. On this blog, the CA3046 part has been examined in depth, but the tempco part can use some investigation.</p>
+
+<p>First the CA3046, a General Purpose NPN Transistor Array. The exponential converter only uses the matched pair transistors in this five transistor package. A suitable replacement is the BCM847 matched pair from Nexperia. I&#8217;ve read good stories about this transistor pair in exponential converters. So I&#8217;ve downloaded the LTSPICE model for the BCM847DS (BCM847 with acceptable reflow soldering package: SOT467) and did some experimentation, very much inspired by <a href="http://www.schmitzbits.de/expo_tutorial/index.html" target="_blank">Rene Schmitz&#8217;s tutorial on exponential converter</a>s. Setup:</p>
+
+<p><img class="alignnone size-large wp-image-781" src="/uploads/2018/01/Screen-Shot-2018-01-08-at-20.15.50-1024x619.png" alt="Screen Shot 2018-01-08 at 20.15.50" width="625" height="378" srcset="/uploads/2018/01/Screen-Shot-2018-01-08-at-20.15.50-1024x619.png 1024w, /uploads/2018/01/Screen-Shot-2018-01-08-at-20.15.50-300x181.png 300w, /uploads/2018/01/Screen-Shot-2018-01-08-at-20.15.50-624x377.png 624w, /uploads/2018/01/Screen-Shot-2018-01-08-at-20.15.50.png 1468w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>BCM847 matched pair is behaving correctly and shows a decent logarithmic response. DC sweep for V4 from -200mV to 500mV, measured current over R4. Vertical scale is logarithmic:</p>
+
+<p><img class="alignnone size-large wp-image-791" src="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.26.41-1024x524.png" alt="Screen Shot 2018-01-09 at 20.26.41" width="625" height="320" srcset="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.26.41-1024x524.png 1024w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.26.41-300x153.png 300w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.26.41-624x319.png 624w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.26.41.png 1334w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>The control voltage for the exponential converter is thus set by voltage source V4. Mmm opamp U8 is not connected at all ;). Through the exponential converter, a voltage V4 related current is put out over R4. This outgoing current is influenced by temperature in a number of ways, but the one under investigation today is the room temperature effect on the thermal voltage. In spice with simulated temperature from 5C till 50C in steps of 5 the current over R4 this looks like this:</p>
+
+<p><img class="alignnone size-large wp-image-797" src="/uploads/2018/01/Screen-Shot-2018-01-09-at-22.22.36-1024x552.png" alt="Screen Shot 2018-01-09 at 22.22.36" width="625" height="337" srcset="/uploads/2018/01/Screen-Shot-2018-01-09-at-22.22.36-1024x552.png 1024w, /uploads/2018/01/Screen-Shot-2018-01-09-at-22.22.36-300x162.png 300w, /uploads/2018/01/Screen-Shot-2018-01-09-at-22.22.36-624x336.png 624w, /uploads/2018/01/Screen-Shot-2018-01-09-at-22.22.36.png 1310w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>The thermal voltage determines the adjustment needed to the voltage from V4  to accurately double the outgoing current over R4. In calculations for a (nice, warm, cosy &#8211; but obviously standard?) room temperature of 300K (26.85C):</p>
+
+<p>vt=kT/q -&gt; 1.38064852*10-23 * 300 / 1.60217662 * 10-19 = 25.85mV</p>
+
+<p>vt = Thermal Voltage, k = Boltzmann&#8217;s constant, T = temp in Kelvin, q = electronic charge.</p>
+
+<p>Required for an octave: ln(2) * 25.85mV = 17.92mV. So if we increase V4 with 17.92mV, the current over R4 should double. But only if the room temperature, or better said the component package temperature, is 26,85C.</p>
+
+<p>To better understand this relation between temp, thermal voltage, control voltage and current out, I created the following table:</p>
+
+<p><img class="alignnone wp-image-789 size-large" src="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55-961x1024.png" alt="Screen Shot 2018-01-09 at 20.13.55" width="500" height="533" srcset="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55-961x1024.png 961w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55-300x320.png 300w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55-282x300.png 282w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55-624x665.png 624w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.13.55.png 1038w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+
+<p>The relation between temperature and thermal voltage and control voltage is linear. Further, per centigrade difference, there is a 0.06mV difference in mV. Instead of just feeding the 1V/oct control voltage from the panel / CV inputs / other inputs to the exponential converter, a temperature correction needs to be made. The exponential converter&#8217;s input cannot just be divided down from 1V/oct to 18mV/oct. Let&#8217;s have a look at the concerning schematic:</p>
+
+<p><img class="alignnone wp-image-785 size-large" src="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.09.06-1024x590.png" alt="Screen Shot 2018-01-09 at 20.09.06" width="625" height="360" srcset="/uploads/2018/01/Screen-Shot-2018-01-09-at-20.09.06-1024x590.png 1024w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.09.06-300x173.png 300w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.09.06-624x359.png 624w, /uploads/2018/01/Screen-Shot-2018-01-09-at-20.09.06.png 1438w" sizes="(max-width: 625px) 100vw, 625px" /></p>
+
+<p>V4 above is in fact this schematic. Multiple CV inputs are summed and inverted. Thereafter, the resulting voltage is divided down to 18mV/oct. The tempco is shown, with a ppm of 3300. This tempco will be replace with a more current device, and based on above insights -&gt; the divider should have a 0.06mV difference per centigrade.</p>
+
+<p>Temperature compensation options: NTC, PTC and Platinum RTD. Platinum RTD is too expensive, PTC has too much tolerance over the resistance and the temperature sensitivity. So, that leaves NTC. I&#8217;d like a small NTC SMD component, to mount closely to the BCM847 matched pair and perhaps thermally bond both with resin. A search on Mouser revealed the following part as a good contender: <a href="https://nl.mouser.com/productdetail/tdk/ntcg163jf103f?qs=sGAEpiMZZMuBd0%252bwiCVS261iM24UC9%252b0pzDfx5o%252bTDM%3D" target="_blank">TDK NTCG163JF103F</a>. A narrow tolerance product in 1608 SMD shape, with a B of 3450 with 1% tolerance and a resistance of 10k also with a 1% tolerance. Probably little finetuning is needed with such tolerances.</p>
+
+<p>From the datasheet I plotted the resistance values over temperature for this NTC:</p>
+
+<p><img class="alignnone wp-image-794 size-full" src="/uploads/2018/01/Screen-Shot-2018-01-09-at-21.50.48.png" alt="Screen Shot 2018-01-09 at 21.50.48" width="624" height="232" srcset="/uploads/2018/01/Screen-Shot-2018-01-09-at-21.50.48.png 970w, /uploads/2018/01/Screen-Shot-2018-01-09-at-21.50.48-300x111.png 300w, /uploads/2018/01/Screen-Shot-2018-01-09-at-21.50.48-624x232.png 624w" sizes="(max-width: 970px) 100vw, 970px" /></p>
+
+<p>Non linear. Fortunately that will be solvable by adding a fixed value resistor in parallel. Well, that&#8217;s up for now!</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

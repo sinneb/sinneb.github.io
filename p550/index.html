@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Livestream webcam via webm to browsers &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Livestream webcam via webm to browsers</h1>
+  <time datetime=2013-01-07T22:32:35Z class="post-date">Mon, Jan 7, 2013</time>
+  <p>Here&#8217;s a work in progress: livestream webcam video to browsers using Node.js. From <a href="http://delog.wordpress.com/2011/04/26/stream-live-webm-video-to-browser-using-node-js-and-gstreamer/" target="_blank">here</a>. Ubuntu requires the &#8216;nodejs&#8217; executable instead of just &#8216;node&#8217;</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">var express = require('express')
+var net = require('net');
+var child = require('child_process');
+
+var cmd = 'gst-launch-0.10';
+var args = '';
+var options = null;
+
+var app = express();
+
+app.get('/', function(req, res) {
+  var date = new Date();
+
+  res.writeHead(200, {
+    'Date':date.toUTCString(),
+    'Connection':'close',
+    'Cache-Control':'private',
+    'Content-Type':'video/webm',
+    'Server':'CustomStreamer/0.0.1',
+    });
+
+  var server = net.createServer(function (socket) {
+    socket.on('data', function (data) {
+      res.write(data);
+    });
+    socket.on('close', function(had_error) {
+      res.end();
+    });
+  });
+
+  server.maxConnections = 1;
+
+  server.listen(function() {
+    args =
+    ['v4l2src device=/dev/video0',
+    '!', 'video/x-raw-rgb,framerate=30/1',
+    '!', 'ffmpegcolorspace',
+    '!', 'vp8enc', 'speed=2',
+    '!', 'queue2',
+    '!', 'm.', 'audiotestsrc', 'is-live=1',
+    '!', 'audioconvert',
+    '!', 'vorbisenc',
+    '!', 'queue2',
+    '!', 'm.', 'webmmux', 'name=m', 'streamable=true',
+    '!', 'tcpclientsink', 'host=localhost',
+    'port='+server.address().port];
+
+    var gstMuxer = child.spawn(cmd, args, options);
+
+    gstMuxer.stderr.on('data', onSpawnError);
+    gstMuxer.on('exit', onSpawnExit);
+
+    res.connection.on('close', function() {
+      gstMuxer.kill();
+    });
+  });
+});
+
+app.listen(9001);
+
+function onSpawnError(data) {
+  console.log(data.toString());
+}
+
+function onSpawnExit(code) {
+  if (code != null) {
+    console.error('GStreamer error, exit code ' + code);
+  }
+}
+
+process.on('uncaughtException', function(err) {
+  console.debug(err);
+});
+
+</pre>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

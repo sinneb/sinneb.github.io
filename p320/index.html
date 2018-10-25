@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>designing the filter &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>designing the filter</h1>
+  <time datetime=2011-04-11T08:26:50Z class="post-date">Mon, Apr 11, 2011</time>
+  <p>Current project status:</p>
+
+<p><a href="/uploads/2011/04/cuttoff_vcf_expo.png"><img class="alignnone size-full wp-image-321" title="cuttoff_vcf_expo" src="/uploads/2011/04/cuttoff_vcf_expo.png" alt="" width="237" height="276" /></a></p>
+
+<p>Using the FREQ slider on the JUNO106 results in a exponential filter control current from 32nA to 705µA. So, when feeding 32nA into the filter, its cutoff frequency should be 5Hz. Feeding the filter 705µA results in a 50kHz cutoff frequency. My LM13700 lowpass filterdesign is based on the lectures by Aaron Lanterman. This is a typical design:</p>
+
+<p><a href="/uploads/2011/04/lm13700-single-pole-filter.png"><img class="alignnone size-full wp-image-322" title="lm13700 single pole filter" src="/uploads/2011/04/lm13700-single-pole-filter.png" alt="" width="671" height="413" srcset="/uploads/2011/04/lm13700-single-pole-filter.png 671w, /uploads/2011/04/lm13700-single-pole-filter-300x184.png 300w" sizes="(max-width: 671px) 100vw, 671px" /></a></p>
+
+<p>resulting in the following plot (Iabc = 1mA)</p>
+
+<p><a href="/uploads/2011/04/lm13700-single-pole-filter-plot.png"><img class="alignnone size-full wp-image-324" title="lm13700 single pole filter plot" src="/uploads/2011/04/lm13700-single-pole-filter-plot.png" alt="" width="670" height="334" srcset="/uploads/2011/04/lm13700-single-pole-filter-plot.png 670w, /uploads/2011/04/lm13700-single-pole-filter-plot-300x149.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></a></p>
+
+<p>cutoff frequency in this example is:</p>
+
+<p><a href="/uploads/2011/04/single_pole_calcs.png"><img class="alignnone size-full wp-image-326" title="single_pole_calcs" src="/uploads/2011/04/single_pole_calcs.png" alt="" width="422" height="295" srcset="/uploads/2011/04/single_pole_calcs.png 422w, /uploads/2011/04/single_pole_calcs-300x209.png 300w" sizes="(max-width: 422px) 100vw, 422px" /></a></p>
+
+<p>using this calculation I will determine the required resistor values for the exponential converter range (32nA &#8211; 705µA).</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

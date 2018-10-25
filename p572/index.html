@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Building an exponential converter &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Building an exponential converter</h1>
+  <time datetime=2013-08-12T21:02:33Z class="post-date">Mon, Aug 12, 2013</time>
+  <p>In this article I&#8217;ll describe the steps I took to design an exponential converter. YMMV of course, but I think this article is a good start and may provide some useful guidelines.</p>
+
+<p>The following table shows the relation between Hertz and wavelength. These are the MIDI C notes per octave, in Hz with their corresponding wavelength in ms</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">8.1757989156 hz
+122.312205856 ms
+
+16.3515978313 hz
+61.156102927 ms
+
+32.7031956626
+30.578051464
+
+65.4063913251
+15.289025732
+
+130.8127826503
+7.644512866
+
+261.6255653006
+3.822256433
+
+523.2511306012
+1.911128216
+
+1046.5022612024
+0.955564108
+
+2093.0045224048
+0.477782054
+</pre>
+
+<p>The required wavelength a capable VCO should be able to deliver thus lays between 122ms and 0.47ms. Experimenting with a slightly customised sawtooth generator (design below) shows the following relation between the (ideal) current source and the wavelength.</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">0.1ua -&gt; 470ms
+1ua -&gt; 47ms
+10ua -&gt; 4.7ms
+100ua -&gt; 0.47ms (470us)
+1000ua (1ma)-&gt; 0.047ms
+</pre>
+
+<p>First, the slightly customised sawtooth VCO. The inverting Schmitt trigger in the sawtooth reset circuit guarantees a long enough reset pulse and thus a clean reset of the sawtooth waveform. The capacitor is too large, leading to a small distortion in the waveform. Will be fixed in updates.</p>
+
+<p><a href="/uploads/2013/08/sawtoothVCO600.jpg"><img class="alignnone size-full wp-image-578" alt="sawtoothVCO600" src="/uploads/2013/08/sawtoothVCO600.jpg" width="600" height="349" srcset="/uploads/2013/08/sawtoothVCO600.jpg 600w, /uploads/2013/08/sawtoothVCO600-300x174.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /></a></p>
+
+<p><a href="/uploads/2013/08/sawtoothvco.pdf">sawtoothvco in PDF</a></p>
+
+<p>The current source (exponential converter) must deliver a steady current between 0.1ua and 1000ua to the VCO to have to VCO achieve interesting musical abilities (enough octaves, very low frequencies, MIDI controllable). The deployment of an exponential converter in this current source is almost inevitable. Linear control, preferable digital through DAC&#8217;s or such, of a current source with such a bandwidth (0.1ua -&gt; 1000ua) is very difficult.</p>
+
+<p>The circuit of the exponential converter:</p>
+
+<p><a href="/uploads/2013/08/expcurrentsource.png"><img src="/uploads/2013/08/expcurrentsource.png" alt="expcurrentsource" width="584" height="521" class="alignnone size-full wp-image-586" srcset="/uploads/2013/08/expcurrentsource.png 584w, /uploads/2013/08/expcurrentsource-300x267.png 300w" sizes="(max-width: 584px) 100vw, 584px" /></a></p>
+
+<p>The formula for the exponential part of the converter is iout = iref * exp(-Vb/Vt) where vt = 26mV.</p>
+
+<p>iref runs over R1 =&gt; iref = Vref / Rref = 15V / 1000000ohm = 0.000015A = 15uA. To achieve an output current of 0.1ua (the VCO will generate a 470ms waveform) =&gt; 0.1 = 15 * exp(-Vb/26) =&gt; Vb = 130mV. Some calculations of Vb in the required bandwidth of 0.1ua and 1000ua:</p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">wavelength: current -&gt; required voltage
+470: 0.1ua -&gt; 130mV
+235: 0.2ua -&gt; 111mV
+118: 0.4ua -&gt; 94mV
+59: 0.8ua -&gt; 76mV
+30: 1.6ua -&gt; 58mV 
+15: 3.2ua -&gt; 40mV
+8: 5.9ua -&gt; 24mV
+4: 11.75ua -&gt; 6mV
+2: 24ua -&gt; -12mV
+1: 47ua -&gt; -30mV
+0.5: 94ua -&gt; -48mV
+0.25: 188ua -&gt; -66mV
+</pre>
+
+<p>This leads to a relation between linear voltage and exponential current! Required to translate a difference of 1 volt to a musical difference of 1 octave (which is a exponential scale).</p>
+
+<p>The voltage into the exponential converter will thus have a 1V/octave scaling and start at 0 volts (130mV) up to 12 volts (-66mV). The base voltage will be 130mV. The voltage scaling opamp will have to scale the incoming voltage (0-12V) to a -18mV per Volt. This voltage is buffered by an opamp follower and a voltage summer then combines the base voltage and the voltage scaler voltage (note to self: make the 1k in the summer smaller for a more precise summer).</p>
+
+<p><a href="/uploads/2013/08/voltagescaler.png"><img src="/uploads/2013/08/voltagescaler.png" alt="voltagescaler" width="583" height="348" class="alignnone size-full wp-image-591" srcset="/uploads/2013/08/voltagescaler.png 583w, /uploads/2013/08/voltagescaler-300x179.png 300w" sizes="(max-width: 583px) 100vw, 583px" /></a></p>
+
+<p>The exponential converter takes this voltage (in V4) and transforms it into a current source following calculations above. Temperature drifting and transistor matching have not been explored in full. For now the CA3046 is deployed. Temperature compensation is probably achievable by driving the other transistors in the CA3046 to a certain temp (like in the Moog Prodigy).</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

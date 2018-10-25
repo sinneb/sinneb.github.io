@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculating Landolt C ring size based on the visual acuity &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Calculating Landolt C ring size based on the visual acuity</h1>
+  <time datetime=2013-03-19T14:20:44Z class="post-date">Tue, Mar 19, 2013</time>
+  <div style="width: 236px" class="wp-caption alignnone">
+  <img alt="" src="http://upload.wikimedia.org/wikipedia/de/2/27/Landoltring.jpg" width="226" height="173" />
+  
+  <p class="wp-caption-text">
+    Landolt Ring
+  </p>
+</div>
+
+<p>Tiny Python script to calculate the size (5d) in meters of a Landolt C ring based on the visual acuity belonging to that ring.</p>
+
+<pre class="brush: cpp; title: ; notranslate" title=""># determine Landolt C ring size based on decimal visual acuity scales
+# argument: visual acuity [0.1 ... 3]
+# result: size of Landolt C ring (5d in the image) (in meters)
+# http://upload.wikimedia.org/wikipedia/de/2/27/Landoltring.jpg
+
+import math, sys
+
+# distance from ring in meters
+distance = 5
+
+print 2*distance*math.tan(math.radians(1/(float(sys.argv[1])*120)))*5
+
+</pre>
+
+<div style="width: 227px" class="wp-caption alignleft">
+  <img class=" " alt="" src="http://www.cascadilla.com/eyecharts/landoltC/images/sample-large-landoltC.jpg" width="217" height="335" />
+  
+  <p class="wp-caption-text">
+    landolt C Chart
+  </p>
+</div>
+
+<p>Row 8 in the picture to the left shows Landolt rings to determine a decimal visual equity of 1. Use 1 as argument in the Python script and it will return 0.00727220526792, which means the size of that ring when viewed from 5 meters is 7.27 millimeters.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

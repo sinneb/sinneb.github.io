@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>2-pole LM13700 lowpass filter working? &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>2-pole LM13700 lowpass filter working?</h1>
+  <time datetime=2011-04-18T12:34:52Z class="post-date">Mon, Apr 18, 2011</time>
+  <p>I&#8217;m not sure. Did a lot of prototyping and these are the results.</p>
+
+<p>Since I couldn&#8217;t figure out a proper way to calculate the cutoff frequency when using different current and resistor combination, I decided to use the default lowpass filter circuit from the LM13700 datasheet.</p>
+
+<p><a href="/uploads/2011/04/lm13700_typical_lowpass.png"><img class="alignnone size-full wp-image-347" title="lm13700_typical_lowpass" src="/uploads/2011/04/lm13700_typical_lowpass.png" alt="" width="488" height="321" srcset="/uploads/2011/04/lm13700_typical_lowpass.png 488w, /uploads/2011/04/lm13700_typical_lowpass-300x197.png 300w" sizes="(max-width: 488px) 100vw, 488px" /></a></p>
+
+<p>Hooked my expo converter up to pin 1 (100nA &lt; Iabc &lt; 1.1mA) and started testing. The Vout of this pole is the Vin of the second pole. Unfortunately I only had 1 LM13700 working left, since I blew up all my other&#8217;s ;). I experimented a lot with different capacitor and resistor combination and the only ok sounding combination is a 1nF capacitor with 10K big and 220Ohm small resistors. Check the following sound files for the results:</p>
+
+<p><span><a href="http://soundcloud.com/sinneb/juno2polefilter">Juno2polefilter</a> by <a href="http://soundcloud.com/sinneb">sinneb</a></span></p>
+
+<p>Oh, just for fun: a pic of the breadboard in action</p>
+
+<p><a href="/uploads/2011/04/DSC8882.jpg"><img class="alignnone size-full wp-image-348" title="_DSC8882" src="/uploads/2011/04/DSC8882.jpg" alt="" width="500" height="332" srcset="/uploads/2011/04/DSC8882.jpg 500w, /uploads/2011/04/DSC8882-300x199.jpg 300w" sizes="(max-width: 500px) 100vw, 500px" /></a></p>
+
+<p>left bottom: BA6110 based VCA. Right top: dual 2N3906 based expo converter. Right bottom: Only remaining LM13700 configured as a 2-pole lowpass filter.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

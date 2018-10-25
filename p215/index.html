@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>proto 6 and new ideas &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>proto 6 and new ideas</h1>
+  <time datetime=2010-07-05T18:52:34Z class="post-date">Mon, Jul 5, 2010</time>
+  <p>At the bottom of this post you&#8217;ll find the newest code for the prototype. This code has some nice enhancements over the previous:</p>
+
+<ul>
+<li>A first begin with ADSR code</li>
+<li>A better midi implementation. The Arduino keeps track of the order of notes played so note-off commands are treated right. A note-off &#8220;resounds&#8221; the previously played note. If there is no previous note (all notes-off), the output is silent; no note is played. This new implementation also leads to a better legato management.</li>
+<li>A 128 values linear to logarithmic lookup table to give the ADSR (MCP42100) a musical course.</li>
+</ul>
+
+<p>Sketch for proto 7:</p>
+
+<p><a href="/uploads/2010/07/proto7_sketch.jpg"><img class="aligncenter size-medium wp-image-218" title="proto7_sketch" src="/uploads/2010/07/proto7_sketch-300x150.jpg" alt="" width="300" height="150" srcset="/uploads/2010/07/proto7_sketch-300x150.jpg 300w, /uploads/2010/07/proto7_sketch-1024x512.jpg 1024w" sizes="(max-width: 300px) 100vw, 300px" /></a>Here I&#8217;m going to use 1 dataline and 1 clockline for all components. This saves on the digital out pins from the Arduino. There&#8217;s going to be a lot of data shifting through the 4 74hc595&#8217;s and the 3 mcp42100&#8217;s&#8230; A challenge ;)</p>
+
+<p></p>
+
+<pre class="brush: cpp; title: ; notranslate" title="">// sinneb.com
+// arduino interface code for the Sinneb Aurora 6
+
+// Midi library from http://timothytwillman.com
+// MCP42100 code from http://little-scale.blogspot.com/
+// 82c54 code from sinneb.com
+
+#include "Midi.h"
+
+// Midi note 0 - 127 LSB & MSB values
+// http://www.decisioncards.com/io/tutorials/8254_tut2.html
+// Divide value by 256. i.e. 10000 / 256 gives 39.0625
+// Use the whole value to load your MSB i.e. MSB=39
+// Subtract the whole number i.e. 39.0625 - 39=0.0625
+// Multiply by 256 to obtain remainder i.e. 0.0625 x 256=16
+// Use the value diplayed as your LSB i.e. LSB=16
+
+int midi_divides_lsb[] = {66, 182, 65, 33, 183, 116, 192, 11, 222, 186, 44, 195, 33, 222, 160, 16,
+                          221, 186, 94, 135, 240, 93, 150, 99, 144, 239, 80, 136, 111, 221, 176, 195,
+                          248, 47, 75, 49, 200, 247, 168, 196, 55, 239, 216, 226, 252, 23, 37, 25, 228,
+                          124, 212, 226, 156, 247, 236, 113, 126, 12, 19, 140, 114, 190, 106, 113, 206,
+                          124, 118, 184, 63, 6, 9, 70, 185, 95, 53, 56, 103, 190, 59, 220, 159, 131, 133,
+                          163, 221, 47, 154, 28, 179, 95, 29, 238, 208, 193, 194, 210, 238, 24, 77, 142,
+                          218, 47, 143, 247, 104, 225, 97, 233, 119, 12, 167, 71, 237, 152, 71, 252, 180, 112,
+                          49, 244, 188, 134, 83, 36, 246, 204, 164, 126};
+int midi_divides_msb[] = {3822, 3607, 3405, 3214, 3033, 2863, 2702, 2551, 2407, 2272, 2145, 2024,
+                          1911, 1803, 1702, 1607, 1516, 1431, 1351, 1275, 1203, 1136, 1072, 1012,
+                          955, 901, 851, 803, 758, 715, 675, 637, 601, 568, 536, 506, 477, 450,
+                          425, 401, 379, 357, 337, 318, 300, 284, 268, 253, 238, 225, 212, 200,
+                          189, 178, 168, 159, 150, 142, 134, 126, 119, 112, 106, 100, 94, 89, 84,
+                          79, 75, 71, 67, 63, 59, 56, 53, 50, 47, 44, 42, 39, 37, 35, 33, 31, 29,
+                          28, 26, 25, 23, 22, 21, 19, 18, 17, 16, 15, 14, 14, 13, 12, 11, 11, 10,
+                          9, 9, 8, 8, 7, 7, 7, 6, 6, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2};
+
+int activenotes[10];
+int temp_activenotes[10];
+int temp_counter;
+
+// for potentiometer antilog
+// http://tp01.com/etutorials/images/resistors/Potentiometer%20Tapers.gif
+int lin2log[] = { 0,  15,  30,  61,  70,  85,  91, 101, 105, 112,
+                116, 119, 121, 127, 131, 137, 139, 141, 143, 146,
+                147, 149, 150, 156, 157, 159, 160, 162, 163, 165,
+                166, 167, 170, 171, 172, 174, 175, 175, 176, 178,
+                179, 181, 182, 183, 183, 185, 185, 186, 188, 188,
+                190, 191, 191, 192, 192, 194, 195, 195, 196, 197,
+                198, 199, 200, 201, 203, 203, 204, 205, 206, 207,
+                207, 209, 210, 210, 211, 212, 212, 214, 214, 215,
+                216, 217, 217, 218, 219, 219, 220, 221, 222, 223,
+                223, 224, 224, 224, 225, 226, 227, 227, 227, 228,
+                229, 229, 230, 230, 231, 231, 232, 232, 232, 233,
+                233, 234, 234, 235, 235, 235, 236, 236, 237, 237,
+                237, 238, 238, 239, 239, 239, 240, 240, 240}; // about 128 ;)
+
+// 74HC595 pins
+int latchPin = 8;
+int dataPin = 11;
+int clockPin = 12;
+
+// 42100 pins
+int select42100 = 5;
+int clock42100 = 6;
+int data42100 = 7;
+byte pot0 = B00010001; // write to pot 0
+byte pot1 = B00010010; // write to pot 1
+boolean placed = false;
+
+// various vars
+int statusled = 13;
+int incomingByte = 0;
+int startnote = 47;
+int potinit = 1;
+float counter = 0;
+// ADSR vars
+float potcurrent = 0;
+int pottarget = 0;
+
+class MyMidi : public Midi {
+  public:
+  MyMidi(HardwareSerial &s) : Midi(s) {}
+
+  void handleNoteOn(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, HIGH);
+    // place noteon note in activenotes array
+    placed = false;
+    for(int i = 0; i &lt; 10; i++) {
+      if(activenotes[i]==0 && placed == false) {
+        activenotes[i]=note;
+        placed=true;
+      }
+    }
+    data_transfer(midi_divides_lsb[note],midi_divides_msb[note]);
+    pottarget=127;
+    //spi_out(select42100, pot0, 240);
+  }
+
+  void handleNoteOff(unsigned int channel, unsigned int note, unsigned int velocity)
+  {
+    digitalWrite(13, LOW);
+    //pottarget=0;
+    temp_counter=0;
+    // empty temp_activenotes
+    memset(temp_activenotes, 0, sizeof(temp_activenotes));
+    // remove note from activenotes array
+    for(int i = 0; i &lt; 10; i++) {
+      if(activenotes[i]==note) {
+        activenotes[i]=0;
+      }
+      // place still active notes in temp_array
+      else if (activenotes[i]!=0) {
+        temp_activenotes[temp_counter]=activenotes[i];
+        temp_counter++;
+      }
+    }
+    // copy temp to activenotes
+    for(int i=0; i &lt; 10; i++) {
+      activenotes[i] = temp_activenotes[i];
+    }
+    // if firstnote &lt;&gt; 0, retrigger last note in array
+    placed = false;
+    // check if notes in array
+    if(activenotes[0]!=0) {
+      // find first zero, play index - 1 (last value in array)
+      for(int i=1; i &lt; 10; i++) {
+        if(activenotes[i]==0 && placed == false) {
+          data_transfer(midi_divides_lsb[activenotes[i-1]],midi_divides_msb[activenotes[i-1]]);
+          placed = true;
+        }
+      }
+    }
+    else {
+      // start release
+      //spi_out(select42100, pot0, 0);
+      pottarget=0;
+    }
+  }
+
+  /* You can define any of these functions and they will be called when the
+     matching message type is received.  Otherwise those types of Midi messages
+     are just ignored.
+
+    For C++ folks: these are all declared virtual in the base class
+
+    void handleVelocityChange(unsigned int channel, unsigned int note, unsigned int velocity);
+    void handleControlChange(unsigned int channel, unsigned int controller, unsigned int value);
+    void handleProgramChange(unsigned int channel, unsigned int program);
+    void handleAfterTouch(unsigned int channel, unsigned int velocity);
+    void handlePitchChange(unsigned int pitch);
+    void handleSongPosition(unsigned int position);
+    void handleSongSelect(unsigned int song);
+    void handleTuneRequest(void);
+    void handleSync(void);
+    void handleStart(void);
+    void handleContinue(void);
+    void handleStop(void);
+    void handleActiveSense(void);
+    void handleReset(void);
+*/
+};
+
+MyMidi midi(Serial);
+
+void setup() {
+  // init all pin
+  pinMode(latchPin, OUTPUT);
+  pinMode(clockPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);
+  pinMode(statusled, OUTPUT);
+  digitalWrite(statusled,HIGH);
+
+  // init 8254 control ports 2,3,4
+  pinMode(2, OUTPUT); // WR
+  digitalWrite(2, HIGH); // disabled
+  pinMode(3, OUTPUT); // A0
+  pinMode(4, OUTPUT); // A1
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+
+  // init 42100
+
+  pinMode(select42100, OUTPUT);
+  pinMode(clock42100, OUTPUT);
+  pinMode(data42100, OUTPUT);
+  digitalWrite(select42100, HIGH);
+
+  midi.begin(0);
+
+  firstrun();
+
+  spi_out(select42100, pot0, 240);
+
+}
+
+void loop() {
+
+       midi.poll();
+
+       // ADSR
+       if (potcurrent != pottarget) {
+         if (potcurrent &gt; pottarget) {
+           // release
+           potcurrent = potcurrent - (127 / 300);
+         } else {
+           // attack
+           potcurrent = 127;
+         }
+       }
+       spi_out(select42100, pot0, lin2log[int(potcurrent)]);
+}
+
+void firstrun() {
+
+    // control word sequence
+    Serial.println("A0A1 -&gt; 1");
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+
+    Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, LSBFIRST, B01101100);
+    digitalWrite(latchPin, HIGH);
+    Serial.println("595 loaded");
+
+    Serial.println("2 high");
+    digitalWrite(2, HIGH);
+    // end control word sequence
+
+    // start data transfer, LSB MSB
+    // 18181 for 400hz
+    //data_transfer( 5, 71);
+}
+
+void data_transfer(int LSB, int MSB) {
+
+    //Serial.println("A0A1 -&gt; 0");
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+
+    //Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, LSB);
+    digitalWrite(latchPin, HIGH);
+    //Serial.println("595 LSB");
+
+    //Serial.println("2 high");
+    digitalWrite(2, HIGH);
+
+    //Serial.println("2 low");
+    digitalWrite(2, LOW);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, MSBFIRST, MSB);
+    digitalWrite(latchPin, HIGH);
+    //Serial.println("595 MSB");
+
+    //Serial.println("2 high");
+    digitalWrite(2, HIGH);
+}
+
+/* FUNCTIONS */
+void spi_transfer(byte working) {
+  for(int i = 1; i &lt;= 8; i++) {
+    if (working &gt; 127) {
+      digitalWrite (data42100,HIGH);
+    }
+    else {
+      digitalWrite (data42100, LOW);
+    }
+    digitalWrite (clock42100,HIGH);
+    working = working &lt;&lt; 1;
+    digitalWrite(clock42100,LOW);
+  }
+}
+
+void spi_out(int ss, byte cmd_byte, byte data_byte) {
+  digitalWrite (select42100, LOW);
+  spi_transfer(cmd_byte);
+  spi_transfer(data_byte);
+  digitalWrite(select42100, HIGH);
+}
+</pre>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

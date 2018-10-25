@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on sinneb</title>
+    <link>https://sinneb.github.io/posts/</link>
+    <description>Recent content in Posts on sinneb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 17 Feb 2018 13:38:54 +0000</lastBuildDate>
+    
+	<atom:link href="https://sinneb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>a modern take on the exponential converter</title>
+      <link>https://sinneb.github.io/p807/</link>
+      <pubDate>Sat, 17 Feb 2018 13:38:54 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p807/</guid>
+      <description>In the previous post, I investigated the possibility to replace the CA3046 and expo pair with modern components in a synthesizers&amp;#8217; exponential converter, while retaining the temperature compensation. Continuing on the findings from the previous post, I worked out a schematic:
+CV inputs are summed in opamp U7, then scaled with regard to temperature over R1 through R4 for the expo converter build up out of a BCM847DS matched transistor pair.</description>
+    </item>
+    
+    <item>
+      <title>Replacing the CA3046 &amp; understanding and replacing the tempco</title>
+      <link>https://sinneb.github.io/p780/</link>
+      <pubDate>Tue, 09 Jan 2018 20:48:41 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p780/</guid>
+      <description>Let&amp;#8217;s get rid of the CA3046, because it&amp;#8217;s large and almost obsolete, even the one in a SOIC package (LM3046). The temperature dependant resistor (tempco, 1k, 3300ppm) is also obsolute and very hard to source &amp;#8211; so let&amp;#8217;s also get rid of that. On this blog, the CA3046 part has been examined in depth, but the tempco part can use some investigation.
+First the CA3046, a General Purpose NPN Transistor Array.</description>
+    </item>
+    
+    <item>
+      <title>bennis|budge VCO v2.0 smd finished!</title>
+      <link>https://sinneb.github.io/p766/</link>
+      <pubDate>Sun, 17 Dec 2017 07:17:51 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p766/</guid>
+      <description>After a number of important revisions, the very first reliable, stable and interesting VCO is finished! Some features:
+&amp;#8211; Instead of a classic configuration where the sawtooth core is reset by a voltage comparator and a small capacitor, this sawtooth core is reset by a Schmitt trigger configuration, allowing LFO functionality by switching on an extra capacitor in the sawtooth core. This because the reset pulse does not rely on the size of the reset-capacitor but is determined by the Schmitt trigger.</description>
+    </item>
+    
+    <item>
+      <title>New VCO prototype: bennis|budge VCO v1</title>
+      <link>https://sinneb.github.io/p759/</link>
+      <pubDate>Mon, 02 Oct 2017 07:46:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p759/</guid>
+      <description>So, finally I combined all experiences and experiments of the last couple of years into a new VCO prototype. And, IMHO it rocks!
+  In this post you&amp;#8217;ll find some development notes, the LTSpice simulation files and the Eagle schematics and board design. The Eagle files correspond to the actual prototype version, the LTSpice simulation is already an iteration further. See following notes for the differences.
+VCO prototype schematics png (viewable in browser)</description>
+    </item>
+    
+    <item>
+      <title>Serial midi on the Raspberry Pi Zero W</title>
+      <link>https://sinneb.github.io/p736/</link>
+      <pubDate>Wed, 26 Apr 2017 20:04:02 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p736/</guid>
+      <description>The Raspberry Pi Zero W (rpi0w) has a lot of properties to make it a great musical instrument (CPU power, affordability, portability, power demands). First thing on my list is serial MIDI in, to hook up my octatrack. I compiled the following guide to equip the rpi0w with MIDI in.
+Software
+ Install Rasbian (my version is 2017-04-10) Midi requires the serial device &amp;#8220;/dev/ttyAMA0&amp;#8221; to be exposed through the rpi0w&amp;#8217;s header pins.</description>
+    </item>
+    
+    <item>
+      <title>Development with STM32F7 discovery</title>
+      <link>https://sinneb.github.io/p686/</link>
+      <pubDate>Wed, 05 Oct 2016 07:57:15 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p686/</guid>
+      <description>A few pointers regarding development with an STM32F7 discovery board. My intention with this powerful board is to be able to sync wave files to a tap-tempo BPM (kinda Ableton Live like), and take the device up on stage with my band.
+The board:
+
+The STM32F7 disco runs at ~200Mhz, has support for DSP instructions (hardware floating point unit) and a lot, lot more. My first step was to make development easy, fast and &amp;#8220;Arduino&amp;#8221; like &amp;#8211; since I&amp;#8217;m really comfortable with that.</description>
+    </item>
+    
+    <item>
+      <title>Matrix mixing craziness</title>
+      <link>https://sinneb.github.io/p679/</link>
+      <pubDate>Fri, 01 Apr 2016 19:13:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p679/</guid>
+      <description>A few weeks ago I did a small experiment with summed matrix mixing:
+  sounds great, crazy, untamed etc. I decided to explore summed matrix mixing a little bit further and today I started building a new prototype, that got out of hand quickly!
+A single attenuverting channel (a 1 to 1 matrix) looks like this:
+
+Although interesting, a more advanced matrix would offer a lot more possibilities. I decided to go for a 4 x 3 matrix, since I had those parts available.</description>
+    </item>
+    
+    <item>
+      <title>Schematics, eagle files and build notes for the umodular</title>
+      <link>https://sinneb.github.io/p674/</link>
+      <pubDate>Wed, 24 Feb 2016 19:40:07 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p674/</guid>
+      <description>As promised, attached to this post you&amp;#8217;ll find the schematics in PDF and the eagle files for the umodular. Released as open source hardware, so hack away and please provide feedback! The eagle designs are not editable using the free version because of the size of the PCB, sorry. Check the list below; one of the outstanding wishes is to divide the large board into smaller, attachable boards &amp;#8211; all below the 100mm x 80mm constraint.</description>
+    </item>
+    
+    <item>
+      <title>µ-modular demo on YouTube</title>
+      <link>https://sinneb.github.io/p672/</link>
+      <pubDate>Mon, 22 Feb 2016 21:04:52 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p672/</guid>
+      <description>There you go! Sources, designs etc coming soon!
+  </description>
+    </item>
+    
+    <item>
+      <title>edusynth, the boards!</title>
+      <link>https://sinneb.github.io/p661/</link>
+      <pubDate>Wed, 03 Feb 2016 09:55:48 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p661/</guid>
+      <description>Boards have arrived from China, PCBWAY.com. Fast service! Ordered 10 board 24 hour rush on friday night because of Chinese new year and tuesday (today) the boards have arrived already. Boards look great, unfortunately green because of the 24h rush service but good quality.  Unfortunately I made some errors, which I&amp;#8217;ll document here for future reference.
+The picture above shows the board missing Eagle layer 25 (tNames) which I used to designate the input and outputs pins&amp;#8230; Illustrated below:</description>
+    </item>
+    
+    <item>
+      <title>edusynth, getting there!</title>
+      <link>https://sinneb.github.io/p658/</link>
+      <pubDate>Fri, 29 Jan 2016 11:54:14 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p658/</guid>
+      <description>Making progress! Because of the start of a new semester at my university, I tried to finish a first version of the edusynth. And, also to my own amazement, I did! Here&amp;#8217;s a first 3d brd view of the eagle file:
+
+Dual VCO, VCF and VCA. Dual ADSR and a number of OPS (CV, mix and split). Board are ready according to pcbway &amp;#8211; I&amp;#8217;m waiting for delivery&amp;#8230; First try outs to follow.</description>
+    </item>
+    
+    <item>
+      <title>edusynth, successor to senk</title>
+      <link>https://sinneb.github.io/p652/</link>
+      <pubDate>Sun, 10 Jan 2016 21:30:18 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p652/</guid>
+      <description>Not out yet and already succeeded&amp;#8230; poor Senk ;)
+Anyways, now presenting edusynth with an updated VCO design because the previous design had bad performance over 500hz. Also, hardsync is an option here and sounds absolutely great! Here&amp;#8217;s the ltspice schematic: 
+and the amplifier and output section:
+understandable and low part count. Nice.</description>
+    </item>
+    
+    <item>
+      <title>Senk, a 5v µModular</title>
+      <link>https://sinneb.github.io/p642/</link>
+      <pubDate>Tue, 08 Dec 2015 21:24:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p642/</guid>
+      <description>Been busy building a 5v µModular system for students to learn about and experiment with sound. Design should follow the classic synth setup like for example a Minimoog, with added patchpoints. Part of the design is finished, as follows:
+
+Input of 1 is an Arduino PWM wave. This wave is passively filtered to a DC voltage (ranging from 0v to 5v). This resulting voltage will be one way to drive the voltage controlled oscillator.</description>
+    </item>
+    
+    <item>
+      <title>A temperature controlled CA3046</title>
+      <link>https://sinneb.github.io/p634/</link>
+      <pubDate>Thu, 29 Oct 2015 11:40:54 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p634/</guid>
+      <description>So, finally started work again on the heated CA3046. First, the results of the previous post regarding the CA3046 were reexaminated. Indeed, when building the schematic from that post: 
+and heating that circuit with a hair dryer:
+  the base voltage of the NPN transistor changes along with the temperature.
+The next step I took was connecting that output to an opamp comparator to be able to switch a heating circuit on and off.</description>
+    </item>
+    
+    <item>
+      <title>SSHing to a Raspberry Pi behind a firewall (Eduroam)</title>
+      <link>https://sinneb.github.io/p629/</link>
+      <pubDate>Wed, 23 Sep 2015 10:46:37 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p629/</guid>
+      <description>The firewall at my university (Eduroam) prevents direct connections between two computer on the network on all ports. SSH-ing to an other computer is therefor not possible. However, when a connection is ESTABLISHED, this connection can be reused &amp;#8211; for example the other way around! Let&amp;#8217;s work on this.
+Requirements: rpi, external server
+Automate your ssh login from your rpi to your external server using (this link). Execute these commands using &amp;#8220;sudo&amp;#8221; because the startup script we&amp;#8217;re going to edit is run as root.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry pi as high quality LFO generator</title>
+      <link>https://sinneb.github.io/p623/</link>
+      <pubDate>Tue, 24 Mar 2015 20:40:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p623/</guid>
+      <description>I&amp;#8217;ve been experimenting with external LFO generators to modulate my MS20 mini. Working towards a small and portable solution, I first built a larger format prototype using my laptop, a Presonus Firestudio and a fresh copy of pyo (a Python module written in C to help digital signal processing script creation).
+  Nice results! But I want a smaller, dedicated device to generate a variety of LFO waveforms, with enough range in the frequency (say from 0.</description>
+    </item>
+    
+    <item>
+      <title>LittleBits synced to Volca Beats’ pulse clock</title>
+      <link>https://sinneb.github.io/p613/</link>
+      <pubDate>Thu, 19 Feb 2015 14:33:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p613/</guid>
+      <description>Recently I was fiddling with a set of LittleBits and I was trying to sync these (the LitteBits micro sequencer that is), to my Volca Beats. With the current lineup of LittleBits, this was impossible. Since the Volca Beats has a sync out (0V, 5V pulses with 15ms duration), the solution was not all too difficult. I just took a LittleBits wire, cut it in two, reconnected the VCC and the GND but connected the SIG to the signal connector of an 3.</description>
+    </item>
+    
+    <item>
+      <title>The heated CA3046, part 1</title>
+      <link>https://sinneb.github.io/p603/</link>
+      <pubDate>Thu, 15 Aug 2013 10:03:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p603/</guid>
+      <description>A reliable VCO needs a steady exponential converter. Exponential converter are, because of their transistor based design (needed for the exponential functions), very temperature sensitive. A number of solutions to this problem exist. A solution that looks very interesting from a technical point of view is the solution found in (among others) the Moog Prodigy. The exponential converter only needs two transistors (the matched pair) from the five transistor available in the CA3046 chip.</description>
+    </item>
+    
+    <item>
+      <title>LM13700 Triangle VCO</title>
+      <link>https://sinneb.github.io/p597/</link>
+      <pubDate>Thu, 15 Aug 2013 09:47:07 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p597/</guid>
+      <description>The LM13700 OTA chip has an interesting schematic for a triangle VCO in its datasheet. The discreet sawtooth VCO I&amp;#8217;m building is too complex for breadboarding and does not deliver a decent sawtooth (probably due to distortion picked up somewhere in the breadboard). Therefor I decided to give the LM13700 triangle VCO a go. The schematic in the datasheet is very clear. All I did was exchange some resistor and capacitor values to ones that I have laying around.</description>
+    </item>
+    
+    <item>
+      <title>Building an exponential converter</title>
+      <link>https://sinneb.github.io/p572/</link>
+      <pubDate>Mon, 12 Aug 2013 21:02:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p572/</guid>
+      <description>In this article I&amp;#8217;ll describe the steps I took to design an exponential converter. YMMV of course, but I think this article is a good start and may provide some useful guidelines.
+The following table shows the relation between Hertz and wavelength. These are the MIDI C notes per octave, in Hz with their corresponding wavelength in ms
+8.1757989156 hz 122.312205856 ms 16.3515978313 hz 61.156102927 ms 32.7031956626 30.578051464 65.4063913251 15.289025732 130.</description>
+    </item>
+    
+    <item>
+      <title>SPI control of AD9833</title>
+      <link>https://sinneb.github.io/p562/</link>
+      <pubDate>Mon, 15 Apr 2013 12:48:20 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p562/</guid>
+      <description>A few months ago I ordered a MSOP to DIP conversion board including an AD9833 from proto advantage. The AD9833 (LOW POWER, 12.65 MW, 2.3 V TO +5.5 V, PROGRAMMABLE WAVEFORM GENERATOR) looks like an interesting IC, doesn&amp;#8217;t cost too much and is perhaps suited for a musical purpose.
+Wiring up and controlling the AD9833 took some time and some research but I finally combined the right pieces of the puzzle.</description>
+    </item>
+    
+    <item>
+      <title>Calculating Landolt C ring size based on the visual acuity</title>
+      <link>https://sinneb.github.io/p556/</link>
+      <pubDate>Tue, 19 Mar 2013 14:20:44 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p556/</guid>
+      <description>Landolt Ring  Tiny Python script to calculate the size (5d) in meters of a Landolt C ring based on the visual acuity belonging to that ring.
+# determine Landolt C ring size based on decimal visual acuity scales # argument: visual acuity [0.1 ... 3] # result: size of Landolt C ring (5d in the image) (in meters) # http://upload.wikimedia.org/wikipedia/de/2/27/Landoltring.jpg import math, sys # distance from ring in meters distance = 5 print 2*distance*math.</description>
+    </item>
+    
+    <item>
+      <title>Kivy and vite-vite</title>
+      <link>https://sinneb.github.io/p552/</link>
+      <pubDate>Thu, 10 Jan 2013 11:50:03 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p552/</guid>
+      <description>Note to self: Use Kivy (Open source Python library for rapid development of applications for multiple platforms) and vite-vite (Toolkit for building business and productivity apps on Android using the Kivy framework) for next prototype.</description>
+    </item>
+    
+    <item>
+      <title>Livestream webcam via webm to browsers</title>
+      <link>https://sinneb.github.io/p550/</link>
+      <pubDate>Mon, 07 Jan 2013 22:32:35 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p550/</guid>
+      <description>Here&amp;#8217;s a work in progress: livestream webcam video to browsers using Node.js. From here. Ubuntu requires the &amp;#8216;nodejs&amp;#8217; executable instead of just &amp;#8216;node&amp;#8217;
+var express = require(&#39;express&#39;) var net = require(&#39;net&#39;); var child = require(&#39;child_process&#39;); var cmd = &#39;gst-launch-0.10&#39;; var args = &#39;&#39;; var options = null; var app = express(); app.get(&#39;/&#39;, function(req, res) { var date = new Date(); res.writeHead(200, { &#39;Date&#39;:date.toUTCString(), &#39;Connection&#39;:&#39;close&#39;, &#39;Cache-Control&#39;:&#39;private&#39;, &#39;Content-Type&#39;:&#39;video/webm&#39;, &#39;Server&#39;:&#39;CustomStreamer/0.0.1&#39;, }); var server = net.</description>
+    </item>
+    
+    <item>
+      <title>USB/IP under Ubuntu</title>
+      <link>https://sinneb.github.io/p547/</link>
+      <pubDate>Thu, 27 Dec 2012 22:16:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p547/</guid>
+      <description>USB/IP is a general USB device sharing system over IP network. Unfortunately, on newer Ubuntu&amp;#8217;s the usb/ip device driver isn&amp;#8217;t compatible with the userspace tools. Here&amp;#8217;s how to fix this on Ubuntu 12.10 (and probably some older versions).
+Grab Linard Verstraete&amp;#8217;s script from launchpad. Change the last line from
+sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0.0.1  to
+sudo ln -s /usr/local/lib/libusbip.so.0 /usr/lib/libusbip.so.0  and run the script. You now have a compatible device driver and userspace tool.</description>
+    </item>
+    
+    <item>
+      <title>reminder: fixing locale warning on ubuntu</title>
+      <link>https://sinneb.github.io/p542/</link>
+      <pubDate>Wed, 26 Dec 2012 14:15:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p542/</guid>
+      <description>Just a quick reminder how to fix the locale warnings on fresh ubuntu installs. Warnings look, among others, like this:
+locale: Cannot set LC_CTYPE to default locale: No such file or directory  Fix: add this
+LANG=&#34;en_US.UTF-8&#34; LC_MESSAGES=&#34;C&#34; LC_ALL=&#34;en_US.UTF-8&#34;  to /etc/environment
+Thank you MCKelvin @ askubuntu</description>
+    </item>
+    
+    <item>
+      <title>Sawtooth VCO design</title>
+      <link>https://sinneb.github.io/p517/</link>
+      <pubDate>Sun, 01 Jul 2012 21:22:12 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p517/</guid>
+      <description>Time for a new post and I have an interesting prototype to share with you. Tom Wiltshire over at electric druid (http://www.electricdruid.net/) made a great writeup about the Roland Juno DCO workings (a true must read). Based upon the diagram I decided to give it a go.
+
+_from http://www.electricdruid.net/, used with permission._
+I did some redesign work, since an Arduino is a very handy a capable device for such applications.</description>
+    </item>
+    
+    <item>
+      <title>Control CD4021 and 74HC595 over the same SPI bus</title>
+      <link>https://sinneb.github.io/p421/</link>
+      <pubDate>Sun, 30 Oct 2011 12:47:50 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p421/</guid>
+      <description>Working on a project I needed extra digital in&amp;#8217;s and extra digital out&amp;#8217;s for my Arduino Uno (lots of LEDs, lots of buttons). I&amp;#8217;ll use a CD4021 to extend the digital in&amp;#8217;s and a 74HC595 to gain extra digital out&amp;#8217;s. I decided it would be best to both access the data of the CD4021 and send data to the 74HC595 over the hardware SPI bus on the Arduino (see previous post).</description>
+    </item>
+    
+    <item>
+      <title>Arduino, CD4021 and SPI</title>
+      <link>https://sinneb.github.io/p415/</link>
+      <pubDate>Sat, 29 Oct 2011 20:27:02 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p415/</guid>
+      <description>The &amp;#8220;ShiftIn&amp;#8221; tutorial on the Arduino site (Parallel to Serial Shifting-In with a CD4021BE) is very clear on why and how to setup and test your Arduino in combination with a CD4021 IC. I needed extra digital inputs and decided to communicate via SPI with the CD4021 chip. Figured it out, it was actually pretty simple thanks to the easy SPI implementation in the Arduino software since version 0020 or so (?</description>
+    </item>
+    
+    <item>
+      <title>LCD optimizations and additions</title>
+      <link>https://sinneb.github.io/p405/</link>
+      <pubDate>Tue, 25 Oct 2011 20:14:31 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p405/</guid>
+      <description>One of my first posts contains a LCD prototype. Today I needed LCD functionality and made some optimizations and additions to the LCD prototype.
+Speed up
+In the LCD3Wire library, I removed two delays:
+131c131 &amp;lt; //delay(1); --- &amp;gt; delay(1); 155c155 &amp;lt; //delayMicroseconds(1); --- &amp;gt; delayMicroseconds(10);  This gives a good speed increase when using the LCD3Wire library. Furthermore, reading this post (http://solar-blogg.blogspot.com/2009/02/displaying-custom-5&amp;#215;8-characters-on.html) I copied the code to the Arduino and displayed my own custom character (using the LCD3Wire library)</description>
+    </item>
+    
+    <item>
+      <title>Impressed by Thor!</title>
+      <link>https://sinneb.github.io/p393/</link>
+      <pubDate>Sat, 15 Oct 2011 21:36:43 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p393/</guid>
+      <description>Wow! I decided to give Reason 6 a good try. First of all I wanted to recreate the sound of my last analog prototype (see and listen to the previous post). Oh, here&amp;#8217;s a picture of that prototype btw:
+
+In Thor I recreated the sound of a single analog oscillator like so:
+
+A single Analog Osc generating a sawtooth waveform, no filters, enveloppe only sustain. Sounds&amp;#8230; the same! Listen for yourself:</description>
+    </item>
+    
+    <item>
+      <title>New synth in the works</title>
+      <link>https://sinneb.github.io/p386/</link>
+      <pubDate>Tue, 19 Jul 2011 09:09:19 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p386/</guid>
+      <description>and here&amp;#8217;s an audiofile with a sneak preview of one of the VCO&amp;#8217;s.
+vco1_test1
+This sawtooth is generated through an orange drop capacitor (sounded better then its wima counterpart) in a 100% analog sound path. Reset pulses are generated by an Arduino and the rise of the sawtooth waveform is controlled by a MCP4921 DAC. Each frequencies requires an exact voltage to level out the sawtooth. I haven&amp;#8217;t calibrated these voltages yet so the sawtooth isn&amp;#8217;t very precise yet.</description>
+    </item>
+    
+    <item>
+      <title>beta juno106 filter replacement!</title>
+      <link>https://sinneb.github.io/p374/</link>
+      <pubDate>Mon, 09 May 2011 21:20:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p374/</guid>
+      <description>Juno-106 filter replacement (beta, sounds very ok!) by sinneb
+
+
+The filterpart, 4 pole low pass with resonance. Download LTSpice schematic file:
+juno106BetaFilterReplacement_FilterPart (pdf version)
+&amp;nbsp;
+&amp;nbsp;
+
+The exponential current source. Leave 10 ohm resistor out when connecting to filterpart. Download LTSpice schematic file:
+juno106BetaFilterReplacement_ExpoPart (pdf version)
+The VCA of this beta filter was built like the schematic supplied by Mooger5 (check older posts). The redesigned VCA based on a LM13700 should work also (check older posts).</description>
+    </item>
+    
+    <item>
+      <title>“tuned” the LPF</title>
+      <link>https://sinneb.github.io/p366/</link>
+      <pubDate>Mon, 25 Apr 2011 14:10:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p366/</guid>
+      <description>Yesterday I tuned the LPF using my trusty old board o&amp;#8217; potentiometers&amp;#8230;
+
+Best sounding values came out like this:
+
+which I, after some thinking, recognized as the original values like in the JUNO6! Very nice! Just had to replace the 100pF capacitor with a 240pF capacitor like in the original. Only thing missing is the &amp;#8220;mystery resistor&amp;#8221; on the + input of the OTA to ground. For now I just left this res out.</description>
+    </item>
+    
+    <item>
+      <title>working combination!</title>
+      <link>https://sinneb.github.io/p360/</link>
+      <pubDate>Sat, 23 Apr 2011 20:14:24 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p360/</guid>
+      <description>Got a working combination of the expo converter and the 1 pole low pass filter. Sounds nice, although the expo needs some tuning.
+
+
+listen:
+Juno106 1pole replacement filter, for now only cutoff by sinneb</description>
+    </item>
+    
+    <item>
+      <title>redesigned the expo converter, again</title>
+      <link>https://sinneb.github.io/p354/</link>
+      <pubDate>Mon, 18 Apr 2011 22:36:10 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p354/</guid>
+      <description>The output current of the expo converter is now (100nA &amp;lt; Iabc &amp;lt; 2mA) which means a more logarithmic response of the VCF, more like the IR3109.
+btw this is a one pole LP filter, not a two pole
+VCF sound like this now:
+Juno2poleFilter-v2 by sinneb
+and here&amp;#8217;s the real 2 pole LP filter:
+Juno2poleFilter-v3-real2pole by sinneb</description>
+    </item>
+    
+    <item>
+      <title>2-pole LM13700 lowpass filter working?</title>
+      <link>https://sinneb.github.io/p346/</link>
+      <pubDate>Mon, 18 Apr 2011 12:34:52 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p346/</guid>
+      <description>I&amp;#8217;m not sure. Did a lot of prototyping and these are the results.
+Since I couldn&amp;#8217;t figure out a proper way to calculate the cutoff frequency when using different current and resistor combination, I decided to use the default lowpass filter circuit from the LM13700 datasheet.
+
+Hooked my expo converter up to pin 1 (100nA &amp;lt; Iabc &amp;lt; 1.1mA) and started testing. The Vout of this pole is the Vin of the second pole.</description>
+    </item>
+    
+    <item>
+      <title>expo converter working!</title>
+      <link>https://sinneb.github.io/p343/</link>
+      <pubDate>Sat, 16 Apr 2011 11:26:12 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p343/</guid>
+      <description>Yesterday I breadboarded the expo converter from the previous post and it&amp;#8217;s working! Current values were a little off; probably because I used 5% resistors. Will rebuild using metalfilm resistors.</description>
+    </item>
+    
+    <item>
+      <title>re-redesigned the expo converter</title>
+      <link>https://sinneb.github.io/p340/</link>
+      <pubDate>Tue, 12 Apr 2011 20:07:43 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p340/</guid>
+      <description>Previous design had resistor values of 4700k, impossible! So I redesigned the expoconv with a couple of voltage dividers.</description>
+    </item>
+    
+    <item>
+      <title>Redesigned the expo converter</title>
+      <link>https://sinneb.github.io/p331/</link>
+      <pubDate>Mon, 11 Apr 2011 19:16:37 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p331/</guid>
+      <description>As seen in the previous post, the following formula determines the cutoff frequency of the typical LM13700 lowpass filter design:
+
+The only variable part in this formula is the Iabc part, the incoming current from the expo converter. The cutoff frequency of the JUNO106 filter varies between 5Hz and 50000Hz (from the manual). To achieve this, Iabc low and Iabc high must differ a factor of 10000. I redesigned the expo converter as following:</description>
+    </item>
+    
+    <item>
+      <title>designing the filter</title>
+      <link>https://sinneb.github.io/p320/</link>
+      <pubDate>Mon, 11 Apr 2011 08:26:50 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p320/</guid>
+      <description>Current project status:
+
+Using the FREQ slider on the JUNO106 results in a exponential filter control current from 32nA to 705µA. So, when feeding 32nA into the filter, its cutoff frequency should be 5Hz. Feeding the filter 705µA results in a 50kHz cutoff frequency. My LM13700 lowpass filterdesign is based on the lectures by Aaron Lanterman. This is a typical design:
+
+resulting in the following plot (Iabc = 1mA)</description>
+    </item>
+    
+    <item>
+      <title>exponential converter current source</title>
+      <link>https://sinneb.github.io/p315/</link>
+      <pubDate>Sat, 09 Apr 2011 21:52:57 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p315/</guid>
+      <description>I reversed the current direction by using PNP transistors instead of NPN transistors (plus some other minor alterations). I also realized that the output current of the expo conv in the previous post (7mA) was way too high for the LM13700 (max current 1mA) so I adjusted the resistor in the iref connection to 10 megaohms! Max output to the LM13700 is now 705µA.
+The schematic:
+
+plot (current source leads to negative figures in LTspice)</description>
+    </item>
+    
+    <item>
+      <title>expo converter prototype… working!</title>
+      <link>https://sinneb.github.io/p311/</link>
+      <pubDate>Wed, 30 Mar 2011 18:01:33 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p311/</guid>
+      <description>Working! When moving the VCF FREQ slider from 0 to 10, the current varies from 0.3 UA (300 nA) to something above 7 mA. Looks pretty correct. Only thing I&amp;#8217;m worrying about is the current direction. This expo is a current sink but I think I need a current source&amp;#8230;</description>
+    </item>
+    
+    <item>
+      <title>80017a / ir3109 exponential converter</title>
+      <link>https://sinneb.github.io/p306/</link>
+      <pubDate>Mon, 28 Mar 2011 20:34:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p306/</guid>
+      <description>Completed the exponential converter for my open source Juno 106 filter clone.
+
+Mostly based on the great lectures by Aaron Lanterman (ECE4893A: Electronics for Music Synthesis, session 9, Exponential Current Sources). Also based on the SMR-4 filter as designed by mutable instruments. You should really check out Olivier&amp;#8217;s work for Mutable instruments, great stuff there and the Shruthi-1 synth is just a fantastic piece of engineering. Very inspiring.
+On the the expo converter.</description>
+    </item>
+    
+    <item>
+      <title>80017a measurements</title>
+      <link>https://sinneb.github.io/p299/</link>
+      <pubDate>Thu, 24 Mar 2011 20:14:56 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p299/</guid>
+      <description>Found a working multimeter:
+
+As you can see, my assumption in the previous post regarding the current on VCA CONT was wrong. Max current is not 0.5mA but 0.3mA which will lead to a different value for r3 (the current to voltage resistor).</description>
+    </item>
+    
+    <item>
+      <title>VCA part done (well almost)</title>
+      <link>https://sinneb.github.io/p286/</link>
+      <pubDate>Wed, 23 Mar 2011 22:49:47 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p286/</guid>
+      <description>80017a VCA open source hardware replacement is done for about 95%.
+Original Roland:
+
+See previous post for Mooger5&amp;#8217;s working BA6110 IC solution. Since I&amp;#8217;m going to use the LM13700 OTA for the filter part, I figured the VCA would be a nice exercise in OTA building. To fully understand the inner workings of an OTA, I followed great lectures by Aaron Lanterman on Electronics for Musical Synthesis!
+My VCA version:</description>
+    </item>
+    
+    <item>
+      <title>Progress…</title>
+      <link>https://sinneb.github.io/p282/</link>
+      <pubDate>Tue, 15 Mar 2011 10:25:04 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p282/</guid>
+      <description>Long time no post. Sorry, real-life is sometimes getting in the way ;)
+Recently I bought a Leaflabs Maple R5 to replace my Arduino&amp;#8217;s. I really like it. Eventually I ported ChibiOS (realtime OS) to it and tried some software filter algorithms from musicdsp.org. Didn&amp;#8217;t make me happy; 72Mhz isn&amp;#8217;t enough to do serious audio filtering (at least not using my prototype coding).
+New plan: use the Maple for the VCO&amp;#8217;s (kind of DCO).</description>
+    </item>
+    
+    <item>
+      <title>dual arduino :: voice generator &amp; manager</title>
+      <link>https://sinneb.github.io/p265/</link>
+      <pubDate>Mon, 20 Dec 2010 12:19:28 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p265/</guid>
+      <description>&lt;p&gt;Looking for an original solution for a voice generator (instead of the Juno 82c54 solution), I decided to dedicate an entire Arduino to voice generation.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-271&#34; title=&#34;dual_arduino&#34; src=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg&#34; alt=&#34;&#34; width=&#34;400&#34; height=&#34;217&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/12/dual_arduino.jpg 400w, https://sinneb.github.io/uploads/2010/12/dual_arduino-300x162.jpg 300w&#34; sizes=&#34;(max-width: 400px) 100vw, 400px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>waveshaping 101</title>
+      <link>https://sinneb.github.io/p255/</link>
+      <pubDate>Mon, 25 Oct 2010 11:22:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p255/</guid>
+      <description>Time to start work on waveshaping. My synth is now able to generate 6 voices of musically tuned square waves. Nice, but pretty boring ;). First step is to shape the square wave to a sawtooth wave. This is the square wave from 1 voice:
+
+Inspired by the following waveshaping schematic from the Roland Juno 6,
+
+I came up with the following solution:
+
+The OpAmp is a LM324N, suitable for single +5V power (remember my USB requirement).</description>
+    </item>
+    
+    <item>
+      <title>the 5v idea</title>
+      <link>https://sinneb.github.io/p253/</link>
+      <pubDate>Thu, 07 Oct 2010 12:14:15 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p253/</guid>
+      <description>mmmm what if the entire synth could run on 5v? Just power it over USB. It would make a perfect companion for your laptop but also very easy to install with your desktop PC. The development is also a lot more &amp;#8220;portable&amp;#8221;. Now I have to work with my own bulky +/-15V power supply. It would be fantastic to just work with an USB cable connection. My MacBook can charge my iPad (1A) so the USB power connection should be powerful enough to drive a (tiny) synthesizer.</description>
+    </item>
+    
+    <item>
+      <title>sinneb36 prototype 8: 3 voices polyphony controlled by Arduino!</title>
+      <link>https://sinneb.github.io/p221/</link>
+      <pubDate>Mon, 12 Jul 2010 14:11:42 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p221/</guid>
+      <description>&lt;p&gt;Yes, it&amp;#8217;s working!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/proto8.jpg&#34;&gt;&lt;img class=&#34;aligncenter size-medium wp-image-222&#34; title=&#34;proto8&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/proto8-300x199.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;199&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/proto8-300x199.jpg 300w, https://sinneb.github.io/uploads/2010/07/proto8-1024x680.jpg 1024w, https://sinneb.github.io/uploads/2010/07/proto8.jpg 1200w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out this demo, midi file loaded in Logic &amp;gt; midi out &amp;gt; breadboard &amp;gt; Arduino&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>proto 6 and new ideas</title>
+      <link>https://sinneb.github.io/p215/</link>
+      <pubDate>Mon, 05 Jul 2010 18:52:34 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p215/</guid>
+      <description>&lt;p&gt;At the bottom of this post you&amp;#8217;ll find the newest code for the prototype. This code has some nice enhancements over the previous:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A first begin with ADSR code&lt;/li&gt;
+&lt;li&gt;A better midi implementation. The Arduino keeps track of the order of notes played so note-off commands are treated right. A note-off &amp;#8220;resounds&amp;#8221; the previously played note. If there is no previous note (all notes-off), the output is silent; no note is played. This new implementation also leads to a better legato management.&lt;/li&gt;
+&lt;li&gt;A 128 values linear to logarithmic lookup table to give the ADSR (MCP42100) a musical course.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sketch for proto 7:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch.jpg&#34;&gt;&lt;img class=&#34;aligncenter size-medium wp-image-218&#34; title=&#34;proto7_sketch&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch-300x150.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;150&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/proto7_sketch-300x150.jpg 300w, https://sinneb.github.io/uploads/2010/07/proto7_sketch-1024x512.jpg 1024w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;Here I&amp;#8217;m going to use 1 dataline and 1 clockline for all components. This saves on the digital out pins from the Arduino. There&amp;#8217;s going to be a lot of data shifting through the 4 74hc595&amp;#8217;s and the 3 mcp42100&amp;#8217;s&amp;#8230; A challenge ;)&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sinneb Aurora :: proto 5, one voice with ASR</title>
+      <link>https://sinneb.github.io/p203/</link>
+      <pubDate>Thu, 01 Jul 2010 20:15:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p203/</guid>
+      <description>&lt;p style=&#34;text-align: left;&#34;&gt;
+  &lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-213&#34; title=&#34;aurora_logo&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png&#34; alt=&#34;&#34; width=&#34;327&#34; height=&#34;130&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/aurora_logo.png 327w, https://sinneb.github.io/uploads/2010/07/aurora_logo-300x119.png 300w&#34; sizes=&#34;(max-width: 327px) 100vw, 327px&#34; /&gt;&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Where&amp;#8217;s the quantize when you need it the most? ;)&lt;/p&gt;
+
+&lt;p&gt;Proto 5 has a first ASR (attack sustain release). The MCP42100 (the programmable potentiometer from a previous prototype) generates the enveloppe. Sounds pretty ok, though the attack is a little off which made the playing difficult ;). I will start working on a logarithmic scale instead of a linear scale.&lt;/p&gt;
+
+&lt;p&gt;Checkin&amp;#8217; &amp;#8220;&lt;a href=&#34;http://www.youtube.com/watch?v=mycMgZE7PdI&amp;feature=related&#34; target=&#34;_blank&#34;&gt;legato&lt;/a&gt;&amp;#8221; also.&lt;/p&gt;
+
+&lt;p&gt;The schematic:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Third prototype: one voice!</title>
+      <link>https://sinneb.github.io/p194/</link>
+      <pubDate>Thu, 01 Jul 2010 05:35:53 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p194/</guid>
+      <description>&lt;p&gt;Check this video on vimeo: &lt;a href=&#34;http://vimeo.com/12988327&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://vimeo.com/12988327&#34; target=&#34;_blank&#34;&gt;http://vimeo.com/12988327&lt;/a&gt;&lt;/a&gt; :)&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This is the third prototype of my DIY synthesizer. I&amp;#8217;m using a 82c54 16-bit timer chip for the voice (one chip has three timers, so three voices should be possible). This chip divides a master clock signal (usually in the Mhz range) through a programmable 16-bit value to create a audible frequency.&lt;/p&gt;
+
+&lt;p&gt;An Arduino Duemilanove interprets the midi (CNY17) and feeds a divider value via a shift register (74hc595) to the 82c54 voice. The crystal oscillator clock ticks at 8Mhz so for a 440Hz pulse waveform (central A) the division value is 18182. This prototype cannot produce notes below midinote 47 (B) because of it&amp;#8217;s maximum divider value (16-bit = 65.536). Future prototypes will use a clock divider (arduino itself?)&lt;/p&gt;
+
+&lt;p&gt;Oh, my synth-playing-skills are well below par ;)&lt;/p&gt;
+
+&lt;p&gt;Very much inspired by the Roland Jupiter / Juno series.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is the prototype from the previous post, with the midi in hardware solution from &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/30#32&#34; target=&#34;_blank&#34;&gt;tetracon&lt;/a&gt; (arduino forum).&lt;/p&gt;
+
+&lt;p&gt;[][1]&lt;a href=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1.gif&#34;&gt;&lt;img class=&#34;size-medium wp-image-196 alignnone&#34; title=&#34;arduinomidiin&#34; src=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1-300x200.gif&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;200&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/07/arduinomidiin1-300x200.gif 300w, https://sinneb.github.io/uploads/2010/07/arduinomidiin1.gif 660w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Timothy Twillman has developed a great Arduino midi library. Very easy to implement, exactly what I needed. &lt;a href=&#34;http://timothytwillman.com/itp_blog/?page_id=240&#34; target=&#34;_blank&#34;&gt;Check it out&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Second prototype using the 82C54</title>
+      <link>https://sinneb.github.io/p189/</link>
+      <pubDate>Tue, 29 Jun 2010 11:25:30 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p189/</guid>
+      <description>&lt;p&gt;The second prototype uses a 74HC595 shift register to adress the datalines of the 82C54. It is now possible to send different divider values to the 82C54 and thus creating different pulse waveform frequencies.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2.png&#34;&gt;&lt;img class=&#34;alignnone size-medium wp-image-190&#34; title=&#34;82c54_proto2&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2-300x119.png&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;119&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/82c54_proto2-300x119.png 300w, https://sinneb.github.io/uploads/2010/06/82c54_proto2.png 1007w&#34; sizes=&#34;(max-width: 300px) 100vw, 300px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>First proto using the 82C54 CMOS Programmable Interval Timer</title>
+      <link>https://sinneb.github.io/p178/</link>
+      <pubDate>Mon, 28 Jun 2010 20:43:55 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p178/</guid>
+      <description>&lt;p&gt;Just now I finished the first prototype using one counter on the 82C54 programmable 16-bit interval timer. This timer divides the masterclock by a programmable 16-bit integer (0-65535). When dividing a crystal masterclock, a very stable and precise pulse waveform can be achieved.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-179&#34; title=&#34;PW-82c54proto1&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg&#34; alt=&#34;&#34; width=&#34;500&#34; height=&#34;333&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/PW-82c54proto1.jpg 500w, https://sinneb.github.io/uploads/2010/06/PW-82c54proto1-300x199.jpg 300w&#34; sizes=&#34;(max-width: 500px) 100vw, 500px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>First DCO prototype</title>
+      <link>https://sinneb.github.io/p161/</link>
+      <pubDate>Mon, 21 Jun 2010 18:11:16 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p161/</guid>
+      <description>&lt;p&gt;This first DCO prototype uses the Arduino 16 bit timer (timer1) and the &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1187962258/&#34; target=&#34;_blank&#34;&gt;midi-in solution&lt;/a&gt; from Kuk on the Arduino forum&lt;/p&gt;
+
+&lt;p&gt;The Arduino has a hardware 16 bit timer (timer1). This timer offers 15 different counting modes. One of these modes is the so called &amp;#8220;Clear Timer on Compare Match (CTC) Mode&amp;#8221; (Mode 4):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34;&gt;&lt;img class=&#34;alignnone size-full wp-image-167&#34; title=&#34;ctcmodo&#34; src=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png&#34; alt=&#34;&#34; width=&#34;500&#34; height=&#34;207&#34; srcset=&#34;https://sinneb.github.io/uploads/2010/06/ctcmodo.png 500w, https://sinneb.github.io/uploads/2010/06/ctcmodo-300x124.png 300w&#34; sizes=&#34;(max-width: 500px) 100vw, 500px&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>will have to go DCO</title>
+      <link>https://sinneb.github.io/p153/</link>
+      <pubDate>Fri, 11 Jun 2010 20:51:49 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p153/</guid>
+      <description>It is going to be very difficult to get a decent and stable frequency out of the prototype. I even tried removing the MCP42100 (which is obviously not created for this purpose, will use it later again in the filter), which only resulted in a little more stability. Still drifting around 3 hz when tuning at 440hz. Not acceptable for me, so I&amp;#8217;ll go the DCO road. Inspired by the Roland Juno 106:</description>
+    </item>
+    
+    <item>
+      <title>drifting…</title>
+      <link>https://sinneb.github.io/p146/</link>
+      <pubDate>Fri, 11 Jun 2010 10:11:59 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p146/</guid>
+      <description>The prototype is making noise and I&amp;#8217;m tuning it to musical notes. Unfortunately the drift of various components is to high to maintain a stable tuning :( For example my 440hz A tuning:
+
+The ppm (temperature stability) of the XR2206 is 20ppm/C, fine. The ppm of the DAC is 0.16ppm/C, even better. The ppm of the digital potentiometer (mcp42100) is 800ppm/C! That number explanes the variation in tuning. Off to find a solution!</description>
+    </item>
+    
+    <item>
+      <title>Arduino midi monitor</title>
+      <link>https://sinneb.github.io/p136/</link>
+      <pubDate>Thu, 10 Jun 2010 11:56:09 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p136/</guid>
+      <description>&lt;p&gt;When using the Arduino board with midi in, it&amp;#8217;s necessary to set the baudrate to the midi standard of 31250. Unfortunately, this is a non-default baudrate so the Arduino Serial Monitor cannot display this serial data. Other solution are also dependent on standard baudrates (&lt;a href=&#34;http://www.musicalgeometry.com/archives/55&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;) so these won&amp;#8217;t work either. One way of working with this limitation is to switch baudrates during development, not very friendly.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XR2206 making noise!</title>
+      <link>https://sinneb.github.io/p113/</link>
+      <pubDate>Wed, 09 Jun 2010 21:00:45 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p113/</guid>
+      <description>&lt;p&gt;The XR2206 sinneb 6v is making semi-controlled noise! Check these design schematics and the sounds. Very nice I think ;) The current prototype is a combination of the XR2206 prototype, microprocessor (Arduino) controlled by the MCP42100 and MCP4912. Right now I&amp;#8217;m working on a prototype PCB to explore the musical capabilities of the 6v&amp;#8230; Keep you posted.&lt;/p&gt;
+
+&lt;p&gt;Updated: Eagle schematic &amp;amp; PCB now available&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XR2206 function generator</title>
+      <link>https://sinneb.github.io/p105/</link>
+      <pubDate>Mon, 07 Jun 2010 09:41:27 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p105/</guid>
+      <description>&lt;p&gt;The heart of the sinneb 6v (really, really have to come up with another prototype name). For now one xr2206 function generator produces the base waveshapes for the 6v. The xr2206 is, according to the datasheet, capable of producing high quality sine, square, triangle, ramp, and pulse waveforms of high-stability and accuracy. For now I&amp;#8217;m only using the sine out, but switching waveforms is definitely something I&amp;#8217;m gonna include!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MCP42100 Potmeter with SPI</title>
+      <link>https://sinneb.github.io/p96/</link>
+      <pubDate>Sat, 05 Jun 2010 14:50:19 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p96/</guid>
+      <description>&lt;p&gt;The MCP42100 controls the resistance for the XR2206 function generator. Together with the MCP4921 the MCP42100 determines the output frequency. In such a configuration, it should be possible the generate exact musical frequencies. Testing will begin soon!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MCP4921 12bit DAC voltage controller</title>
+      <link>https://sinneb.github.io/p85/</link>
+      <pubDate>Sat, 05 Jun 2010 14:17:22 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p85/</guid>
+      <description>&lt;p&gt;The MCP4921 controls the sweep voltage for the XR2206. The sweep voltage and the variable resistor together are controlling the output frequency. Precise musical output frequency should be feasible this way. I will be using &lt;a href=&#34;http://www.electricdruid.net/JunoDCOFreqError.php&#34; target=&#34;_blank&#34;&gt;this table&lt;/a&gt; to check if the frequencies are correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>LCD prototype</title>
+      <link>https://sinneb.github.io/p61/</link>
+      <pubDate>Thu, 03 Jun 2010 20:54:38 +0000</pubDate>
+      
+      <guid>https://sinneb.github.io/p61/</guid>
+      <description>&lt;p&gt;For the LCD I build a prototype following &lt;a href=&#34;http://www.arduino.cc/playground/Code/LCD3wires&#34; target=&#34;_blank&#34;&gt;this article&lt;/a&gt; on the arduino playground.&lt;/p&gt;
+
+&lt;p&gt;Parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;MC16021E LCD module (&lt;a href=&#34;http://nl.farnell.com/everbouquet/mc16021e-syr/lcd-module-alphanumeric-2x16-stn/dp/1220425?Ntt=1220425&#34; target=&#34;_blank&#34;&gt;farnell 1220425&lt;/a&gt;) (different pinout than the LCD on the arduino playground)&lt;/li&gt;
+&lt;li&gt;HEF/CD4094&lt;/li&gt;
+&lt;li&gt;2k2 trimpot&lt;/li&gt;
+&lt;li&gt;male header pins&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My schematic &amp;amp; PCB layout (eagle):&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

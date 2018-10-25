@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LM13700 Triangle VCO &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>LM13700 Triangle VCO</h1>
+  <time datetime=2013-08-15T09:47:07Z class="post-date">Thu, Aug 15, 2013</time>
+  <p>The LM13700 OTA chip has an interesting schematic for a triangle VCO in its datasheet. The discreet sawtooth VCO I&#8217;m building is too complex for breadboarding and does not deliver a decent sawtooth (probably due to distortion picked up somewhere in the breadboard). Therefor I decided to give the LM13700 triangle VCO a go. The schematic in the datasheet is very clear. All I did was exchange some resistor and capacitor values to ones that I have laying around. I also wanted to achieve a waveform at an audible frequency so I calculated values for a waveform around 500Hz.</p>
+
+<p><a href="/uploads/2013/08/LM13700trianglevco.png"><img class="alignnone size-full wp-image-598" alt="LM13700trianglevco" src="/uploads/2013/08/LM13700trianglevco.png" width="639" height="473" srcset="/uploads/2013/08/LM13700trianglevco.png 639w, /uploads/2013/08/LM13700trianglevco-300x222.png 300w, /uploads/2013/08/LM13700trianglevco-624x461.png 624w" sizes="(max-width: 639px) 100vw, 639px" /></a></p>
+
+<p>The minus input on the second LM13700 has the triangle wave output. The Darlington output on the second LM13700 has the square wave output. The triangle looks like this:</p>
+
+<p><a href="/uploads/2013/08/trianglewaveoutput.png"><img class="alignnone size-full wp-image-600" alt="trianglewaveoutput" src="/uploads/2013/08/trianglewaveoutput.png" width="1554" height="807" srcset="/uploads/2013/08/trianglewaveoutput.png 1554w, /uploads/2013/08/trianglewaveoutput-300x155.png 300w, /uploads/2013/08/trianglewaveoutput-1024x531.png 1024w, /uploads/2013/08/trianglewaveoutput-624x324.png 624w" sizes="(max-width: 1554px) 100vw, 1554px" /></a></p>
+
+<p>and sounds like this:</p>
+
+<iframe src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F105521773" height="166" width="100%" frameborder="no" scrolling="no"></iframe>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

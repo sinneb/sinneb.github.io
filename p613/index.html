@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LittleBits synced to Volca Beats’ pulse clock &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_nl/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>LittleBits synced to Volca Beats’ pulse clock</h1>
+  <time datetime=2015-02-19T14:33:53Z class="post-date">Thu, Feb 19, 2015</time>
+  <p>Recently I was fiddling with a set of LittleBits and I was trying to sync these (the <a href="http://littlebits.cc/bits/microsequencer" target="_blank">LitteBits micro sequencer</a> that is), to my Volca Beats. With the current lineup of LittleBits, this was impossible. Since the Volca Beats has a sync out (0V, 5V pulses with 15ms duration), the solution was not all too difficult. I just took a <a href="http://littlebits.cc/bits/wire-bit" target="_blank">LittleBits wire</a>, cut it in two, reconnected the VCC and the GND but connected the SIG to the signal connector of an 3.5mm jack plug; this is shown in the schematic below.</p>
+
+<p><a href="/uploads/2015/02/littlebits_volca_schem1.jpg"><img class="alignnone size-full wp-image-615" src="/uploads/2015/02/littlebits_volca_schem1.jpg" alt="littlebits_volca_schem" width="624" height="255" srcset="/uploads/2015/02/littlebits_volca_schem1.jpg 1019w, /uploads/2015/02/littlebits_volca_schem1-300x122.jpg 300w, /uploads/2015/02/littlebits_volca_schem1-624x255.jpg 624w" sizes="(max-width: 1019px) 100vw, 1019px" /></a></p>
+
+<p>While this was working, I really wanted to have more control over the sync rate, e.g. double, quadruple, or half the BPM from the Volca Beats (or any other clocksource). Solutions using only IC&#8217;s or other non-microcontroller components seemed to difficult or complex (if any were found at all, can&#8217;t exactly remember). Time to develop some Arduino code than! Using pin 2 as the &#8220;sense&#8221; pin to detect the incoming pulses, the following code will lock on to that clockpulses, multiply the pulses by 4 or 8 and output the resulting multiplied pulses on pin 13 (easy to debug since the onboard LED will flash in sync with the outputted pulses).</p>
+
+<pre class="brush: plain; title: ; notranslate" title="">// SINNEB.NET
+// trigger in clock multiplier
+// Arduino software to read a clock on pin 2 and multiply this clock times 4 or times 8
+// output on pin 13
+
+unsigned long delta_trigger_micros;
+unsigned long prev_trigger_micros;
+unsigned long triggers[7] = {0,0,0,0,0,0,0};
+
+void setup() {
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+
+  // execute "rising" on RISING interrupt on pin 2
+  // pin 2 is connected to the KORG VOLCA BEATS
+  // which sends a 15ms, 5V pulse every half beat
+  attachInterrupt(0, rising, RISING);
+}
+
+void loop() {
+  // continuesly scan the trigger array, which is setup by the "rising()" function
+  // all 4 of 8 triggers lie in the future
+  // when the micros() clock passes a trigger, that trigger is fired (flipPin13)
+  // and the trigger is set to 10seconds in the future, waiting to be updated by the "rising()" function
+  for(int x = 0; x &lt; 7; x++){
+    if(triggers[x] &lt; micros()) {
+      flipPin13();
+      triggers[x] = micros() + 10000000;
+    }
+  }
+}
+
+void flipPin13() {
+  digitalWrite(13, digitalRead(13) ^ 1);
+}
+
+void rising() {
+  digitalWrite(12, digitalRead(12) ^ 1);
+  flipPin13();
+
+  // sync the multiplied clock with the slow clock after a rapid tempo change
+  if (digitalRead(12) == HIGH) {
+    if (digitalRead(13) == LOW) {
+      digitalWrite(13,HIGH);
+    }
+  }
+
+  // calculate delta between consecutive triggers
+  // this "delta_trigger_micros" is used to calculate and activate "in-between" triggers
+  delta_trigger_micros = micros()-prev_trigger_micros;
+  prev_trigger_micros = micros();
+
+  // split the delta_trigger_micros in a number of subtriggers to
+  // multiply the interrupt clock signal
+  // every division, a trigger is placed in the trigger array
+  for(int x = 0; x &lt; 7; x++){
+    triggers[x] = micros() + (((x+1.0)/8.0) * delta_trigger_micros);
+  }
+
+}
+</pre>
+
+<p>To divide the Arduino output into different clockspeeds, a CD4017 decade counter is deployed. The Arduino drives the clockpin, a button is connected to the clock enabled pin to &#8220;pause&#8221; the clock to influence the sync and the reset pin is connected to one of the divider outputs. Depending on the selection of the multiplication by the Arduino (4x or 8x) and the selected divider output, pin 3 of the CD4017 sends out the new clock.</p>
+
+<p><a href="/uploads/2015/02/Untitled.png"><img class="alignnone size-full wp-image-617" src="/uploads/2015/02/Untitled.png" alt="Untitled" width="624" height="243" srcset="/uploads/2015/02/Untitled.png 2177w, /uploads/2015/02/Untitled-300x117.png 300w, /uploads/2015/02/Untitled-1024x400.png 1024w, /uploads/2015/02/Untitled-624x243.png 624w" sizes="(max-width: 2177px) 100vw, 2177px" /></a></p>
+
+<p>I uploaded 2 Youtube videos to demonstrate this!</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/iIR0TmzhlSA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/clA_QDrTsR8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
