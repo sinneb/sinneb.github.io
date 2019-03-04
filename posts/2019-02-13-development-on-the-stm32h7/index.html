@@ -64,9 +64,12 @@
 
 <ol>
 <li>Use STM32CubeMX to generate the framework. Work in the designated &ldquo;user code&rdquo; area&rsquo;s so you can update your framework (e.g. add new definitions for ADC, UART, etc.) through the Cube. I&rsquo;m not working this way right now and have to update my codebase from a stub which is just time consuming.</li>
-<li>Open a terminal with screen like this: <code>screen /dev/tty.usbmodem1413 115200,cs8,-parenb,-cstop,inlcr,onlret,echo</code>. Send debug information through the UART that&rsquo;s connected to the boards ST_LINK RX and TX.<br />
+<li>Open a terminal with screen like this: <code>screen /dev/tty.usbmodem1413 115200,cs8,-parenb,-cstop,inlcr,onlret,echo</code>. Send debug information through the UART that&rsquo;s connected to the boards ST_LINK RX and TX. In the following image you&rsquo;ll see that USART3 (PD8/PD9) on the STM32H7 Nucleo is connected to the ST_LINK RX and TX.<br />
 <img src="/uploads/images/uartstlink.png" alt="" /></li>
+<li>To debug your running application install openocd HEAD with brew (<code>brew install open-ocd --HEAD</code>) and run with <code>openocd -f board/st_nucleo_h743zi.cfg</code> in a seperate terminal. Then, compile your application debug-style (-g -gdwarf-2 and -Og) and upload the .bin to your board.  Use <code>arm-none-eabi-gdb -eval-command=&quot;target extended-remote localhost:3333&quot; build/stm32h7start.elf</code> to start debugging your running app with gdb.</li>
 </ol>
+
+<p>More to follow!</p>
 
 </div>
 
