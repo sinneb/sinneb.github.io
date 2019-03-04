@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.49.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>first prototype of the Wakefield synth &middot; sinneb</title>
+
+  
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sinneb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="sinneb" />
+
+  
+</head>
+
+  <body class="theme-base-10 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sinneb.github.io/"><h1 style="margin-bottom: 0;">sinneb</h1></a>
+      <p class="lead">
+       tech* and musical instruments 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sinneb.github.io/" style="font-size: 0.9rem;">&raquo; home</a> </li>
+        <li><a href="/about/"  style="font-size: 0.9rem;">&raquo; about </a></li>
+        <br/>
+        <a href="https://www.youtube.com/channel/UCQE_f-WmzqNzLFS4kBaUKDQ" target="_blank"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+        <a href="https://www.instagram.com/sinneb_musictech/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </ul>
+    </nav>
+
+    <p> </p>
+    <br/><br/>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>first prototype of the Wakefield synth</h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  <p>The Wakefield synth: a synthesizer with a number of buildin programs that you can tweak to your heart&#8217;s desire ;). Without further ado: here&#8217;s a video showcasing the prototype:</p>
+
+<p>&nbsp;</p>
+
+<p>The Wakefield synth uses synthcards; small cards that fit on Wakefield&#8217;s front that illustrate the current program in use. These synthcards show an abstracted graphical representation of the underlying synth program, with cutouts for the 8 led&#8217;s.</p>
+
+<p><a href="/uploads/2017/06/synthcard.png"><img class="alignnone size-medium wp-image-747" src="/uploads/2017/06/synthcard-300x189.png" alt="synthcard" width="300" height="189" srcset="/uploads/2017/06/synthcard-300x189.png 300w, /uploads/2017/06/synthcard.png 603w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p><em>Synthcard &#8220;elephants cry&#8221; in development</em></p>
+
+<p>Wakefield allows you to control 8 groups of 2 controllers each (totalling in 16 midi controllers). The current group is selected by using the pushbuttons and shown the corresponding LED illuminating. The two potentiometers will be &#8220;linked&#8221; to the selected group.  User can make adjustments to the selected group and the select another group and make adjustments and so on.</p>
+
+<p>The underlying synthprogram is developed using <a href="https://github.com/sinneb/pyo-patcher" target="_blank">pyo-patcher</a>, a visual programming language especially developed for the Wakefield synthesize. Following screenshot shows the &#8220;elephants cry&#8221; program in pyo-patcher:</p>
+
+<p><a href="/uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35.png"><img class="alignnone wp-image-748 size-large" src="/uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35-1024x741.png" alt="Screen Shot 2017-06-14 at 12.56.35" width="625" height="452" srcset="/uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35-1024x741.png 1024w, /uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35-300x217.png 300w, /uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35-624x452.png 624w, /uploads/2017/06/Screen-Shot-2017-06-14-at-12.56.35.png 1387w" sizes="(max-width: 625px) 100vw, 625px" /></a></p>
+
+<p>Quite different than the synthcard! The purple blocks represent the midicontrollers that are available through the Wakefield interface (101 up to 116, in blocks of two). Here a comparison of two details:</p>
+
+<p><a href="/uploads/2017/06/Screen-Shot-2017-06-14-at-13.03.36.png"><img class="alignnone wp-image-750 size-full" src="/uploads/2017/06/Screen-Shot-2017-06-14-at-13.03.36.png" alt="Screen Shot 2017-06-14 at 13.03.36" width="617" height="384" srcset="/uploads/2017/06/Screen-Shot-2017-06-14-at-13.03.36.png 617w, /uploads/2017/06/Screen-Shot-2017-06-14-at-13.03.36-300x187.png 300w" sizes="(max-width: 617px) 100vw, 617px" /></a></p>
+
+<p>The MoogLP block is represented by a lowpass filter block in the synthcard. The Delay block is represented by the airplane (as being delayed) and the Freeverb block is represented by the cathedral. This is just an example of a synthcard. Everything is possible!</p>
+
+<p>Right now I&#8217;m developing pyo-patcher somewhat further. Most recently I worked on realtime input that is trigger-based recorded in audiotables. Those tables can than be used as oscillators. Extra feature since this morning is an offset setting for oscillators in pyo&#8230;. Will keep you updated!</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

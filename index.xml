@@ -5,10 +5,20 @@
     <link>https://sinneb.github.io/</link>
     <description>Recent content on sinneb</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 18 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 Feb 2019 11:16:28 +0100</lastBuildDate>
     
 	<atom:link href="https://sinneb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Development on the STM32H7</title>
+      <link>https://sinneb.github.io/posts/2019-02-13-development-on-the-stm32h7/</link>
+      <pubDate>Wed, 13 Feb 2019 11:16:28 +0100</pubDate>
+      
+      <guid>https://sinneb.github.io/posts/2019-02-13-development-on-the-stm32h7/</guid>
+      <description>A few weeks ago I upgraded my STM32F7 discovery board to an STM32H7 Nucleo. Among others, a Nucleo board does not have an integrated LCD display. I want to use the STM32H7 on my custom board for my &amp;micro;modular project. A few notes on development on a Mac, for my own future consultation and all my blog&amp;rsquo;s visitors ;)
+ Use STM32CubeMX to generate the framework. Work in the designated &amp;ldquo;user code&amp;rdquo; area&amp;rsquo;s so you can update your framework (e.</description>
+    </item>
     
     <item>
       <title>First own eurorack module released</title>
